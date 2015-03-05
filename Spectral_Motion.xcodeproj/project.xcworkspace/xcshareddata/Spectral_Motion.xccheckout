@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>62E48BC8-7C0C-489C-B8AA-CA7FA127A40F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Spectral_Motion</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C60A29D90E1C703D98A665C2ECEB130AAC1B57BB</key>
+		<string>https://github.com/Prodogy11/Spectral_Motion</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Spectral_Motion.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C60A29D90E1C703D98A665C2ECEB130AAC1B57BB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Prodogy11/Spectral_Motion</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C60A29D90E1C703D98A665C2ECEB130AAC1B57BB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C60A29D90E1C703D98A665C2ECEB130AAC1B57BB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Spectral%20Motion</string>
+		</dict>
+	</array>
+</dict>
+</plist>
