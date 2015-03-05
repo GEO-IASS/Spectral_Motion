@@ -1,0 +1,18 @@
+//
+//  spectralmotion.pch
+//  Spectral Motion
+//
+//  Created by Kale Evans on 2/9/15.
+//  Copyright (c) 2015 Kale Evans. All rights reserved.
+//
+
+#ifndef Spectral_Motion_spectralmotion_pch
+#define Spectral_Motion_spectralmotion_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __cplusplus
+#import <opencv2/opencv.hpp>
+#endif
+
+#endif
