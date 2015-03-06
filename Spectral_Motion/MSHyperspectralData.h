@@ -47,6 +47,5 @@
 
 -(cv::Mat)createPrincipalComponentMatrixWithMaxBand:(int)maxBand;
 
-//-(void)createPrincipalComponentMatrixAsExample;
 
 @end
