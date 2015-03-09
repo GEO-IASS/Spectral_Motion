@@ -12,8 +12,9 @@
 #import "MSHyperspectralData.h"
 #import "MSImageBlur.h"
 #import "MBProgressHUD.h"
+#import "MSBandMappingTableVC.h"
 
-@interface MSHeaderViewController ()<ImageViewerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MSHeaderViewController ()<ImageViewerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 {
     HDRINFO hdrInfo;
     MSENVIFileParser *m_EnviFileParser;
@@ -21,6 +22,9 @@
     UIImageView *m_BlurredImageView;
     NSArray *displayTypeOptions;
     MBProgressHUD *m_ProgressHud;
+    UIPopoverController *m_PopOverVC;
+    UINavigationController *m_NavControllerForBandTVC;
+    MSBandMappingTableVC *m_MSBandMappingTableVC;
 
 }
 @property (weak, nonatomic) IBOutlet UITextField *samplesTextField;
@@ -41,12 +45,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *loadingImageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *setBandsForPCAButton;
+
+- (IBAction)setBandsForPCAButtonTapped:(id)sender;
+
 - (IBAction)doneButtonTapped:(id)sender;
 
 -(void)setViewControllerFields;
 -(void)setBackgroundImage;
 -(void)hideRGBGUIElements:(BOOL)hide;
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
+-(void)setNavigationControllerButtons;
+
+-(void)saveBandSelection;
+-(void)CancelBandSelection;
+
 
 
 @end
@@ -78,7 +91,7 @@
     self.doneButton.showsTouchWhenHighlighted = YES;
     self.displayTypePickerView.dataSource = self;
     self.displayTypePickerView.delegate = self;
-    displayTypeOptions = [[NSArray alloc]initWithObjects:@"1-Channel GreyScale", @"3-Channel RGB", @"Principal Component Analysis",nil];
+    displayTypeOptions = [[NSArray alloc]initWithObjects:@"1-Channel GreyScale", @"3-Channel RGB", @" GreyScale Principal Component Analysis", @"3-Channel RGB Principal Component Analysis", nil];
     
     [self setBackgroundImage];
 }
@@ -136,34 +149,109 @@
     {
             //greychannel display option selected
         case 0:
-            
+        {
             [self hideRGBGUIElements:YES];
-            break;
+            self.redBandTextField.hidden = NO;
+            self.redBand_greyBand_label.hidden = NO;
+            self.setBandsForPCAButton.hidden = YES;
             
+        }
+            break;
+
             //rgb display option selected
         case 1:
-            
+        {
             [self hideRGBGUIElements:NO];
+            self.redBandTextField.hidden = NO;
+            self.redBand_greyBand_label.hidden = NO;
+            self.setBandsForPCAButton.hidden = YES;
+        }
             break;
-            
+    
             //princiapl component grey image option selected
         case 2:
             
         {
             [self hideRGBGUIElements:YES];
-            self.redBand_greyBand_label.text = @"Maximum Band";
-            int * defaultBands = [m_EnviFileParser getDefaultBands];
+            self.redBandTextField.hidden = YES;
+            self.redBand_greyBand_label.hidden = YES;
+            self.setBandsForPCAButton.hidden = NO;
+          
+          //  self.redBand_greyBand_label.text = @"Maximum Band";
+           // int * defaultBands = [m_EnviFileParser getDefaultBands];
             
-            NSArray *numbers = [NSArray arrayWithObjects:[NSNumber numberWithInt:(*defaultBands)],[NSNumber numberWithInt:((*(defaultBands+1))) ],[NSNumber numberWithInt:((*(defaultBands+2)))], nil];
+           // NSArray *numbers = [NSArray arrayWithObjects:[NSNumber numberWithInt:(*defaultBands)],[NSNumber numberWithInt:((*(defaultBands+1))) ],[NSNumber numberWithInt:((*(defaultBands+2)))], nil];
             
-            int max = [[numbers valueForKeyPath:@"@max.intValue"] intValue];
-            self.redBandTextField.text =[NSString stringWithFormat:@"%i", max];
+          //  int max = [[numbers valueForKeyPath:@"@max.intValue"] intValue];
+           // self.redBandTextField.text =[NSString stringWithFormat:@"%i", max];
+        }
+            
+            break;
+            
+            //principal component rgb image option selected 
+            case 3:
+        {
+            [self hideRGBGUIElements:YES];
+            self.redBandTextField.hidden = YES;
+            self.redBand_greyBand_label.hidden = YES;
+            self.setBandsForPCAButton.hidden = NO;
+
         }
             break;
+            
         default:
             break;
     }
 
+}
+
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
+{
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBandSelection)];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(CancelBandSelection)];
+    
+    navController.topViewController.navigationItem.rightBarButtonItem=saveButton;
+    navController.topViewController.navigationItem.leftBarButtonItem=cancelButton;
+}
+
+- (IBAction)setBandsForPCAButtonTapped:(id)sender
+{
+    m_MSBandMappingTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BandMappingTableVC"];
+    
+    m_NavControllerForBandTVC = [[UINavigationController alloc]initWithRootViewController:m_MSBandMappingTableVC];
+    m_NavControllerForBandTVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self setNavControllerButtonsForNavController:m_NavControllerForBandTVC];
+
+    
+    float *wavelengths = hdrInfo.wavelength;
+    [m_MSBandMappingTableVC setWavelenghths:wavelengths andBandCount:hdrInfo.bands];
+    BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
+    [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
+    
+    
+    [self presentViewController:m_NavControllerForBandTVC animated:YES completion:^{
+        
+    }];
+    
+    
+    m_NavControllerForBandTVC.view.superview.center =CGPointMake(self.view.center.x, self.view.center.y);
+    
+}
+
+-(void)saveBandSelection
+{
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+    
+}
+
+-(void)CancelBandSelection
+{
+    
 }
 
 - (IBAction)doneButtonTapped:(id)sender
@@ -374,7 +462,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [self changeGUIBasedOnPickerviewSelection:row];
+    [self changeGUIBasedOnPickerviewSelection:(int)row];
 
     
 }

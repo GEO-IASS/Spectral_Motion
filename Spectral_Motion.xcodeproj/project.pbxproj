@@ -36,6 +36,8 @@
 		14AFDD1F1A8B152F0037D0F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AFDD1E1A8B152F0037D0F0 /* UIKit.framework */; };
 		14D9B9751AA7A1FB004EF177 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */; };
 		14D9B9771AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9761AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip */; };
+		14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */; };
+		14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,10 @@
 		14D9B9731AA7A1FB004EF177 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		14D9B9761AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip */ = {isa = PBXFileReference; lastKnownFileType = file; path = f970620t01p02_r03_sc03.a.bip; sourceTree = "<group>"; };
+		14D9B9B01AADDD2B004EF177 /* MSBandMappingTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBandMappingTableVC.h; sourceTree = "<group>"; };
+		14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBandMappingTableVC.m; sourceTree = "<group>"; };
+		14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorMapPopOver.h; sourceTree = "<group>"; };
+		14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorMapPopOver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +109,16 @@
 		1413ED101A998E2E006BC611 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */,
+				14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */,
 				146C76121A49CAAD00763A11 /* ViewController.h */,
 				146C76131A49CAAD00763A11 /* ViewController.m */,
 				1413ED111A998E82006BC611 /* MSHomeViewController.h */,
 				1413ED121A998E82006BC611 /* MSHomeViewController.m */,
 				1413ED141A9999C3006BC611 /* MSHeaderViewController.h */,
 				1413ED151A9999C4006BC611 /* MSHeaderViewController.m */,
+				14D9B9B01AADDD2B004EF177 /* MSBandMappingTableVC.h */,
+				14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -316,8 +326,10 @@
 				146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */,
 				1413ED161A9999C4006BC611 /* MSHeaderViewController.m in Sources */,
 				146C763E1A49DBE300763A11 /* MSHyperspectralData.m in Sources */,
+				14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */,
 				141CB21C1A4A453800470591 /* NSString+MSString.m in Sources */,
 				14D9B9751AA7A1FB004EF177 /* MBProgressHUD.m in Sources */,
+				14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */,
 				1413ED131A998E82006BC611 /* MSHomeViewController.m in Sources */,
 				146C760E1A49CAAD00763A11 /* main.m in Sources */,
 			);
