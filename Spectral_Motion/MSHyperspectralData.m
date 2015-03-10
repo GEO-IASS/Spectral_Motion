@@ -428,6 +428,79 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     free(m_HyperspectralCube);
 }
 
+-(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize
+{
+    /*First populate Mat in format for PCA.(Each element in column vector represents a pixels value for a particular band. The number of rows represent the number of bands used
+     */
+  //  int bands = maxBand;
+    
+    int nPixelsInBand = hdrInfo.lines * hdrInfo.samples;
+    int samples = hdrInfo.samples;
+    
+    //mat of bands rows and nPixelsInBand columns. One full image per row
+    Mat prePCAMatrix(arraySize, nPixelsInBand, CV_16UC1);
+    int rowIdx = 0;
+    int columnIdx = 0;
+    
+    for(int bandIdx = 0; bandIdx < arraySize; bandIdx++)
+    {
+        for(int pixelInBand = 0; pixelInBand < nPixelsInBand; pixelInBand++)
+        {
+            rowIdx = pixelInBand/samples;
+            columnIdx = pixelInBand % samples;
+            
+            prePCAMatrix.at<uint16_t>(bandIdx,pixelInBand) = ((uint16_t***)m_HyperspectralCube)[rowIdx][columnIdx][bandArray[bandIdx]];
+            
+        }
+    }
+    
+    //maybe release old matrix?
+    [self releaseHypCube];
+    
+    //normalize before processing for smaller numbers during PCA calculation
+    Mat scaledImg;
+    cv::normalize(prePCAMatrix, scaledImg, 0, 255, NORM_MINMAX, CV_8UC1);
+    
+    //create pca matrix
+    PCA pca = PCA(scaledImg, cv::Mat(), PCA::DATA_AS_COL, (int)1);
+    
+    NSLog(@"PCA rows: %i and PCA cols: %i", pca.mean.rows, pca.mean.cols);
+    
+    NSLog(@"scaledImg rows: %i and scaledImg cols: %i", scaledImg.rows, scaledImg.cols);
+    
+    /*subtract mean vector from each column of image vector
+     Mat differenceMat(scaledImg.rows, scaledImg.cols, CV_8UC1, Scalar(0));
+     
+     
+     for(int i =0; i < scaledImg.cols; i++)
+     {
+     add(scaledImg.col(i), pca.mean.col(0), differenceMat.col(i));
+     }
+     
+     Mat postPCAMatrix = pca.project(differenceMat);
+     */
+    
+    Mat postPCAMatrix = pca.project(scaledImg);
+    
+    NSLog(@"pre pca image size %i", nPixelsInBand);
+    
+    NSLog(@"pre pca image size with pixel function %zu", prePCAMatrix.total());
+    
+    NSLog(@"post pca image size = %zu", postPCAMatrix.total());
+    
+    NSLog(@"rows : %i columns : %i", postPCAMatrix.rows, postPCAMatrix.cols);
+    
+    m_FinalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
+    
+    NSLog(@"Final rows : %i Final columns : %i", m_FinalPCAMatrix.rows, m_FinalPCAMatrix.cols);
+    
+    Mat normalizedPCA;
+    
+    //normalize before return for display purposes
+    cv::normalize(m_FinalPCAMatrix, normalizedPCA, 0, 255, NORM_MINMAX, CV_8UC1);
+    return normalizedPCA;
+}
+
 -(cv::Mat)createPrincipalComponentMatrixWithMaxBand:(int)maxBand
 {
     

@@ -18,7 +18,7 @@
 @end
 
 @interface MSBandMappingTableVC : UITableViewController
-@property(strong,nonatomic) NSArray *m_BandsSelected;
+@property(strong,nonatomic) NSMutableArray *m_BandsSelected;
 @property(strong,nonatomic)NSDictionary *m_BandsMapped;
 
 @property(nonatomic,weak) id<BandsSelectedDelegate> delegate;

@@ -25,6 +25,8 @@
     UIPopoverController *m_PopOverVC;
     UINavigationController *m_NavControllerForBandTVC;
     MSBandMappingTableVC *m_MSBandMappingTableVC;
+    int *m_BandsMapped;
+    int m_BandsMappedCount;
 
 }
 @property (weak, nonatomic) IBOutlet UITextField *samplesTextField;
@@ -241,9 +243,17 @@
 
 -(void)saveBandSelection
 {
+    m_BandsMappedCount = [m_MSBandMappingTableVC.m_BandsSelected count];
+    m_BandsMapped = (int*) calloc(m_BandsMappedCount, sizeof(int));
+    
+    for(int i =0; i < m_BandsMappedCount; i++)
+    {
+        NSNumber *bandNum = (NSNumber*) m_MSBandMappingTableVC.m_BandsSelected[i];
+        
+        m_BandsMapped[i] = [bandNum intValue];
+    }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
         
     }];
     
@@ -333,6 +343,8 @@
     [queue addOperation:startOperation];
     [queue addOperation:completionOperation];
     
+    
+    free(m_BandsMapped);
     
 }
 
@@ -492,6 +504,7 @@
     int selectedRow = (int)[self.displayTypePickerView selectedRowInComponent:0];
     switch (selectedRow)
     {
+            //push to imageviewer with grayscale
         case 0:
         {
             
@@ -501,6 +514,7 @@
         }
         break;
             
+            //push to imageviewer with rgb
         case 1:
         {
             int redBand = [self.redBandTextField.text intValue];
@@ -511,7 +525,8 @@
             [imageViewer setGreyScaleBand:-1];
         }
         break;
-            
+           
+            //push to imageviewer with grayscale PCA
         case 2:
         {
             /*
@@ -531,7 +546,10 @@
                            });
             
              */
-           matrix = [m_HyperspectralData createPrincipalComponentMatrixWithMaxBand:self.redBandTextField.text.intValue];
+            
+           //matrix = [m_HyperspectralData createPrincipalComponentMatrixWithMaxBand:self.redBandTextField.text.intValue];
+            
+            matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:m_BandsMapped andBandArraySize:m_BandsMappedCount];
            [imageViewer setGreyScaleBand:-1];
             
         }

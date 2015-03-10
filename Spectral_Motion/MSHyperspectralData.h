@@ -47,5 +47,7 @@
 
 -(cv::Mat)createPrincipalComponentMatrixWithMaxBand:(int)maxBand;
 
+-(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize;
+
 
 @end

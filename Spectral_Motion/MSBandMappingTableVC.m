@@ -12,7 +12,6 @@
 @interface MSBandMappingTableVC ()<CellSelected>
 {
     BOOL m_ColorMapping;
-    //NSArray *m_Wavelengths;
     int m_BandCount;
     float *m_Wavelengths;
     short *m_ColorsMapped;
@@ -133,15 +132,47 @@
 }
 
 #pragma mark - TableView Delegate methods
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if(!m_ColorMapping)
     {
+        int count = 0;
+        m_BandsSelected = nil;
+        m_BandsSelected = [[NSMutableArray alloc]init];
+        for(NSIndexPath *path in [self.tableView indexPathsForSelectedRows])
+        {
+            [m_BandsSelected setObject:[NSNumber numberWithInt:path.row] atIndexedSubscript:count] ;
+            count++;
+        }
+        
         NSLog(@"%@", [self.tableView indexPathsForSelectedRows]);
         
         return;
     }
+
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(!m_ColorMapping)
+    {
+        int count = 0;
+        m_BandsSelected = nil;
+        m_BandsSelected = [[NSMutableArray alloc]init];
+        for(NSIndexPath *path in [self.tableView indexPathsForSelectedRows])
+        {
+            [m_BandsSelected setObject:[NSNumber numberWithInt:path.row] atIndexedSubscript:count] ;
+            count++;
+        }
+        
+        NSLog(@"%@", [self.tableView indexPathsForSelectedRows]);
+        
+        return;
+    }
+
     
     m_ColorMappingPopOverContent = [[MSColorMapPopOver alloc]initWithStyle:UITableViewStyleGrouped];
     m_ColorMappingPopOverContent.delegate = self;
