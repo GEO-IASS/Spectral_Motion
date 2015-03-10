@@ -164,7 +164,7 @@
         m_BandsSelected = [[NSMutableArray alloc]init];
         for(NSIndexPath *path in [self.tableView indexPathsForSelectedRows])
         {
-            [m_BandsSelected setObject:[NSNumber numberWithInt:path.row] atIndexedSubscript:count] ;
+            [m_BandsSelected setObject:[NSNumber numberWithInt:(int)path.row] atIndexedSubscript:count] ;
             count++;
         }
         

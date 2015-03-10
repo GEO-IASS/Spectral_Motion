@@ -44,10 +44,8 @@
 
 
 -(cv::Mat)createCVBGRMatrixWithBlueBand:(int) blueBand greenBand:(int)greenBand andRedBand:(int) redBand;
-
--(cv::Mat)createPrincipalComponentMatrixWithMaxBand:(int)maxBand;
-
 -(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize;
 
+-(cv::Mat)createPrincipalComponentMatrixWithRedBandArray:(int[])redBands redBandsSize:(int) redBandsSize greenBands:(int[])greenBands greenBandsSize:(int)greenBandSize blueBands:(int[])blueBands blueBandsSize:(int)blueBandsSize;
 
 @end

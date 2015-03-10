@@ -254,7 +254,7 @@
         free(m_BandsMapped);
     }
     
-    m_BandsMappedCount = [m_MSBandMappingTableVC.m_BandsSelected count];
+    m_BandsMappedCount = (int)[m_MSBandMappingTableVC.m_BandsSelected count];
     m_BandsMapped = (int*) calloc(m_BandsMappedCount, sizeof(int));
     
     for(int i =0; i < m_BandsMappedCount; i++)
@@ -551,6 +551,8 @@
             int blueBand = [self.blueBandTextField.text intValue];
             
             matrix = [m_HyperspectralData createCVBGRMatrixWithBlueBand:blueBand greenBand:greenBand andRedBand:redBand];
+            dstMatix = [self deblurImage:matrix];
+
             [imageViewer setGreyScaleBand:-1];
         }
         break;
@@ -579,8 +581,22 @@
            //matrix = [m_HyperspectralData createPrincipalComponentMatrixWithMaxBand:self.redBandTextField.text.intValue];
             
             matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:m_BandsMapped andBandArraySize:m_BandsMappedCount];
+            dstMatix = [self deblurImage:matrix];
             
             [imageViewer setGreyScaleBand:-1];
+            
+        }
+            break;
+        case 3:
+        {
+          /*  matrix = [m_HyperspectralData createPrincipalComponentMatrixWithRedBandArray:<#(int *)#> redBandsSize:<#(int)#>
+                                                                        greenBands:<#(int *)#> greenBandsSize:<#(int)#>
+                                                                        blueBands:<#(int *)#> blueBandsSize:<#(int)#>
+           */
+           dstMatix = [self deblurImage:matrix];
+            
+            [imageViewer setGreyScaleBand:-1];
+
             
         }
             break;

@@ -50,6 +50,11 @@ using namespace cv;
     int m_DataSize;//size of hyperspectral data in bytes
     void *m_DataBuffer;//buffer that intially holds hyperspctral data. This is transferred to hypercube and freed
     cv::Mat m_FinalPCAMatrix;
+    
+    cv::Mat m_FinalPCARedMatrix;
+    cv::Mat m_FinalPCAGreenMatrix;
+    cv::Mat m_FinalPCABlueMatrix;
+
 
     /**Function pointer and selector section. These selectors are set to functions in readHyperspectralDataIntoBuffer method**/
     
@@ -428,6 +433,66 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     free(m_HyperspectralCube);
 }
 
+-(cv::Mat)createPrincipalComponentMatrixWithRedBandArray:(int[])redBands redBandsSize:(int) redBandsSize greenBands:(int[])greenBands greenBandsSize:(int)greenBandSize blueBands:(int[])blueBands blueBandsSize:(int)blueBandsSize
+{
+    
+    cv::Mat colorImage;
+
+    NSOperation *redBandPCAOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        m_FinalPCARedMatrix = [self createPrincipalComponentMatrixWithBandArray:redBands andBandArraySize:redBandsSize];
+        
+    }];
+    
+    NSOperation *greenBandPCAOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        m_FinalPCAGreenMatrix = [self createPrincipalComponentMatrixWithBandArray:greenBands andBandArraySize:greenBandSize];
+        
+    }];
+
+    
+    NSOperation *blueBandPCAOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        m_FinalPCABlueMatrix = [self createPrincipalComponentMatrixWithBandArray:blueBands andBandArraySize:blueBandsSize];
+        
+    }];
+    
+    //merge all created PCA band matrixes here
+    NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        std::vector<cv::Mat> bandsToMergeArray;
+        
+        bandsToMergeArray.push_back(m_FinalPCABlueMatrix);
+        bandsToMergeArray.push_back(m_FinalPCAGreenMatrix);
+        bandsToMergeArray.push_back(m_FinalPCARedMatrix);
+        
+        cv::merge(bandsToMergeArray, colorImage);
+        
+    }];
+    
+    //set priority to very high for all operations for the best chance they are executed concurrently
+    redBandPCAOperation.queuePriority = NSOperationQueuePriorityVeryHigh;
+    greenBandPCAOperation.queuePriority = NSOperationQueuePriorityVeryHigh;
+    blueBandPCAOperation.queuePriority = NSOperationQueuePriorityVeryHigh;
+    
+    [completionOperation addDependency:redBandPCAOperation];
+    [completionOperation addDependency:greenBandPCAOperation];
+    [completionOperation addDependency:blueBandPCAOperation];
+    
+    NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
+    
+    //set max concurrent operations to 3 for red, green, and blue pca band creation
+    operationQueue.maxConcurrentOperationCount = 3;
+    
+    [operationQueue addOperation:redBandPCAOperation];
+    [operationQueue addOperation:greenBandPCAOperation];
+    [operationQueue addOperation:blueBandPCAOperation];
+    [operationQueue addOperation:completionOperation];
+    
+    return colorImage;
+    
+}
+
 -(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize
 {
     /*First populate Mat in format for PCA.(Each element in column vector represents a pixels value for a particular band. The number of rows represent the number of bands used
@@ -501,81 +566,6 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     return normalizedPCA;
 }
 
--(cv::Mat)createPrincipalComponentMatrixWithMaxBand:(int)maxBand
-{
-    
-    /*First populate Mat in format for PCA.(Each element in column vector represents a pixels value for a particular band. The number of rows represent the number of bands used
-     */
-    int bands = maxBand;
-    
-    int nPixelsInBand = hdrInfo.lines * hdrInfo.samples;
-    int samples = hdrInfo.samples;
-    
-    //mat of bands rows and nPixelsInBand columns. One full image per row
-     Mat prePCAMatrix(bands, nPixelsInBand, CV_16UC1);
-    int rowIdx = 0;
-    int columnIdx = 0;
-    
-    for(int bandIdx = 0; bandIdx < bands; bandIdx++)
-    {
-        for(int pixelInBand = 0; pixelInBand < nPixelsInBand; pixelInBand++)
-        {
-            rowIdx = pixelInBand/samples;
-            columnIdx = pixelInBand % samples;
-            
-            prePCAMatrix.at<uint16_t>(bandIdx,pixelInBand) = ((uint16_t***)m_HyperspectralCube)[rowIdx][columnIdx][bandIdx];
-
-        }
-    }
-    
-    //maybe release old matrix?
-    [self releaseHypCube];
-
-    //normalize before processing for smaller numbers during PCA calculation
-    Mat scaledImg;
-    cv::normalize(prePCAMatrix, scaledImg, 0, 255, NORM_MINMAX, CV_8UC1);
-
-    //create pca matrix
-    PCA pca = PCA(scaledImg, cv::Mat(), PCA::DATA_AS_COL, (int)1);
-    
-    NSLog(@"PCA rows: %i and PCA cols: %i", pca.mean.rows, pca.mean.cols);
-    
-    NSLog(@"scaledImg rows: %i and scaledImg cols: %i", scaledImg.rows, scaledImg.cols);
-
-    /*subtract mean vector from each column of image vector
-    Mat differenceMat(scaledImg.rows, scaledImg.cols, CV_8UC1, Scalar(0));
-
-    
-    for(int i =0; i < scaledImg.cols; i++)
-    {
-        add(scaledImg.col(i), pca.mean.col(0), differenceMat.col(i));
-    }
-    
-     Mat postPCAMatrix = pca.project(differenceMat);
-     */
-
-    Mat postPCAMatrix = pca.project(scaledImg);
-
-    NSLog(@"pre pca image size %i", nPixelsInBand);
-    
-    NSLog(@"pre pca image size with pixel function %zu", prePCAMatrix.total());
-
-    NSLog(@"post pca image size = %zu", postPCAMatrix.total());
-    
-    NSLog(@"rows : %i columns : %i", postPCAMatrix.rows, postPCAMatrix.cols);
-    
-    m_FinalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
-    
-    NSLog(@"Final rows : %i Final columns : %i", m_FinalPCAMatrix.rows, m_FinalPCAMatrix.cols);
-    
-    Mat normalizedPCA;
-    
-    //normalize before return for display purposes
-    cv::normalize(m_FinalPCAMatrix, normalizedPCA, 0, 255, NORM_MINMAX, CV_8UC1);
-    return normalizedPCA;
-    
-    
-}
 
 -(Objc_CVMatWrapper*)create16BitCVMatrixForBand:(NSNumber*) band
 {
@@ -750,7 +740,6 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
 {
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
     CGColorSpaceRef colorSpace;
-    
     NSLog(@"Channels %i", cvMat.channels());
     
     //if (cvMat.elemSize() == 1)
