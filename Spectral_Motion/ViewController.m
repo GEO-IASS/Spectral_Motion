@@ -22,6 +22,7 @@
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)setImageViewBorderForView:(UIView*)view;
+-(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
 
@@ -58,42 +59,6 @@
     [self addPanGestureRecognizerForView:self.scrollViewForImage];
     
     [self setImageViewBorderForView:self.scrollViewForImage];
-    
-    /*
-    
-    m_HyperspectralData = [[MSHyperspectralData alloc]initWithHDRFile:@"f970620t01p02_r03_sc03.a"];
-    
-    NSString * timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-    NSLog(@"start time %@", timestamp);
-
-    [m_HyperspectralData loadHyperspectralImageFile:@"f970620t01p02_r03_sc03.a.bip"];
-    
-    cv::Mat matrix = [m_HyperspectralData createCVMatrixForBand:29];
-    
-   // cv::Mat matrix = [hyperspectralData createCVBGRMatrixWithBlueBand:9 greenBand:19 andRedBand:29];
-    
-    UIImage *image = [m_HyperspectralData UIImageFromCVMat:matrix];
-    
-    NSLog(@"image complete..sending image to view");
-    
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    self.imageView.image = image;
-  
-    if(matrix.channels() !=1)
-    {
-        self.bandSlider.hidden = YES;
-        self.sliderValueLabel.hidden = YES;
-        
-    }
-   
-    timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-
-    NSLog(@"end time %@", timestamp);
-    
-    matrix.release();
-     */
-    
 }
 
 -(void)addPanGestureRecognizerForView:(UIView*)view
@@ -192,8 +157,10 @@
     self.sliderValueLabel.text = [NSString stringWithFormat:@"%i",bandRoundedValue];
     
     cv::Mat matrix = [m_HyperspectralData createCVMatrixForBand:bandRoundedValue];
+    cv::Mat dstMatrix = [self deblurImage:matrix];
     
-    UIImage *singleBandGreyScaleImg = [m_HyperspectralData UIImageFromCVMat:matrix];
+    
+    UIImage *singleBandGreyScaleImg = [m_HyperspectralData UIImageFromCVMat:dstMatrix];
         
     NSLog(@"image complete..sending image to view");
     
@@ -202,7 +169,18 @@
     self.imageView.image = singleBandGreyScaleImg;
     
     matrix.release();
+    dstMatrix.release();
     
+}
+
+-(cv::Mat)deblurImage:(cv::Mat)matrix
+{
+    cv::Mat dstMatrix;
+    
+    cv::GaussianBlur(matrix, dstMatrix, cv::Size(3, 3), 3);
+    cv::addWeighted(matrix, 1.5, dstMatrix, -0.5, 0, dstMatrix);
+    
+    return dstMatrix;
 }
 
 #pragma mark - UIScrollView Delegate methods

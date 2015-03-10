@@ -53,11 +53,13 @@
 
 - (IBAction)doneButtonTapped:(id)sender;
 
+-(cv::Mat)deblurImage:(cv::Mat)matrix;
+
 -(void)setViewControllerFields;
 -(void)setBackgroundImage;
 -(void)hideRGBGUIElements:(BOOL)hide;
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
--(void)setNavigationControllerButtons;
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
 
 -(void)saveBandSelection;
 -(void)CancelBandSelection;
@@ -219,17 +221,21 @@
 
 - (IBAction)setBandsForPCAButtonTapped:(id)sender
 {
-    m_MSBandMappingTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BandMappingTableVC"];
-    
-    m_NavControllerForBandTVC = [[UINavigationController alloc]initWithRootViewController:m_MSBandMappingTableVC];
-    m_NavControllerForBandTVC.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self setNavControllerButtonsForNavController:m_NavControllerForBandTVC];
-
-    
-    float *wavelengths = hdrInfo.wavelength;
-    [m_MSBandMappingTableVC setWavelenghths:wavelengths andBandCount:hdrInfo.bands];
-    BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
-    [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
+    if(m_MSBandMappingTableVC == nil)
+    {
+        m_MSBandMappingTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BandMappingTableVC"];
+        
+        m_NavControllerForBandTVC = [[UINavigationController alloc]initWithRootViewController:m_MSBandMappingTableVC];
+        m_NavControllerForBandTVC.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self setNavControllerButtonsForNavController:m_NavControllerForBandTVC];
+        
+        
+        float *wavelengths = hdrInfo.wavelength;
+        [m_MSBandMappingTableVC setWavelenghths:wavelengths andBandCount:hdrInfo.bands];
+        BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
+        [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
+        
+    }
     
     
     [self presentViewController:m_NavControllerForBandTVC animated:YES completion:^{
@@ -243,6 +249,11 @@
 
 -(void)saveBandSelection
 {
+    if(m_BandsMapped != NULL)
+    {
+        free(m_BandsMapped);
+    }
+    
     m_BandsMappedCount = [m_MSBandMappingTableVC.m_BandsSelected count];
     m_BandsMapped = (int*) calloc(m_BandsMappedCount, sizeof(int));
     
@@ -261,7 +272,11 @@
 
 -(void)CancelBandSelection
 {
-    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+
+
 }
 
 - (IBAction)doneButtonTapped:(id)sender
@@ -291,10 +306,10 @@
             
             return;
         }
-        
-        if([self.redBandTextField.text intValue] > 150)
+       
+        if( m_BandsMappedCount > 150)
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please choose max band below 151" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please choose less than 151 bands" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
             
             return;
@@ -344,7 +359,7 @@
     [queue addOperation:completionOperation];
     
     
-    free(m_BandsMapped);
+    //free(m_BandsMapped);
     
 }
 
@@ -440,6 +455,16 @@
     
 }
 
+-(cv::Mat)deblurImage:(cv::Mat)matrix
+{
+    cv::Mat dstMatrix;
+    
+    cv::GaussianBlur(matrix, dstMatrix, cv::Size(3, 3), 3);
+    cv::addWeighted(matrix, 1.5, dstMatrix, -0.5, 0, dstMatrix);
+    
+    return dstMatrix;
+}
+
 #pragma mark - UIPickerView Data Source Methods
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -497,6 +522,8 @@
     // Pass the selected object to the new view controller.
     
     cv::Mat matrix;
+    cv::Mat dstMatix;
+    
     ViewController *imageViewer = (ViewController*)[segue destinationViewController];
 
     
@@ -509,6 +536,8 @@
         {
             
             matrix = [m_HyperspectralData createCVMatrixForBand:[self.redBandTextField.text intValue]];
+            dstMatix = [self deblurImage:matrix];
+
             [imageViewer setGreyScaleBand:[self.redBandTextField.text intValue]];
             
         }
@@ -550,7 +579,8 @@
            //matrix = [m_HyperspectralData createPrincipalComponentMatrixWithMaxBand:self.redBandTextField.text.intValue];
             
             matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:m_BandsMapped andBandArraySize:m_BandsMappedCount];
-           [imageViewer setGreyScaleBand:-1];
+            
+            [imageViewer setGreyScaleBand:-1];
             
         }
             break;
@@ -562,12 +592,13 @@
     [m_ProgressHud removeFromSuperview];
 
     
-    UIImage *image = [m_HyperspectralData UIImageFromCVMat:matrix];
+    UIImage *image = [m_HyperspectralData UIImageFromCVMat:dstMatix];
     
     [imageViewer setHyperspectralDataPointer:m_HyperspectralData];
     [imageViewer setImageViewWithImage:image];
     
     matrix.release();
+    dstMatix.release();
 }
 
 

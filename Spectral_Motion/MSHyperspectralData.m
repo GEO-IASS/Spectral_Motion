@@ -736,8 +736,9 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     minMaxLoc(img, &minVal, &maxVal); //find minimum and maximum intensities
     
     Mat temp;
-    
-    img.convertTo(temp, rtype, (255.0/(maxVal - minVal)),0);//scale pixel values to between 255 and 0.
+    //scale pixel values to between 255 and 0.
+    //also adding arbitrary 5 as beta for brightness
+    img.convertTo(temp, rtype, (255.0/(maxVal - minVal)),5);
     
     return temp;
 }
