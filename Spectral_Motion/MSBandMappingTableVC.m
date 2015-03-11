@@ -17,11 +17,13 @@
     short *m_ColorsMapped;
     UIPopoverController *m_ColorMappingPopOver;
     MSColorMapPopOver * m_ColorMappingPopOverContent;
+    
+    
 }
 @end
 
 @implementation MSBandMappingTableVC
-@synthesize delegate, m_BandsMapped, m_BandsSelected;
+@synthesize delegate, /*m_BandsMapped,*/ m_BandsSelected; //, m_BlueBandsMapped,m_RedBandsMapped,m_GreenBandsMapped;
 
 
 
@@ -36,18 +38,33 @@
     m_ColorMapping = colorMapBool;
 }
 
+-(short*)getColorsMapped
+{
+    return m_ColorsMapped;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    m_ColorsMapped = (short*) calloc(m_BandCount, sizeof(short));
-    memset(m_ColorsMapped, 0, m_BandCount * sizeof(short));
+    if(m_ColorsMapped == NULL)
+    {
+        m_ColorsMapped = (short*) calloc(m_BandCount, sizeof(short));
+        memset(m_ColorsMapped, 0, m_BandCount * sizeof(short));
+    }
+    
     self.tableView.allowsMultipleSelection = YES;
 
+    // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,17 +85,59 @@
     return m_BandCount;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BandInfo" forIndexPath:indexPath];
     
     UILabel *bandLabel = (UILabel*)[cell viewWithTag:2];
-    bandLabel.text = [NSString stringWithFormat:@"Band %i",indexPath.row + 1 ];
+    bandLabel.text = [NSString stringWithFormat:@"%i",indexPath.row + 1 ];
     UILabel *waveLengthLabel = (UILabel*)[cell viewWithTag:3];
-   // waveLengthLabel.text = m_Wavelengths[indexPath.row];
     waveLengthLabel.text = [NSString stringWithFormat:@"%f µm", m_Wavelengths[indexPath.row]];
     UILabel *colorLabel = (UILabel*)[cell viewWithTag:4];
     UIView *colorMappedView = (UIView*)[cell viewWithTag:5];
+    UILabel *spectrumLabel = (UILabel*)[cell viewWithTag:8];
+    
+    float wavelength = m_Wavelengths[indexPath.row];
+    
+    if((wavelength*1000)> 300 &&  (wavelength*1000)< 400)
+    {
+        spectrumLabel.text = @"Range: Ultraviolet Light";
+        spectrumLabel.textColor = [UIColor purpleColor];
+    }
+   else if((wavelength*1000)> 400 &&  (wavelength*1000)< 700)
+    {
+        spectrumLabel.text = @"Range: Visible Light";
+        spectrumLabel.textColor = [UIColor grayColor];
+
+    }
+   else if((wavelength*1000)> 700 &&  (wavelength*1000)< 1300)
+    {
+        spectrumLabel.text = @"Range: Near Infrared Light";
+        spectrumLabel.textColor = [UIColor redColor];
+    }
+   else  if((wavelength*1000)> 1300 &&  (wavelength*1000)< 3000)
+    {
+        spectrumLabel.text = @"Range: Mid-Infrared Light";
+        spectrumLabel.textColor = [UIColor redColor];
+    }
+   else if((wavelength*1000)> 3000 &&  (wavelength*1000)< 5000)
+    {
+        spectrumLabel.text = @"Range: Infrared Light";
+        spectrumLabel.textColor = [UIColor redColor];
+    }
+   else if((wavelength*1000)> 8000 &&  (wavelength*1000)< 14000)
+    {
+        spectrumLabel.text = @"Range: Infrared Light";
+        spectrumLabel.textColor = [UIColor redColor];
+    }
+    else
+    {
+        spectrumLabel.text = @"Undefined Range";
+        spectrumLabel.textColor = [UIColor blackColor];
+    }
+   
+    
     switch (m_ColorsMapped[indexPath.row])
     {
             //no color mapped
@@ -127,7 +186,13 @@
         UILabel *colorMapLabel = (UILabel*)[tableView viewWithTag:7];
         colorMapLabel.hidden = YES;
     }
-   
+    else
+    {
+        colorLabel.hidden = NO;
+        colorMappedView.hidden = NO;
+        UILabel *colorMapLabel = (UILabel*)[tableView viewWithTag:7];
+        colorMapLabel.hidden = NO;
+    }
     return cell;
 }
 
@@ -164,7 +229,8 @@
         m_BandsSelected = [[NSMutableArray alloc]init];
         for(NSIndexPath *path in [self.tableView indexPathsForSelectedRows])
         {
-            [m_BandsSelected setObject:[NSNumber numberWithInt:(int)path.row] atIndexedSubscript:count] ;
+            [m_BandsSelected setObject:[NSNumber numberWithInt:(int)path.row]
+                    atIndexedSubscript:count] ;
             count++;
         }
         
@@ -195,7 +261,9 @@
     [m_ColorMappingPopOver dismissPopoverAnimated:YES];
     
     m_ColorsMapped[[self.tableView indexPathForSelectedRow].row] = index;
+    
     [self.tableView reloadData];
+    
     
 }
 

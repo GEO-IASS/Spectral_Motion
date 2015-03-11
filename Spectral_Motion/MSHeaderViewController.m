@@ -27,6 +27,13 @@
     MSBandMappingTableVC *m_MSBandMappingTableVC;
     int *m_BandsMapped;
     int m_BandsMappedCount;
+    
+    int *m_RedBandsMappedPCA;
+    int m_RedBandsMappedCountPCA;
+    int *m_GreenBandsMappedPCA;
+    int m_GreenBandsMappedCountPCA;
+    int *m_BlueBandsMappedPCA;
+    int m_BlueBandsMappedCountPCA;
 
 }
 @property (weak, nonatomic) IBOutlet UITextField *samplesTextField;
@@ -232,11 +239,11 @@
         
         float *wavelengths = hdrInfo.wavelength;
         [m_MSBandMappingTableVC setWavelenghths:wavelengths andBandCount:hdrInfo.bands];
-        BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
-        [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
-        
     }
     
+    BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
+    [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
+
     
     [self presentViewController:m_NavControllerForBandTVC animated:YES completion:^{
         
@@ -254,19 +261,106 @@
         free(m_BandsMapped);
     }
     
-    m_BandsMappedCount = (int)[m_MSBandMappingTableVC.m_BandsSelected count];
-    m_BandsMapped = (int*) calloc(m_BandsMappedCount, sizeof(int));
-    
-    for(int i =0; i < m_BandsMappedCount; i++)
+    //Greyscale PCA
+    if([self.displayTypePickerView selectedRowInComponent:0] == 2)
     {
-        NSNumber *bandNum = (NSNumber*) m_MSBandMappingTableVC.m_BandsSelected[i];
+    
+        m_BandsMappedCount = (int)[m_MSBandMappingTableVC.m_BandsSelected count];
+        m_BandsMapped = (int*) calloc(m_BandsMappedCount, sizeof(int));
+    
+        for(int i =0; i < m_BandsMappedCount; i++)
+        {
+            NSNumber *bandNum = (NSNumber*) m_MSBandMappingTableVC.m_BandsSelected[i];
         
-        m_BandsMapped[i] = [bandNum intValue];
+            m_BandsMapped[i] = [bandNum intValue];
+        }
+    
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    //RGB PCA
+    else if ([self.displayTypePickerView selectedRowInComponent:0] == 3)
+    {
+        if(m_RedBandsMappedPCA != NULL)
+        {
+            free(m_RedBandsMappedPCA);
+        }
+        if(m_GreenBandsMappedPCA != NULL)
+        {
+            free(m_GreenBandsMappedPCA);
+        }
+        if(m_BlueBandsMappedPCA != NULL)
+        {
+            free(m_BlueBandsMappedPCA);
+        }
         
-    }];
+        short *colorsMappedArr = [m_MSBandMappingTableVC getColorsMapped];
+        m_RedBandsMappedCountPCA    = 0;
+        m_GreenBandsMappedCountPCA  = 0;
+        m_BlueBandsMappedCountPCA   = 0;
+        
+        for(int i = 0; i < hdrInfo.bands; i++)
+        {
+            switch (colorsMappedArr[i])
+            {
+                case 1:
+                    m_RedBandsMappedCountPCA++;
+                    break;
+                    
+                case 2:
+                    m_GreenBandsMappedCountPCA++;
+                    break;
+                    
+                case 3:
+                    m_BlueBandsMappedCountPCA++;
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
+        m_RedBandsMappedPCA = (int*)calloc(m_RedBandsMappedCountPCA, sizeof(int));
+        m_GreenBandsMappedPCA = (int*)calloc(m_GreenBandsMappedCountPCA, sizeof(int));
+        m_BlueBandsMappedPCA = (int*)calloc(m_BlueBandsMappedCountPCA, sizeof(int));
+        
+        for(int i = 0; i < hdrInfo.bands; i++)
+        {
+            switch (colorsMappedArr[i])
+            {
+                case 1:
+                    *m_RedBandsMappedPCA = i;
+                    m_RedBandsMappedPCA++;
+                    break;
+                    
+                case 2:
+                    *m_GreenBandsMappedPCA = i;
+                    m_GreenBandsMappedPCA++;
+                    break;
+                    
+                case 3:
+                    *m_BlueBandsMappedPCA = i;
+                    m_BlueBandsMappedPCA++;
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        
+        //reset pointers to beginning of their array
+        m_RedBandsMappedPCA-=m_RedBandsMappedCountPCA;
+        m_GreenBandsMappedPCA-=m_GreenBandsMappedCountPCA;
+        m_BlueBandsMappedPCA-=m_BlueBandsMappedCountPCA;
+        
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        
+    }
     
 }
 
@@ -313,6 +407,21 @@
             [alert show];
             
             return;
+        }
+    }
+    
+    if([ self.displayTypePickerView selectedRowInComponent:0]==3)
+    {
+        if(m_BlueBandsMappedCountPCA <= 1   ||
+           m_RedBandsMappedCountPCA <= 1    ||
+           m_GreenBandsMappedCountPCA <= 1)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please select at least 2 per color Channel for PCA" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            
+            return;
+
+            
         }
     }
 
@@ -587,17 +696,19 @@
             
         }
             break;
+            
+            //push to imageviewer with rgb PCA
         case 3:
         {
-          /*  matrix = [m_HyperspectralData createPrincipalComponentMatrixWithRedBandArray:<#(int *)#> redBandsSize:<#(int)#>
-                                                                        greenBands:<#(int *)#> greenBandsSize:<#(int)#>
-                                                                        blueBands:<#(int *)#> blueBandsSize:<#(int)#>
-           */
+            matrix = [m_HyperspectralData createPrincipalComponentMatrixWithRedBandArray:m_RedBandsMappedPCA
+                                                                            redBandsSize:m_RedBandsMappedCountPCA
+                                                                    greenBands:m_GreenBandsMappedPCA greenBandsSize:m_GreenBandsMappedCountPCA
+                                                                    blueBands:m_BlueBandsMappedPCA blueBandsSize:m_BlueBandsMappedCountPCA];
+           
            dstMatix = [self deblurImage:matrix];
             
-            [imageViewer setGreyScaleBand:-1];
+        [imageViewer setGreyScaleBand:-1];
 
-            
         }
             break;
             

@@ -7,6 +7,7 @@
 //
 
 #import "MSHyperspectralData.h"
+#import "SharedHeader.h"
 
 //interleave types
 #define BIP "bip"
@@ -49,7 +50,7 @@ using namespace cv;
     void *** m_HyperspectralCube;//3d cube of hyperspectral data
     int m_DataSize;//size of hyperspectral data in bytes
     void *m_DataBuffer;//buffer that intially holds hyperspctral data. This is transferred to hypercube and freed
-    cv::Mat m_FinalPCAMatrix;
+   // cv::Mat m_FinalPCAMatrix;
     
     cv::Mat m_FinalPCARedMatrix;
     cv::Mat m_FinalPCAGreenMatrix;
@@ -436,12 +437,11 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
 -(cv::Mat)createPrincipalComponentMatrixWithRedBandArray:(int[])redBands redBandsSize:(int) redBandsSize greenBands:(int[])greenBands greenBandsSize:(int)greenBandSize blueBands:(int[])blueBands blueBandsSize:(int)blueBandsSize
 {
     
-    cv::Mat colorImage;
+    cv::Mat colorImage(hdrInfo.lines, hdrInfo.samples, CV_8UC3);
 
     NSOperation *redBandPCAOperation = [NSBlockOperation blockOperationWithBlock:^{
         
         m_FinalPCARedMatrix = [self createPrincipalComponentMatrixWithBandArray:redBands andBandArraySize:redBandsSize];
-        
     }];
     
     NSOperation *greenBandPCAOperation = [NSBlockOperation blockOperationWithBlock:^{
@@ -462,9 +462,9 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
         
         std::vector<cv::Mat> bandsToMergeArray;
         
-        bandsToMergeArray.push_back(m_FinalPCABlueMatrix);
-        bandsToMergeArray.push_back(m_FinalPCAGreenMatrix);
         bandsToMergeArray.push_back(m_FinalPCARedMatrix);
+        bandsToMergeArray.push_back(m_FinalPCAGreenMatrix);
+        bandsToMergeArray.push_back(m_FinalPCABlueMatrix);
         
         cv::merge(bandsToMergeArray, colorImage);
         
@@ -481,13 +481,26 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
     NSOperationQueue *operationQueue = [[NSOperationQueue alloc]init];
     
+    //NSOperationQueue *operationQueue = [NSOperationQueue mainQueue];
+    
     //set max concurrent operations to 3 for red, green, and blue pca band creation
     operationQueue.maxConcurrentOperationCount = 3;
+    
+    //if iOS8, set Quality of Service property for quicker processing
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+    {
+        redBandPCAOperation.qualityOfService = NSOperationQualityOfServiceUserInitiated;
+        greenBandPCAOperation.qualityOfService = NSOperationQualityOfServiceUserInitiated;
+        blueBandPCAOperation.qualityOfService = NSOperationQualityOfServiceUserInitiated;
+
+    }
     
     [operationQueue addOperation:redBandPCAOperation];
     [operationQueue addOperation:greenBandPCAOperation];
     [operationQueue addOperation:blueBandPCAOperation];
     [operationQueue addOperation:completionOperation];
+    [completionOperation waitUntilFinished];
+
     
     return colorImage;
     
@@ -514,13 +527,12 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
             rowIdx = pixelInBand/samples;
             columnIdx = pixelInBand % samples;
             
-            prePCAMatrix.at<uint16_t>(bandIdx,pixelInBand) = ((uint16_t***)m_HyperspectralCube)[rowIdx][columnIdx][bandArray[bandIdx]];
-            
+            prePCAMatrix.at<uint16_t>(bandIdx,pixelInBand) = ((uint16_t***)m_HyperspectralCube)[rowIdx][columnIdx][bandArray[bandIdx]];            
         }
     }
     
     //maybe release old matrix?
-    [self releaseHypCube];
+    //[self releaseHypCube];
     
     //normalize before processing for smaller numbers during PCA calculation
     Mat scaledImg;
@@ -533,19 +545,41 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
     NSLog(@"scaledImg rows: %i and scaledImg cols: %i", scaledImg.rows, scaledImg.cols);
     
-    /*subtract mean vector from each column of image vector
+    //subtract mean vector from each column of image vector
      Mat differenceMat(scaledImg.rows, scaledImg.cols, CV_8UC1, Scalar(0));
+    
+    Mat normalizedPCAMean;
+    cv::normalize(pca.mean.col(0), normalizedPCAMean, 0, 255, NORM_MINMAX, CV_8UC1);
      
-     
+   /*
      for(int i =0; i < scaledImg.cols; i++)
      {
-     add(scaledImg.col(i), pca.mean.col(0), differenceMat.col(i));
+         //subtract(scaledImg.col(i), pca.mean.col(0), differenceMat.col(i));
+         subtract(scaledImg.col(i), normalizedPCAMean.col(0), differenceMat.col(i));
+
+         //differenceMat.col(i) = scaledImg.col(i) - pca.mean.col(0);
      }
+    */
+    
+    for(int i = 0; i <scaledImg.rows; i++)
+    {
+        for(int j = 0; j < scaledImg.cols; j++)
+        {
+            differenceMat.at<u_int8_t>(i,j) = scaledImg.at<u_int8_t>(i,j) - normalizedPCAMean.at<u_int8_t>(i,0);
+            
+            //subtract function doesn't seem to work
+            //subtract(Scalar(scaledImg.at<u_int8_t>(i,j)), Scalar(normalizedPCAMean.at<u_int8_t>(i,0)), Scalar(differenceMat.at<u_int8_t>(i,j)));
+            
+            //NSLog(@"scaled image pixel val %i", scaledImg.at<u_int8_t>(i,j));
+            //NSLog(@"normalized mean image pixel val %i", normalizedPCAMean.at<u_int8_t>(i,0));
+            //NSLog(@"difference mat image pixel val %i", differenceMat.at<u_int8_t>(i,j));
+        }
+    }
+    
      
      Mat postPCAMatrix = pca.project(differenceMat);
-     */
     
-    Mat postPCAMatrix = pca.project(scaledImg);
+    //Mat postPCAMatrix = pca.project(scaledImg);
     
     NSLog(@"pre pca image size %i", nPixelsInBand);
     
@@ -555,14 +589,17 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
     NSLog(@"rows : %i columns : %i", postPCAMatrix.rows, postPCAMatrix.cols);
     
-    m_FinalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
+    //m_FinalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
     
-    NSLog(@"Final rows : %i Final columns : %i", m_FinalPCAMatrix.rows, m_FinalPCAMatrix.cols);
+    Mat finalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
+
+    
+    NSLog(@"Final rows : %i Final columns : %i", finalPCAMatrix.rows, finalPCAMatrix.cols);
     
     Mat normalizedPCA;
     
     //normalize before return for display purposes
-    cv::normalize(m_FinalPCAMatrix, normalizedPCA, 0, 255, NORM_MINMAX, CV_8UC1);
+    cv::normalize(finalPCAMatrix, normalizedPCA, 0, 255, NORM_MINMAX, CV_8UC1);
     return normalizedPCA;
 }
 

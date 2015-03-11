@@ -88,6 +88,7 @@
 		14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBandMappingTableVC.m; sourceTree = "<group>"; };
 		14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorMapPopOver.h; sourceTree = "<group>"; };
 		14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorMapPopOver.m; sourceTree = "<group>"; };
+		14D9B9B61AAE97F7004EF177 /* SharedHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +147,7 @@
 				14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */,
 				1413ED271A9AD57F006BC611 /* MSImageBlur.h */,
 				1413ED281A9AD57F006BC611 /* MSImageBlur.m */,
+				14D9B9B61AAE97F7004EF177 /* SharedHeader.h */,
 			);
 			name = "Utitilty Classes";
 			sourceTree = "<group>";
