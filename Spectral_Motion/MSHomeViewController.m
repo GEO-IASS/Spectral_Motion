@@ -114,8 +114,20 @@
     //msHeaderVC.m_HeaderFileName = m_SelectedHyperspectralFile;
     
     //hardcoding file name for now temporarily
-    msHeaderVC.m_HeaderFileName = @"f970620t01p02_r03_sc03.a";
-    [msHeaderVC parseHeaderFile];
+    
+    if([self.ImageFileTableView indexPathForSelectedRow].row == 0)
+    {
+        msHeaderVC.m_HeaderFileName = @"f970620t01p02_r03_sc03.a";
+        [msHeaderVC parseHeaderFile];
+    }
+    
+    else if ([self.ImageFileTableView indexPathForSelectedRow].row == 1)
+    {
+        msHeaderVC.m_HeaderFileName = @"sample2.a";
+        [msHeaderVC parseHeaderFile];
+    }
+    
+    
 
     
 }

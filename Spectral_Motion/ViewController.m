@@ -119,6 +119,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    //very important to release memory or will run into warnings
+    [m_HyperspectralData releaseHypCube];
     m_HyperspectralData = nil;
 }
 

@@ -93,6 +93,11 @@
 
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -446,7 +451,10 @@
         m_HyperspectralData.delegate = self;
         
         //hardcoding image file name for now
-        [m_HyperspectralData loadHyperspectralImageFile:@"f970620t01p02_r03_sc03.a.bip"];
+        NSString *hyperspectralImageFile = [m_HeaderFileName stringByAppendingString:@".bip"];
+        [m_HyperspectralData loadHyperspectralImageFile:hyperspectralImageFile];
+
+       // [m_HyperspectralData loadHyperspectralImageFile:@"f970620t01p02_r03_sc03.a.bip"];
         
     }];
     
@@ -516,10 +524,12 @@
     
     int *defaultBands = [m_EnviFileParser getDefaultBands];
     
-    self.redBandTextField.text = [NSString stringWithFormat:@"%i",(int)*defaultBands];
-    self.greenBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+1)];
-    self.blueBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+2)];
-
+    if(defaultBands != NULL)
+    {
+        self.redBandTextField.text = [NSString stringWithFormat:@"%i",(int)*defaultBands];
+        self.greenBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+1)];
+        self.blueBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+2)];
+    }
 
     
     

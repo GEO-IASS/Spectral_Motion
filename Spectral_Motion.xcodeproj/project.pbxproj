@@ -38,6 +38,8 @@
 		14D9B9771AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9761AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip */; };
 		14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */; };
 		14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */; };
+		14D9B9BD1AB13DA7004EF177 /* sample2.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */; };
+		14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,8 @@
 		14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorMapPopOver.h; sourceTree = "<group>"; };
 		14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorMapPopOver.m; sourceTree = "<group>"; };
 		14D9B9B61AAE97F7004EF177 /* SharedHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
+		14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample2.a.bip; sourceTree = "<group>"; };
+		14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample2.a.hdr; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,8 @@
 		146C76351A49CADA00763A11 /* Sample Hyperspectral Data */ = {
 			isa = PBXGroup;
 			children = (
+				14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */,
+				14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */,
 				14D9B9761AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip */,
 				146C76311A49CAC900763A11 /* f970620t01p02_r03_sc03.a.hdr */,
 			);
@@ -299,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1413ED1D1A99C14F006BC611 /* hyperspace-background.jpg in Resources */,
+				14D9B9BD1AB13DA7004EF177 /* sample2.a.bip in Resources */,
 				1413ED1F1A99C364006BC611 /* Higgs-boson_c.jpg in Resources */,
 				146C76331A49CAC900763A11 /* f970620t01p02_r03_sc03.a.hdr in Resources */,
 				146C76171A49CAAD00763A11 /* Main.storyboard in Resources */,
@@ -309,6 +316,7 @@
 				1413ED231A99C4B2006BC611 /* prismCube.jpg in Resources */,
 				1413ED211A99C3A7006BC611 /* particleFever_poster-small.jpg in Resources */,
 				1413ED191A99AD3D006BC611 /* Spectral_Motion_Logo.png in Resources */,
+				14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */,
 				1413ED2B1A9ADDD3006BC611 /* tableview_background2.jpeg in Resources */,
 				1413ED2D1A9AE213006BC611 /* spectral_motion_logo2.png in Resources */,
 				146C76191A49CAAD00763A11 /* Images.xcassets in Resources */,

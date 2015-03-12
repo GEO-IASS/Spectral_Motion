@@ -36,6 +36,9 @@
 //loads binary hyperspectral image file
 -(void)loadHyperspectralImageFile:(NSString*)fileName;//loads
 
+-(void)releaseHypCube;
+
+
 
 -(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat;
 

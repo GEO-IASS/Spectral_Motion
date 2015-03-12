@@ -84,9 +84,6 @@ using namespace cv;
 //important. Scaled pixel values of image to between 255-0 for rendering on screen.
 -(Mat)scaleImage:(Mat) img cvFormat:(int)rtype;
 
--(void)releaseHypCube;
-
-
 
 -(void)setPixelIndexFunctionPointers;
 
