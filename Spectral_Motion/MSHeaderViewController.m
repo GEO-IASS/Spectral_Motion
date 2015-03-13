@@ -453,9 +453,20 @@
         //hardcoding image file name for now
         NSString *hyperspectralImageFile = [m_HeaderFileName stringByAppendingString:@".bip"];
         [m_HyperspectralData loadHyperspectralImageFile:hyperspectralImageFile];
-
-       // [m_HyperspectralData loadHyperspectralImageFile:@"f970620t01p02_r03_sc03.a.bip"];
         
+    }];
+    
+    //need to put UI update in its own operation. If too close
+    //to performSegue method, the segue is performed before the UI update for some reason
+    NSOperation *updateUIOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self updateViewWithHUD];
+            
+        });
+        
+
     }];
     
     NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
@@ -463,7 +474,10 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self performSegueWithIdentifier:@"PushToImageViewer" sender:self];
+            [m_ProgressHud removeFromSuperview];
             [m_BlurredImageView removeFromSuperview];
+            m_ProgressHud = nil;
+
 
         });
 
@@ -471,12 +485,30 @@
     
     NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     
-    [completionOperation addDependency:startOperation];
+    [completionOperation addDependency:updateUIOperation];
+    [updateUIOperation addDependency:startOperation];
     [queue addOperation:startOperation];
+    [queue addOperation:updateUIOperation];
     [queue addOperation:completionOperation];
     
     
     //free(m_BandsMapped);
+    
+}
+
+-(void)updateViewWithHUD
+{
+    if([self.displayTypePickerView selectedRowInComponent:0] == 2 ||//greyscale PCA
+       [self.displayTypePickerView selectedRowInComponent:0] == 3) // RGB PCA
+    
+    {
+        self.loadDataProgressView.hidden = YES;
+        self.loadingImageLabel.hidden = YES;
+        m_ProgressHud = [[MBProgressHUD alloc]initWithView:m_BlurredImageView];
+        m_ProgressHud.labelText =@"Running Principal Component Analysis";
+        [m_BlurredImageView addSubview:m_ProgressHud];
+        [m_ProgressHud show:YES];
+    }
     
 }
 
@@ -635,6 +667,7 @@
 
 #pragma mark - Navigation
 
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -679,30 +712,27 @@
             //push to imageviewer with grayscale PCA
         case 2:
         {
-            /*
-            dispatch_async(dispatch_get_main_queue(),
-                           ^{
-                               
-                               self.loadDataProgressView.hidden = YES;
-                               self.loadingImageLabel.hidden = YES;
-
-                               m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
-                               
-                               m_ProgressHud.labelText =@"Running Principal Component Analysis";
-                               
-                               [m_BlurredImageView addSubview:m_ProgressHud];
-                               
-                               [m_ProgressHud show:YES];
-                           });
+       
+           /* self.loadDataProgressView.hidden = YES;
+            self.loadingImageLabel.hidden = YES;
+                                   
+            m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
+                                   
+            m_ProgressHud.labelText =@"Running Principal Component Analysis";
+                                   
+            [m_BlurredImageView addSubview:m_ProgressHud];
             
-             */
+            [m_ProgressHud show:YES];
+            */
             
-           //matrix = [m_HyperspectralData createPrincipalComponentMatrixWithMaxBand:self.redBandTextField.text.intValue];
             
             matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:m_BandsMapped andBandArraySize:m_BandsMappedCount];
             dstMatix = [self deblurImage:matrix];
             
+            
             [imageViewer setGreyScaleBand:-1];
+            
+        
             
         }
             break;
@@ -726,8 +756,6 @@
             break;
     }
     
-    [m_ProgressHud removeFromSuperview];
-
     
     UIImage *image = [m_HyperspectralData UIImageFromCVMat:dstMatix];
     

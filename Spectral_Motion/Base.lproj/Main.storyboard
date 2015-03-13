@@ -22,14 +22,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1g4-b8-1d7">
-                                <rect key="frame" x="16" y="83" width="732" height="608"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cxP-ZP-g1O">
-                                        <rect key="frame" x="8" y="8" width="724" height="600"/>
-                                    </imageView>
-                                </subviews>
-                            </scrollView>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="29" minValue="0.0" maxValue="224" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-kp-gxB">
                                 <rect key="frame" x="14" y="704" width="736" height="31"/>
                                 <connections>
@@ -42,8 +34,6 @@
                     <navigationItem key="navigationItem" id="ws3-6v-wFy"/>
                     <connections>
                         <outlet property="bandSlider" destination="OB7-kp-gxB" id="zD2-VY-zkH"/>
-                        <outlet property="imageView" destination="cxP-ZP-g1O" id="hcj-3U-jw8"/>
-                        <outlet property="scrollViewForImage" destination="1g4-b8-1d7" id="oCg-u3-Vex"/>
                         <outlet property="sliderValueLabel" destination="JSZ-uh-6Jb" id="QnW-4N-WeW"/>
                     </connections>
                 </viewController>

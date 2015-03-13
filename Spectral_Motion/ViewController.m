@@ -16,17 +16,23 @@
     UIImage *m_Image;
     int m_ChosenGreyScaleBand;
     UIPanGestureRecognizer *m_PanGestureRecognizer;
+    UIPinchGestureRecognizer *m_PinchGestureRecognizer;
     
 }
+@property(strong,nonatomic) UIImageView *imageView2;
 
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
+-(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
+-(void)initImageView;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
+-(void)addPinchGestureRecognizerForView:(UIView*)view;
 -(void)setImageViewBorderForView:(UIView*)view;
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
 
 @implementation ViewController
+@synthesize imageView2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,33 +49,59 @@
         self.sliderValueLabel.hidden = NO;
 
     }
-
     
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.image = m_Image;
-    
+    [self initImageView];
     self.sliderValueLabel.text = [NSString stringWithFormat:@"Band %i",m_ChosenGreyScaleBand];
     self.bandSlider.value = m_ChosenGreyScaleBand;
     
-    self.scrollViewForImage.minimumZoomScale = 0.5;
-    self.scrollViewForImage.maximumZoomScale = 6.0;
-    self.scrollViewForImage.contentSize = self.imageView.image.size;
-    self.scrollViewForImage.delegate = self;
+    [self addPanGestureRecognizerForView:self.imageView2];
     
-    [self addPanGestureRecognizerForView:self.scrollViewForImage];
+    [self addPinchGestureRecognizerForView:self.imageView2];
     
-    [self setImageViewBorderForView:self.scrollViewForImage];
+    [self setImageViewBorderForView:self.imageView2];
+}
+
+-(void)initImageView
+{
+    imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, m_Image.size.width, m_Image.size.height)];
+    
+    imageView2.center = self.view.center;
+    
+    self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView2.image = m_Image;
+    self.imageView2.userInteractionEnabled = YES;
+    self.imageView2.multipleTouchEnabled = YES;
+    [self.view addSubview:imageView2];
+    
+    
+    //self.scrollViewForImage.minimumZoomScale = 0.5;
+    //self.scrollViewForImage.maximumZoomScale = 6.0;
+    //self.scrollViewForImage.contentSize = self.imageView.image.size;
+    //self.scrollViewForImage.delegate = self;
+    
 }
 
 -(void)addPanGestureRecognizerForView:(UIView*)view
 {
     if(m_PanGestureRecognizer == nil)
     {
-        m_PanGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+        m_PanGestureRecognizer = [[UIPanGestureRecognizer alloc]
+                                  initWithTarget:self
+                                  action:@selector(handlePan:)];
     }
-    
     [view addGestureRecognizer:m_PanGestureRecognizer];
     
+}
+-(void)addPinchGestureRecognizerForView:(UIView*)view
+{
+    if(m_PinchGestureRecognizer == nil)
+    {
+        m_PinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
+                                    initWithTarget:self
+                                    action:@selector(resizeScrollView:)];
+    }
+    
+    [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
 -(void)setImageViewBorderForView:(UIView*)view
 {
@@ -82,10 +114,37 @@
     [view.layer setBorderWidth:3.0];
     
 }
+-(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer
+{
+    NSLog(@"pinch fired");
+    pinchGestureRecognizer.view.transform = CGAffineTransformScale(pinchGestureRecognizer.view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
+    pinchGestureRecognizer.scale = 1;
 
+
+}
 
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
+    NSLog(@"pan fired");
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
+    
+    // Figure out where the user is trying to drag the view.
+    CGPoint newCenter = CGPointMake(panGestureRecognizer.view.center.x + translation.x,
+                                    panGestureRecognizer.view.center.y + translation.y);
+    
+    // limit the bounds but always update the center
+    newCenter.y = MAX(160, newCenter.y);
+    newCenter.y = MIN(800, newCenter.y);
+    newCenter.x = MAX(160, newCenter.x);
+    newCenter.x = MIN(800, newCenter.x);
+    
+    
+    panGestureRecognizer.view.center = newCenter;
+    [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
+    
+    
+#if 0
+    
     if(panGestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         
@@ -98,11 +157,25 @@
         CGPoint center = panGestureRecognizer.view.center;
         CGPoint translation = [panGestureRecognizer translationInView:panGestureRecognizer.view];
         
-        if(abs(center.y +translation.y)>850)
+        if(abs(center.y + translation.y)>850)
         {
             center=CGPointMake(center.x +translation.x,
                                850);
         }
+       /*
+        if(abs(center.y + translation.y)>200)
+        {
+            center=CGPointMake(center.x +translation.x,
+                               200);
+        }
+        */
+        if(abs(center.x + translation.x)>680)
+        {
+            center=CGPointMake(680,
+                               center.y +translation.y);
+        }
+
+     
         else
         {
             center = CGPointMake(center.x + translation.x,
@@ -114,7 +187,7 @@
         }
     
     }
-        
+#endif
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -132,7 +205,6 @@
 
 -(void)setImageViewWithImage:(UIImage*)image
 {
-    
     m_Image = image;
 }
 
@@ -161,14 +233,13 @@
     cv::Mat matrix = [m_HyperspectralData createCVMatrixForBand:bandRoundedValue];
     cv::Mat dstMatrix = [self deblurImage:matrix];
     
-    
     UIImage *singleBandGreyScaleImg = [m_HyperspectralData UIImageFromCVMat:dstMatrix];
         
     NSLog(@"image complete..sending image to view");
     
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView2.contentMode = UIViewContentModeScaleAspectFit;
     
-    self.imageView.image = singleBandGreyScaleImg;
+    self.imageView2.image = singleBandGreyScaleImg;
     
     matrix.release();
     dstMatrix.release();
@@ -185,11 +256,12 @@
     return dstMatrix;
 }
 
+/*
 #pragma mark - UIScrollView Delegate methods
 
 -(UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
 }
-
+*/
 @end
