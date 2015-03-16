@@ -397,14 +397,14 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
                 if((k == (depth -1)) && (j == (width-1)))//did a full line i/height perecentage done
                 {
                      progress = (float)i/height;
-                    if(progress > .25)
-                    {                    
+                    //if(progress > .10)
+                    //{
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
                             [self.delegate updateProgressView:progress];
 
                         });
-                    }
+                    //}
                 }
                
             }

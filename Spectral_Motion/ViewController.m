@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "MSENVIFileParser.h"
 #import "MSHyperspectralData.h"
+#import "MVYSideMenuController.h"
 
 @interface ViewController ()
 {
@@ -21,6 +22,8 @@
 }
 @property(strong,nonatomic) UIImageView *imageView2;
 
+-(void)configureSideMenu;
+-(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
 -(void)initImageView;
@@ -59,6 +62,31 @@
     [self addPinchGestureRecognizerForView:self.imageView2];
     
     [self setImageViewBorderForView:self.imageView2];
+    
+    [self configureSideMenu];
+}
+
+-(void)configureSideMenu
+{
+    MVYSideMenuController *sideMenuController = [self sideMenuController];
+    sideMenuController.options.panFromBezel = YES;
+    sideMenuController.options.panFromNavBar = YES;
+    
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Menu-32.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
+    
+    
+    self.navigationItem.rightBarButtonItem = menuButton;
+    
+}
+
+-(void)showSideMenu
+{
+    MVYSideMenuController *sideMenuController = [self sideMenuController];
+    if (sideMenuController)
+    {
+        [sideMenuController openMenu];
+    }
+    
 }
 
 -(void)initImageView

@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "MVYSideMenuController.h"
+#import "MVYSideMenuOptions.h"
+#import "MSHomeViewController.h"
+#import "MenuOptionsViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +21,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    /*Set up side menu for main view controller*/
+    
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    //the tableview that holds the menu
+    MenuOptionsViewController *menuVC = (MenuOptionsViewController*)[mainStoryBoard
+                                                                 instantiateViewControllerWithIdentifier: @"MenuVC"];
+    //the root navigation controller
+    UINavigationController *navController = (UINavigationController*)[mainStoryBoard instantiateViewControllerWithIdentifier:@"rootNavigationViewController"];
+    
+    MVYSideMenuOptions *options = [[MVYSideMenuOptions alloc] init];
+    options.menuViewOverlapWidth = 60.0f;
+    options.bezelWidth = 15.0f;
+    options.contentViewScale = 0.96f; // 1.0f to disable scale
+    options.contentViewOpacity = 0.5f; // 0.0f to disable opacity
+    options.panFromBezel = NO;
+    options.panFromNavBar = NO;
+    options.animationDuration = 0.25f;
+    
+    
+    
+    MVYSideMenuController *sideMenuController = [[MVYSideMenuController alloc] initWithMenuViewController:menuVC
+                                                                                    contentViewController:navController
+                                                                                                  options:options];
+    sideMenuController.menuFrame = CGRectMake(0, 30.0, 420.0, self.window.bounds.size.height - 64.0);
+    
+    self.window.rootViewController = sideMenuController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

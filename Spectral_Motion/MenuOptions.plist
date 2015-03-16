@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>MenuOptionName</key>
+		<string>Add Image</string>
+		<key>MenuOptionImage</key>
+		<string>Add Image-100.png</string>
+		<key>MenuOptionDesc</key>
+		<string>Adds an additional Image to this View. This option is useful for comparing multiple images side by side.\n You can select a previously selected image with different parameters or a new image.</string>
+	</dict>
+	<dict>
+		<key>MenuOptionName</key>
+		<string>Edit Image Params</string>
+		<key>MenuOptionImage</key>
+		<string>Edit Image-100.png</string>
+		<key>MenuOptionDesc</key>
+		<string>Edits an existing image. This will allow you to modify parameters for an existing image and rerender it to the screen.\n This will replace to current image with the images with new parameters</string>
+	</dict>
+</array>
+</plist>
