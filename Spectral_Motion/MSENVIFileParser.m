@@ -134,6 +134,9 @@
     
     sampleSizeStr = [sampleSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    //remove any extra end of line characters like carraige return
+    sampleSizeStr = [sampleSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
@@ -181,6 +184,9 @@
     */
     lineSizeStr = [lineSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    //remove any extra end of line characters like carraige return
+    lineSizeStr = [lineSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *lineSizeNumber = [numberFormatter numberFromString:lineSizeStr];
@@ -226,6 +232,9 @@
     */
     bandSizeStr = [bandSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    bandSizeStr = [bandSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *bandSizeNumber = [numberFormatter numberFromString:bandSizeStr];
@@ -269,6 +278,10 @@
     }
     */
     headerOffsetStr = [headerOffsetStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    headerOffsetStr = [headerOffsetStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+    
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
@@ -315,6 +328,9 @@
     */
     dataTypeStr = [dataTypeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    dataTypeStr = [dataTypeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *dataTypeNumber = [numberFormatter numberFromString:dataTypeStr];
@@ -351,12 +367,13 @@
     
     
     defaultBandsStr = [defaultBandsStr stringBetweenString:@"{" andString:@"}"];
-   /*
+   
     if(defaultBandsStr == nil)
     {
-        return 0;
+        hdrInfo.defaultBands = 0;
+        return;
     }
-    */
+    
     
     NSArray *defaultBandsArray = [defaultBandsStr componentsSeparatedByString:@","];
     
@@ -394,12 +411,13 @@
     
     
     wavelengthStr = [wavelengthStr stringBetweenString:@"{" andString:@"}"];
-  /*
+  
     if(wavelengthStr == nil)
     {
-        return 0;
+        hdrInfo.wavelength = 0;
+        return ;
     }
-   */
+   
     
     NSArray *wavelengthArray = [wavelengthStr componentsSeparatedByString:@","];
     
@@ -448,6 +466,9 @@
     }
     */
     byteOrderStr = [byteOrderStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    byteOrderStr = [byteOrderStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     

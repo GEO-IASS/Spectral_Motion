@@ -93,48 +93,65 @@
     UILabel *bandLabel = (UILabel*)[cell viewWithTag:2];
     bandLabel.text = [NSString stringWithFormat:@"%i",indexPath.row + 1 ];
     UILabel *waveLengthLabel = (UILabel*)[cell viewWithTag:3];
-    waveLengthLabel.text = [NSString stringWithFormat:@"%f µm", m_Wavelengths[indexPath.row]];
+    if(m_Wavelengths != NULL)
+    {
+        waveLengthLabel.text = [NSString stringWithFormat:@"%f µm",
+                                m_Wavelengths[indexPath.row]];
+    }
+    else
+    {
+        waveLengthLabel.text = @"";
+    }
     UILabel *colorLabel = (UILabel*)[cell viewWithTag:4];
     UIView *colorMappedView = (UIView*)[cell viewWithTag:5];
     UILabel *spectrumLabel = (UILabel*)[cell viewWithTag:8];
     
-    float wavelength = m_Wavelengths[indexPath.row];
+    if(m_Wavelengths != NULL)
+    {
+        float wavelength = m_Wavelengths[indexPath.row];
     
-    if((wavelength*1000)> 300 &&  (wavelength*1000)< 400)
-    {
-        spectrumLabel.text = @"Range: Ultraviolet Light";
-        spectrumLabel.textColor = [UIColor purpleColor];
-    }
-   else if((wavelength*1000)> 400 &&  (wavelength*1000)< 700)
-    {
-        spectrumLabel.text = @"Range: Visible Light";
-        spectrumLabel.textColor = [UIColor grayColor];
+        if((wavelength*1000)> 300 &&  (wavelength*1000)< 400)
+        {
+            spectrumLabel.text = @"Range: Ultraviolet Light";
+            spectrumLabel.textColor = [UIColor purpleColor];
+        }
+        else if((wavelength*1000)> 400 &&  (wavelength*1000)< 700)
+        {
+            spectrumLabel.text = @"Range: Visible Light";
+            spectrumLabel.textColor = [UIColor grayColor];
 
-    }
-   else if((wavelength*1000)> 700 &&  (wavelength*1000)< 1300)
-    {
-        spectrumLabel.text = @"Range: Near Infrared Light";
-        spectrumLabel.textColor = [UIColor redColor];
-    }
-   else  if((wavelength*1000)> 1300 &&  (wavelength*1000)< 3000)
-    {
-        spectrumLabel.text = @"Range: Mid-Infrared Light";
-        spectrumLabel.textColor = [UIColor redColor];
-    }
-   else if((wavelength*1000)> 3000 &&  (wavelength*1000)< 5000)
-    {
-        spectrumLabel.text = @"Range: Infrared Light";
-        spectrumLabel.textColor = [UIColor redColor];
-    }
-   else if((wavelength*1000)> 8000 &&  (wavelength*1000)< 14000)
-    {
-        spectrumLabel.text = @"Range: Infrared Light";
-        spectrumLabel.textColor = [UIColor redColor];
+        }
+        else if((wavelength*1000)> 700 &&  (wavelength*1000)< 1300)
+        {
+            spectrumLabel.text = @"Range: Near Infrared Light";
+            spectrumLabel.textColor = [UIColor redColor];
+        }
+        else  if((wavelength*1000)> 1300 &&  (wavelength*1000)< 3000)
+        {
+            spectrumLabel.text = @"Range: Mid-Infrared Light";
+            spectrumLabel.textColor = [UIColor redColor];
+        }
+        else if((wavelength*1000)> 3000 &&  (wavelength*1000)< 5000)
+        {
+            spectrumLabel.text = @"Range: Infrared Light";
+            spectrumLabel.textColor = [UIColor redColor];
+        }
+        else if((wavelength*1000)> 8000 &&  (wavelength*1000)< 14000)
+        {
+            spectrumLabel.text = @"Range: Infrared Light";
+            spectrumLabel.textColor = [UIColor redColor];
+        }
+        else
+        {
+            spectrumLabel.text = @"Undefined Range";
+            spectrumLabel.textColor = [UIColor blackColor];
+        }
     }
     else
     {
-        spectrumLabel.text = @"Undefined Range";
+        spectrumLabel.text = @"Unspecified Wavelength";
         spectrumLabel.textColor = [UIColor blackColor];
+
     }
    
     

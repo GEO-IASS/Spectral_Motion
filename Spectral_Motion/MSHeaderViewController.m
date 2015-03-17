@@ -71,6 +71,8 @@
 -(void)saveBandSelection;
 -(void)CancelBandSelection;
 
+-(NSString*)findHyperspectralDataFileWithFilename:(NSString*)filename;
+
 
 
 @end
@@ -378,6 +380,27 @@
 
 }
 
+-(NSString*)findHyperspectralDataFileWithFilename:(NSString*)filename
+{
+    NSArray *arrayOfFileExtensions = @[@".bip", @".rfl", @".bsq", @".bil"];
+    NSString *hyperspectralImageFile = [filename stringByAppendingString:@".bip"];
+    BOOL fileExists = NO;
+    
+    for(NSString *extension in arrayOfFileExtensions)
+    {
+        hyperspectralImageFile = [hyperspectralImageFile stringByReplacingOccurrencesOfString:[hyperspectralImageFile substringFromIndex: [hyperspectralImageFile length] - 4] withString:extension];
+        
+        fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:hyperspectralImageFile ofType:nil]];
+        if(fileExists)
+        {
+            return hyperspectralImageFile;
+        }
+    }
+    
+    return nil;
+    
+}
+
 - (IBAction)doneButtonTapped:(id)sender
 {
     //TODO: Create public setters for m_EnviFileparser for modifying hdr info before image load
@@ -398,14 +421,6 @@
     
     if([ self.displayTypePickerView selectedRowInComponent:0]==2)
     {
-        if([self.redBandTextField.text length]==0)
-        {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Enter Max Band Value" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-            
-            return;
-        }
-       
         if( m_BandsMappedCount > 150)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please choose less than 151 bands" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -450,8 +465,8 @@
         
         m_HyperspectralData.delegate = self;
         
-        //hardcoding image file name for now
-        NSString *hyperspectralImageFile = [m_HeaderFileName stringByAppendingString:@".bip"];
+        NSString *hyperspectralImageFile = [self findHyperspectralDataFileWithFilename:m_HeaderFileName];
+
         [m_HyperspectralData loadHyperspectralImageFile:hyperspectralImageFile];
         
     }];
@@ -561,6 +576,12 @@
         self.redBandTextField.text = [NSString stringWithFormat:@"%i",(int)*defaultBands];
         self.greenBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+1)];
         self.blueBandTextField.text = [NSString stringWithFormat:@"%i",(int)*(defaultBands+2)];
+    }
+    else
+    {
+        self.redBandTextField.text = 0;
+        self.greenBandLabel.text = 0;
+        self.blueBandTextField.text = 0;
     }
 
     

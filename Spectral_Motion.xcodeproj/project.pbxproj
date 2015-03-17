@@ -40,6 +40,11 @@
 		14A8DE271AB5EF7900CCDC17 /* Menu-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE261AB5EF7900CCDC17 /* Menu-64.png */; };
 		14A8DE2A1AB5F63C00CCDC17 /* Menu-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE281AB5F63C00CCDC17 /* Menu-32.png */; };
 		14A8DE2B1AB5F63C00CCDC17 /* Menu-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE291AB5F63C00CCDC17 /* Menu-26.png */; };
+		14A8DE3B1AB71F1500CCDC17 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE371AB71F1500CCDC17 /* .gitignore */; };
+		14A8DE3C1AB71F1500CCDC17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 14A8DE381AB71F1500CCDC17 /* README.md */; };
+		14A8DE3D1AB71F1500CCDC17 /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A8DE3A1AB71F1500CCDC17 /* UIView+Glow.m */; };
+		14A8DE421AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE401AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.hdr */; };
+		14A8DE431AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.rfl in Resources */ = {isa = PBXBuildFile; fileRef = 14A8DE411AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.rfl */; };
 		14AFDD1A1A8B14820037D0F0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AFDD191A8B14820037D0F0 /* opencv2.framework */; };
 		14AFDD1D1A8B14BF0037D0F0 /* MSENVIFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AFDD1C1A8B14BF0037D0F0 /* MSENVIFileParser.m */; };
 		14AFDD1F1A8B152F0037D0F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AFDD1E1A8B152F0037D0F0 /* UIKit.framework */; };
@@ -100,6 +105,12 @@
 		14A8DE261AB5EF7900CCDC17 /* Menu-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu-64.png"; sourceTree = "<group>"; };
 		14A8DE281AB5F63C00CCDC17 /* Menu-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu-32.png"; sourceTree = "<group>"; };
 		14A8DE291AB5F63C00CCDC17 /* Menu-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu-26.png"; sourceTree = "<group>"; };
+		14A8DE371AB71F1500CCDC17 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		14A8DE381AB71F1500CCDC17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		14A8DE391AB71F1500CCDC17 /* UIView+Glow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Glow.h"; sourceTree = "<group>"; };
+		14A8DE3A1AB71F1500CCDC17 /* UIView+Glow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Glow.m"; sourceTree = "<group>"; };
+		14A8DE401AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f970619t01p02_r02_sc05.a.hdr; sourceTree = "<group>"; };
+		14A8DE411AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.rfl */ = {isa = PBXFileReference; lastKnownFileType = file; path = f970619t01p02_r02_sc05.a.rfl; sourceTree = "<group>"; };
 		14AFDD191A8B14820037D0F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
 		14AFDD1B1A8B14BF0037D0F0 /* MSENVIFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSENVIFileParser.h; sourceTree = "<group>"; };
 		14AFDD1C1A8B14BF0037D0F0 /* MSENVIFileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSENVIFileParser.m; sourceTree = "<group>"; };
@@ -175,10 +186,10 @@
 		1413ED261A9AD542006BC611 /* Utitilty Classes */ = {
 			isa = PBXGroup;
 			children = (
-				14D9B9731AA7A1FB004EF177 /* MBProgressHUD.h */,
-				14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */,
-				1413ED271A9AD57F006BC611 /* MSImageBlur.h */,
-				1413ED281A9AD57F006BC611 /* MSImageBlur.m */,
+				14A8DE361AB71F1500CCDC17 /* UIView-Glow-master */,
+				14A8DE161AB5E04E00CCDC17 /* MVYSideMenu */,
+				14A8DE3E1AB71F9900CCDC17 /* MBProgressHUD */,
+				14A8DE3F1AB71FA600CCDC17 /* MSImageBlur */,
 				14D9B9B61AAE97F7004EF177 /* SharedHeader.h */,
 			);
 			name = "Utitilty Classes";
@@ -187,7 +198,6 @@
 		146C75FF1A49CAAD00763A11 = {
 			isa = PBXGroup;
 			children = (
-				14A8DE161AB5E04E00CCDC17 /* MVYSideMenu */,
 				1413ED261A9AD542006BC611 /* Utitilty Classes */,
 				1413ED171A99AD09006BC611 /* Resources */,
 				146C760A1A49CAAD00763A11 /* Spectral_Motion */,
@@ -257,6 +267,8 @@
 		146C76351A49CADA00763A11 /* Sample Hyperspectral Data */ = {
 			isa = PBXGroup;
 			children = (
+				14A8DE401AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.hdr */,
+				14A8DE411AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.rfl */,
 				14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */,
 				14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */,
 				14D9B9761AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip */,
@@ -287,6 +299,35 @@
 			);
 			name = MVYSideMenu;
 			path = Spectral_Motion/MVYSideMenu;
+			sourceTree = "<group>";
+		};
+		14A8DE361AB71F1500CCDC17 /* UIView-Glow-master */ = {
+			isa = PBXGroup;
+			children = (
+				14A8DE371AB71F1500CCDC17 /* .gitignore */,
+				14A8DE381AB71F1500CCDC17 /* README.md */,
+				14A8DE391AB71F1500CCDC17 /* UIView+Glow.h */,
+				14A8DE3A1AB71F1500CCDC17 /* UIView+Glow.m */,
+			);
+			path = "UIView-Glow-master";
+			sourceTree = "<group>";
+		};
+		14A8DE3E1AB71F9900CCDC17 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				14D9B9731AA7A1FB004EF177 /* MBProgressHUD.h */,
+				14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		14A8DE3F1AB71FA600CCDC17 /* MSImageBlur */ = {
+			isa = PBXGroup;
+			children = (
+				1413ED271A9AD57F006BC611 /* MSImageBlur.h */,
+				1413ED281A9AD57F006BC611 /* MSImageBlur.m */,
+			);
+			name = MSImageBlur;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +392,7 @@
 				1413ED1F1A99C364006BC611 /* Higgs-boson_c.jpg in Resources */,
 				146C76331A49CAC900763A11 /* f970620t01p02_r03_sc03.a.hdr in Resources */,
 				146C76171A49CAAD00763A11 /* Main.storyboard in Resources */,
+				14A8DE3B1AB71F1500CCDC17 /* .gitignore in Resources */,
 				14D9B9771AA7E8C4004EF177 /* f970620t01p02_r03_sc03.a.bip in Resources */,
 				14A8DE211AB5E4A700CCDC17 /* Edit Image-100.png in Resources */,
 				14A8DE1E1AB5E40100CCDC17 /* MenuOptions.plist in Resources */,
@@ -362,10 +404,12 @@
 				1413ED1B1A99BD3D006BC611 /* tableview_background.jpg in Resources */,
 				1413ED231A99C4B2006BC611 /* prismCube.jpg in Resources */,
 				1413ED211A99C3A7006BC611 /* particleFever_poster-small.jpg in Resources */,
+				14A8DE421AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.hdr in Resources */,
 				1413ED191A99AD3D006BC611 /* Spectral_Motion_Logo.png in Resources */,
 				14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */,
 				1413ED2B1A9ADDD3006BC611 /* tableview_background2.jpeg in Resources */,
 				1413ED2D1A9AE213006BC611 /* spectral_motion_logo2.png in Resources */,
+				14A8DE431AB7C66900CCDC17 /* f970619t01p02_r02_sc05.a.rfl in Resources */,
 				14A8DE221AB5E4A700CCDC17 /* Add Image-100.png in Resources */,
 				146C76191A49CAAD00763A11 /* Images.xcassets in Resources */,
 			);
@@ -384,7 +428,9 @@
 				146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */,
 				1413ED161A9999C4006BC611 /* MSHeaderViewController.m in Sources */,
 				146C763E1A49DBE300763A11 /* MSHyperspectralData.m in Sources */,
+				14A8DE3C1AB71F1500CCDC17 /* README.md in Sources */,
 				14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */,
+				14A8DE3D1AB71F1500CCDC17 /* UIView+Glow.m in Sources */,
 				14A8DE1C1AB5E04E00CCDC17 /* MVYSideMenuOptions.m in Sources */,
 				141CB21C1A4A453800470591 /* NSString+MSString.m in Sources */,
 				14D9B9751AA7A1FB004EF177 /* MBProgressHUD.m in Sources */,

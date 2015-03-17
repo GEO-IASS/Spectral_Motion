@@ -64,6 +64,7 @@
     [self setImageViewBorderForView:self.imageView2];
     
     [self configureSideMenu];
+    
 }
 
 -(void)configureSideMenu
@@ -256,7 +257,7 @@
     float bandIdx = self.bandSlider.value;
     
     int bandRoundedValue = roundl(bandIdx); // Rounds float to an integer
-    self.sliderValueLabel.text = [NSString stringWithFormat:@"%i",bandRoundedValue];
+    self.sliderValueLabel.text = [NSString stringWithFormat:@"Band %i",bandRoundedValue];
     
     cv::Mat matrix = [m_HyperspectralData createCVMatrixForBand:bandRoundedValue];
     cv::Mat dstMatrix = [self deblurImage:matrix];

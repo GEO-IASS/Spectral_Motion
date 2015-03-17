@@ -28,7 +28,7 @@
     self.ImageFileTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
-    m_ImageFileNames = [[NSArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", nil];
+    m_ImageFileNames = [[NSArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3", nil];
     
     
     UIImageView *tableViewImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableview_background2.jpeg"]];
@@ -127,6 +127,11 @@
         [msHeaderVC parseHeaderFile];
     }
     
+    else if ([self.ImageFileTableView indexPathForSelectedRow].row == 2)
+    {
+        msHeaderVC.m_HeaderFileName = @"f970619t01p02_r02_sc05.a";
+        [msHeaderVC parseHeaderFile];
+    }
     
 
     
