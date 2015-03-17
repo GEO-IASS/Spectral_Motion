@@ -9,6 +9,7 @@
 #import "MSHomeViewController.h"
 #import "MSHeaderViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MVYSideMenuController.h"
 
 @interface MSHomeViewController ()
 {
@@ -16,7 +17,9 @@
     NSString *m_SelectedHyperspectralFile;
 }
 
+-(void)configureSideMenu;
 @end
+
 
 @implementation MSHomeViewController
 
@@ -43,6 +46,18 @@
     [self.ImageFileTableView setSeparatorColor:[UIColor blueColor]];
     
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self configureSideMenu];
+}
+
+-(void)configureSideMenu
+{
+    MVYSideMenuController *sideMenuController = [self sideMenuController];
+    sideMenuController.options.panFromBezel = NO;
+    sideMenuController.options.panFromNavBar = NO;
 }
 
 

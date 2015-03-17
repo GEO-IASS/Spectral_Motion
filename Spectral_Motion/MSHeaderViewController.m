@@ -13,6 +13,7 @@
 #import "MSImageBlur.h"
 #import "MBProgressHUD.h"
 #import "MSBandMappingTableVC.h"
+#import "MVYSideMenuController.h"
 
 @interface MSHeaderViewController ()<ImageViewerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 {
@@ -67,6 +68,7 @@
 -(void)hideRGBGUIElements:(BOOL)hide;
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
+-(void)configureSideMenu;
 
 -(void)saveBandSelection;
 -(void)CancelBandSelection;
@@ -90,9 +92,15 @@
     
     int rowSelected = (int)[self.displayTypePickerView selectedRowInComponent:0];
     [self changeGUIBasedOnPickerviewSelection:rowSelected];
-    
-    
+    [self configureSideMenu];
 
+}
+
+-(void)configureSideMenu
+{
+    MVYSideMenuController *sideMenuController = [self sideMenuController];
+    sideMenuController.options.panFromBezel = NO;
+    sideMenuController.options.panFromNavBar = NO;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
