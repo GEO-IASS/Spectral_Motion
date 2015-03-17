@@ -1,3 +1,6 @@
 # Hyperspectral Data Files #
 *.a.bip
+*.a.rfl
+*a.bsq
+*a.bil
 
