@@ -10,6 +10,7 @@
 #import "MSENVIFileParser.h"
 #import "MSHyperspectralData.h"
 #import "MVYSideMenuController.h"
+#import "UIView+Glow.h"
 
 @interface ViewController ()
 {
@@ -121,6 +122,7 @@
     self.imageView2.image = m_Image;
     self.imageView2.userInteractionEnabled = YES;
     self.imageView2.multipleTouchEnabled = YES;
+    self.imageView2.tag = 27;
     [self.view addSubview:imageView2];
     
     
@@ -153,6 +155,68 @@
     
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  //  [super touchesMoved:touches withEvent:event];
+    NSArray *touchObjects = [touches allObjects];
+    UIImageView *selectedImageview;
+    
+    for(UITouch * touch in touchObjects)
+    {
+        //all multispectral images added will be given tag 27 for id purposes
+        if(touch.view.tag == 27)
+        {
+            NSLog(@"did touch uiimageView");
+            selectedImageview = (UIImageView*)touch.view;
+            break;
+        }
+    }
+    [selectedImageview stopGlowing];
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSArray *touchObjects = [touches allObjects];
+    UIImageView *selectedImageview;
+    
+    for(UITouch * touch in touchObjects)
+    {
+        //all multispectral images added will be given tag 27 for id purposes
+        if(touch.view.tag == 27)
+        {
+            NSLog(@"did touch uiimageView");
+            selectedImageview = (UIImageView*)touch.view;
+            break;
+        }
+    }
+    if(selectedImageview != nil)
+    {
+        [selectedImageview startGlowing];
+    }
+    //if user clicks somewhere else on screen, stop all objects from glowing
+    else
+    {
+        for(UIView *view in self.view.subviews)
+        {
+            [view stopGlowing];
+        }
+    }
+
+}
+
+
+
 -(void)setImageViewBorderForView:(UIView*)view
 {
     UIColor *borderColor = [UIColor colorWithRed:182.0/255.0
