@@ -58,12 +58,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *setBandsForPCAButton;
 @property (weak, nonatomic) IBOutlet UIView *setPCABandsView;
 @property (weak, nonatomic) IBOutlet UIImageView *progressViewBgImage;
+@property (weak, nonatomic) IBOutlet UIView *displayTypeAndBandView;
+@property (weak, nonatomic) IBOutlet UIButton *showDetailButton;
 
 - (IBAction)setBandsForPCAButtonTapped:(id)sender;
 
 - (IBAction)doneButtonTapped:(id)sender;
 
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
+- (IBAction)showDetailBtnTapped:(id)sender;
 
 -(void)setViewControllerFields;
 -(void)setNavigationBarTitle;
@@ -96,6 +99,7 @@
     int rowSelected = (int)[self.displayTypePickerView selectedRowInComponent:0];
     [self changeGUIBasedOnPickerviewSelection:rowSelected];
     [self configureSideMenu];
+    
 
 }
 
@@ -753,6 +757,57 @@
     cv::addWeighted(matrix, 1.5, dstMatrix, -0.5, 0, dstMatrix);
     
     return dstMatrix;
+}
+
+- (IBAction)showDetailBtnTapped:(id)sender
+{
+    /*In interface builder, have to disable auto layout for this animation to work correctly
+     Otherwise it just snaps back to its original position
+     */
+    
+    //show details
+    if(self.showDetailButton.tag == 2)
+    {
+        [self.showDetailButton setTitle:@"Hide Details" forState:UIControlStateNormal];
+    //vwDetails.hidden=NO;
+        [UIView animateWithDuration:0.7
+                              delay:0
+                            options:UIViewAnimationCurveEaseInOut
+     
+                         animations:^
+        {
+         self.displayTypeAndBandView.frame = CGRectMake(self.displayTypeAndBandView.frame.origin.x, 480, self.displayTypeAndBandView.frame.size.width, self.displayTypeAndBandView.frame.size.height);
+         
+         
+        }
+                     completion:^(BOOL finished)
+         {
+         
+         }];
+        self.showDetailButton.tag = 10;
+    }
+    
+    //hide details
+    else
+    {
+        [self.showDetailButton setTitle:@"Show Details" forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.7
+                              delay:0
+                            options:UIViewAnimationCurveEaseInOut
+         
+                         animations:^
+         {
+             self.displayTypeAndBandView.frame=CGRectMake(self.displayTypeAndBandView.frame.origin.x, 330, self.displayTypeAndBandView.frame.size.width, self.displayTypeAndBandView.frame.size.height);
+             
+         }
+                         completion:^(BOOL finished)
+         {
+            // vwDetails.hidden=YES;
+         }];
+        
+        self.showDetailButton.tag = 2;
+    }
+
 }
 
 #pragma mark - UIPickerView Data Source Methods
