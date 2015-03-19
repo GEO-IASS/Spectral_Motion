@@ -61,7 +61,7 @@
     
     //cell background image
     UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"tableview_background2.jpeg"] drawInRect:self.view.bounds];
+    [[UIImage imageNamed:@"mainbackground"] drawInRect:self.view.bounds];
     UIImage *backgroundImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [cell setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];

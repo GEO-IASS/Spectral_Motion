@@ -33,6 +33,16 @@
     //the root navigation controller
     UINavigationController *navController = (UINavigationController*)[mainStoryBoard instantiateViewControllerWithIdentifier:@"rootNavigationViewController"];
     
+    UIImage *imageNavBar = [UIImage imageNamed:@"topbg.png"];
+    
+    // set the image as stretchable and set into navbar globally
+    imageNavBar = [imageNavBar stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    
+    //[imageNavBar resizableImageWithCapInsets:UIEdgeInsetsZero] ;
+    
+    [[UINavigationBar appearance] setBackgroundImage:imageNavBar forBarMetrics:UIBarMetricsDefault];
+    
+    
     MVYSideMenuOptions *options = [[MVYSideMenuOptions alloc] init];
     options.menuViewOverlapWidth = 60.0f;
     options.bezelWidth = 15.0f;

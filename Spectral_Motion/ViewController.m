@@ -23,6 +23,7 @@
 @property(strong,nonatomic) UIImageView *imageView2;
 
 -(void)configureSideMenu;
+-(void)setNavigationBarTitle;
 -(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
@@ -64,6 +65,26 @@
     [self setImageViewBorderForView:self.imageView2];
     
     [self configureSideMenu];
+    [self setNavigationBarTitle];
+    
+}
+
+-(void)setNavigationBarTitle
+{
+    UILabel *titleView = (UILabel *)self.navigationItem.titleView;
+    if (!titleView)
+    {
+        titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.font = [UIFont boldSystemFontOfSize:20.0];
+        titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        
+        titleView.textColor = [UIColor whiteColor];         
+        self.navigationItem.titleView = titleView;
+    }
+    titleView.text = @"Image Viewer";
+    [titleView sizeToFit];
+    
     
 }
 
@@ -73,7 +94,7 @@
     sideMenuController.options.panFromBezel = YES;
     sideMenuController.options.panFromNavBar = YES;
     
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Menu-32.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
     
     
     self.navigationItem.rightBarButtonItem = menuButton;

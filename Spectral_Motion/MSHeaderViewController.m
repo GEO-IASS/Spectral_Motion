@@ -56,6 +56,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *setBandsForPCAButton;
+@property (weak, nonatomic) IBOutlet UIView *setPCABandsView;
+@property (weak, nonatomic) IBOutlet UIImageView *progressViewBgImage;
 
 - (IBAction)setBandsForPCAButtonTapped:(id)sender;
 
@@ -64,8 +66,10 @@
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 -(void)setViewControllerFields;
--(void)setBackgroundImage;
+-(void)setNavigationBarTitle;
 -(void)hideRGBGUIElements:(BOOL)hide;
+-(void)unhideUIElements;
+-(void)hideProgressView:(BOOL)hide;
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
 -(void)configureSideMenu;
@@ -85,8 +89,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.loadDataProgressView.hidden = YES;
-    self.loadingImageLabel.hidden = YES;
+    [self hideProgressView:YES];
     [self.view setUserInteractionEnabled:YES];
     m_HyperspectralData = nil;
     
@@ -94,6 +97,13 @@
     [self changeGUIBasedOnPickerviewSelection:rowSelected];
     [self configureSideMenu];
 
+}
+
+-(void)hideProgressView:(BOOL)hide
+{
+    self.loadDataProgressView.hidden = hide;
+    self.loadingImageLabel.hidden = hide;
+    self.progressViewBgImage.hidden = hide;
 }
 
 -(void)configureSideMenu
@@ -111,15 +121,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.title = @"Header Review";
     CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, 10.0f);
     self.loadDataProgressView.transform = transform;
     [self setViewControllerFields];
     self.doneButton.showsTouchWhenHighlighted = YES;
     self.displayTypePickerView.dataSource = self;
     self.displayTypePickerView.delegate = self;
-    displayTypeOptions = [[NSArray alloc]initWithObjects:@"1-Channel GreyScale", @"3-Channel RGB", @" GreyScale Principal Component Analysis", @"3-Channel RGB Principal Component Analysis", nil];
+    displayTypeOptions = [[NSArray alloc]initWithObjects:@"1-Channel GreyScale", @"3-Channel RGB", @" GreyScale PCA", @"3-Channel RGB PCA", nil];
     
-    [self setBackgroundImage];
+    [self setNavigationBarTitle];
+       // [self setBackgroundImage];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -134,6 +146,26 @@
         
         m_BlurredImageView = [[UIImageView alloc]initWithImage:blurredImage];
     }
+
+}
+
+-(void)setNavigationBarTitle
+{
+    UILabel *titleView = (UILabel *)self.navigationItem.titleView;
+    if (!titleView)
+    {
+        titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.font = [UIFont boldSystemFontOfSize:20.0];
+        titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        
+        titleView.textColor = [UIColor whiteColor]; 
+        
+        self.navigationItem.titleView = titleView;
+    }
+    titleView.text = @"Header Information";
+    [titleView sizeToFit];
+    
 
 }
 
@@ -169,6 +201,25 @@
     
 }
 
+-(void)unhideUIElements
+{
+    //show rgb textfields
+    if(self.setPCABandsView.tag == 10)
+    {
+        [self hideRGBGUIElements:YES];
+        self.redBandTextField.hidden = NO;
+        self.redBand_greyBand_label.hidden = NO;
+    }
+    //remove rgb textfields
+    else
+    {
+        
+        [self hideRGBGUIElements:NO];
+        self.redBandTextField.hidden = NO;
+        self.redBand_greyBand_label.hidden = NO;
+    }
+}
+
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
 {
     switch (rowSelected)
@@ -176,21 +227,57 @@
             //greychannel display option selected
         case 0:
         {
-            [self hideRGBGUIElements:YES];
-            self.redBandTextField.hidden = NO;
-            self.redBand_greyBand_label.hidden = NO;
-            self.setBandsForPCAButton.hidden = YES;
+            //if pcaview is not hidden, we hide, then unhide elements behind it
+            if(!self.setPCABandsView.hidden)
+            {
+                self.setPCABandsView.hidden = YES;
+
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDidStopSelector:@selector(unhideUIElements)];
+                self.setPCABandsView.tag = 10;
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.setPCABandsView cache:NO];
+                [UIView commitAnimations];
+            }
             
+            //otherwise, we just unhide elements without pcaview animation
+            else
+            {
+                [self hideRGBGUIElements:YES];
+                self.redBandTextField.hidden = NO;
+                self.redBand_greyBand_label.hidden = NO;
+                
+            }
         }
             break;
 
             //rgb display option selected
         case 1:
         {
-            [self hideRGBGUIElements:NO];
-            self.redBandTextField.hidden = NO;
-            self.redBand_greyBand_label.hidden = NO;
-            self.setBandsForPCAButton.hidden = YES;
+            //if pcaview is not hidden, we hide, then unhide elements behind it
+            if(!self.setPCABandsView.hidden)
+            {
+                self.setPCABandsView.hidden = YES;
+
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDidStopSelector:@selector(unhideUIElements)];
+                self.setPCABandsView.tag = 5;
+
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.setPCABandsView cache:NO];
+                [UIView commitAnimations];
+            }
+            //otherwise, we just unhide elements without pcaview animation
+            else
+            {
+                [self hideRGBGUIElements:NO];
+                self.redBandTextField.hidden = NO;
+                self.redBand_greyBand_label.hidden = NO;
+
+            }
+            
         }
             break;
     
@@ -201,15 +288,17 @@
             [self hideRGBGUIElements:YES];
             self.redBandTextField.hidden = YES;
             self.redBand_greyBand_label.hidden = YES;
-            self.setBandsForPCAButton.hidden = NO;
-          
-          //  self.redBand_greyBand_label.text = @"Maximum Band";
-           // int * defaultBands = [m_EnviFileParser getDefaultBands];
             
-           // NSArray *numbers = [NSArray arrayWithObjects:[NSNumber numberWithInt:(*defaultBands)],[NSNumber numberWithInt:((*(defaultBands+1))) ],[NSNumber numberWithInt:((*(defaultBands+2)))], nil];
-            
-          //  int max = [[numbers valueForKeyPath:@"@max.intValue"] intValue];
-           // self.redBandTextField.text =[NSString stringWithFormat:@"%i", max];
+            if(self.setPCABandsView.hidden)
+            {
+                self.setPCABandsView.hidden = NO;
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDelegate:nil];
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.setPCABandsView cache:NO];
+                [UIView commitAnimations];
+            }
+           
         }
             
             break;
@@ -220,7 +309,17 @@
             [self hideRGBGUIElements:YES];
             self.redBandTextField.hidden = YES;
             self.redBand_greyBand_label.hidden = YES;
-            self.setBandsForPCAButton.hidden = NO;
+            
+            if(self.setPCABandsView.hidden)
+            {
+                self.setPCABandsView.hidden = NO;
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDelegate:nil];
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.setPCABandsView cache:NO];
+                [UIView commitAnimations];
+            }
+            
 
         }
             break;
@@ -436,6 +535,14 @@
             
             return;
         }
+        
+        if( m_BandsMappedCount < 3)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please choose at least 3 Spectral Bands for PCA" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            
+            return;
+        }
     }
     
     if([ self.displayTypePickerView selectedRowInComponent:0]==3)
@@ -461,11 +568,13 @@
                            [self.view addSubview:m_BlurredImageView];
                            [self.view setUserInteractionEnabled:NO];
                            
+                           [self.view addSubview:self.progressViewBgImage];
                            [self.view addSubview:self.loadDataProgressView];
                            [self.view addSubview:self.loadingImageLabel];
                            self.loadDataProgressView.progress = 0.0f;
-                           self.loadDataProgressView.hidden = NO;
-                           self.loadingImageLabel.hidden = NO;
+                           [self hideProgressView:NO];
+                           //self.loadDataProgressView.hidden = NO;
+                           //self.loadingImageLabel.hidden = NO;
                            
                        });
 
@@ -525,8 +634,9 @@
        [self.displayTypePickerView selectedRowInComponent:0] == 3) // RGB PCA
     
     {
-        self.loadDataProgressView.hidden = YES;
-        self.loadingImageLabel.hidden = YES;
+        [self hideProgressView:YES];
+        //self.loadDataProgressView.hidden = YES;
+        //self.loadingImageLabel.hidden = YES;
         m_ProgressHud = [[MBProgressHUD alloc]initWithView:m_BlurredImageView];
         m_ProgressHud.labelText =@"Running Principal Component Analysis";
         [m_BlurredImageView addSubview:m_ProgressHud];
