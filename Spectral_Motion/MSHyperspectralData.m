@@ -62,6 +62,7 @@ using namespace cv;
     SEL m_PopulateHyperspectralCube;
     SEL m_CreateCVMatrixForBand;
     SEL m_CreateBGRCVMatrixForBands;
+    SEL m_GetPixelValuesForAllBandsAtCoordinates;
 
     
     //function pointer for getting pixel index
@@ -97,7 +98,7 @@ using namespace cv;
 
 -(Objc_CVMatWrapper*)create16BitBGRMatrixForBands:(NSDictionary*)dictOfBands;
 
-
+-(NSMutableArray*)get16BitPixelValuesForAllBandsAtCoordinates:(NSDictionary*)dictOfCoordinates;
 
 
 /*Get pixel index functions. These are assigned to function pointers when image format is determined. Set using setFunctionPointers method*/
@@ -205,8 +206,7 @@ int getBILPixelIndex(int x, int y, int z, int width, int height, int depth);
     
 }
 
-//here we read in buffer, casting depending on data type, and we also set function pointers which are
-//also dependent on data type
+//here we read in buffer, casting depending on data type, and we also set function pointers which are also dependent on data type
 -(void) readHyperspectralDataIntoBuffer:(void*) dataBuffer dataType:(int) dataType elementsToAllocate:(int)elementsToAllocate fileName:(NSString *)fileName
 {
     
@@ -239,6 +239,7 @@ int getBILPixelIndex(int x, int y, int z, int width, int height, int depth);
             m_PopulateHyperspectralCube = @selector(populateHyperspectralCubeForShortType);
             m_CreateCVMatrixForBand = @selector(create16BitCVMatrixForBand:);
             m_CreateBGRCVMatrixForBands = @selector(create16BitBGRMatrixForBands:);
+            m_GetPixelValuesForAllBandsAtCoordinates = @selector(get16BitPixelValuesForAllBandsAtCoordinates:);
 
             m_DataSize = nPixelsInBand * hdrInfo.bands * sizeof(int16_t);
 
@@ -724,6 +725,39 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     return [objcMat getMatrix];
 
 }
+
+
+-(NSMutableArray*)get16BitPixelValuesForAllBandsAtCoordinates:(NSDictionary *)dictOfCoordinates
+{
+    NSNumber * xCoordinate = dictOfCoordinates[@"xCoordinate"];
+    NSNumber * yCoordinate = dictOfCoordinates[@"yCoordinate"];
+    
+    int numOfBands = hdrInfo.bands;
+    
+    //int *pixelValues = (int *)calloc(numOfBands, sizeof(int));
+    
+    NSMutableArray *pixelValues = [NSMutableArray arrayWithCapacity:numOfBands];
+    
+    for(int i = 0; i < numOfBands; i++)
+    {
+        pixelValues[i] = @(((uint16_t***)m_HyperspectralCube)[xCoordinate.intValue][yCoordinate.intValue][i]);
+    }
+    
+    return pixelValues;
+}
+
+
+-(NSMutableArray*)getPixelValuesForAllBandsAtXCoordinate:(int)xCoordinate andYCoordinate:(int)yCoordinate
+{
+    
+    NSDictionary *coordinateDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:xCoordinate], @"xCoordinate", [NSNumber numberWithInt:yCoordinate], @"yCoordinate", nil];
+    
+    NSMutableArray *pixelValueArr = [self performSelector:m_GetPixelValuesForAllBandsAtCoordinates withObject:coordinateDict];
+    
+   return  pixelValueArr;
+    
+}
+
 
 -(void)checkPixelValues:(Mat)imgBand
 {

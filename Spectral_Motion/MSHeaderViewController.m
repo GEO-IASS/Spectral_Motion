@@ -15,7 +15,7 @@
 #import "MSBandMappingTableVC.h"
 #import "MVYSideMenuController.h"
 
-@interface MSHeaderViewController ()<ImageViewerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
+@interface MSHeaderViewController ()<ProgressDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 {
     HDRINFO hdrInfo;
     MSENVIFileParser *m_EnviFileParser;
