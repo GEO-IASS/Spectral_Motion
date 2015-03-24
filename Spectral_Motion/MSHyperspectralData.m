@@ -756,7 +756,13 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
     for(int i = 0; i < numOfBands; i++)
     {
-        pixelValues[i] = @(((uint16_t***)m_HyperspectralCube)[xCoordinate.intValue][yCoordinate.intValue][i]);
+        if(i ==0)
+        {
+            NSLog(@"xCoordinate Value %i", xCoordinate.intValue);
+            NSLog(@"yCoordinate Value %i", yCoordinate.intValue);
+
+        }
+        pixelValues[i] = @(((uint16_t***)m_HyperspectralCube)[yCoordinate.intValue][xCoordinate.intValue][i]);
     }
     
     return pixelValues;

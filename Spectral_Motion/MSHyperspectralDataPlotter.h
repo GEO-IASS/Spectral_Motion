@@ -25,6 +25,8 @@
 
 -(void)createScatterPlot;
 
+-(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
+
 -(void)createScatterPlotWithView:(UIView*)view;
 
 //-(void)setDelegate:(NSObject*)delegate;

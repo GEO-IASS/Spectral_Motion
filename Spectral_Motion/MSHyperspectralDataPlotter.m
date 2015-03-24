@@ -23,6 +23,7 @@
         NSNumber *m_XMinValue;
     
         HDRINFO m_HdrInfo;
+        MSHyperspectralData *m_HyperspectralData;
 }
 
 -(void)createScatterPlot;
@@ -49,6 +50,7 @@
         m_XMinValue = [m_XValues valueForKeyPath:@"@min.self"];
         
         m_HdrInfo = hdrInfo;
+        m_HyperspectralData = hyperspectralData;
         
     }
     
@@ -119,6 +121,19 @@
     m_BoundPlot.dataSource = self;
     [newGraph addPlot:m_BoundPlot];
     
+}
+
+-(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate
+{
+    m_YValues = nil;
+    
+    m_YValues = [[m_HyperspectralData getPixelValuesForAllBandsAtXCoordinate:xCoordinate andYCoordinate:yCoordinate] copy];
+    
+    //get max x axis and y axis values for proper scaling of graph
+    m_YMaxValue = [m_YValues valueForKeyPath:@"@max.self"];
+    m_YMinValue = [m_YValues valueForKeyPath:@"@min.self"];
+    
+    [m_BoundPlot reloadData];
 }
 
 

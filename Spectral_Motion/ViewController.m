@@ -24,6 +24,9 @@
     UIPinchGestureRecognizer *m_PinchGestureRecognizer;
     UILongPressGestureRecognizer * m_LongPressGestureRecognizer;
     NSMutableArray *m_PanGestureArray;
+    NSMutableArray *m_TapGesutreArray;
+    CPTGraphHostingView *m_PlotView;
+    MSHyperspectralDataPlotter *m_DataPlotter;
     
 }
 @property(strong,nonatomic) UIImageView *imageView2;
@@ -32,11 +35,13 @@
 -(void)setNavigationBarTitle;
 -(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
+-(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer;
 -(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
 -(void)initImageView;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)addPinchGestureRecognizerForView:(UIView*)view;
 -(void)addLongPressGestureRecognizerForView:(UIView*)view;
+-(void)addTapGestureRecognizerForView:(UIView*)view;
 -(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender;
 -(void)setImageViewBorderForView:(UIView*)view;
 -(void)addGraphToView;
@@ -72,6 +77,8 @@
     [self addPinchGestureRecognizerForView:self.imageView2];
     
     [self addLongPressGestureRecognizerForView:self.imageView2];
+    
+    [self addTapGestureRecognizerForView:self.imageView2];
     
     [self setImageViewBorderForView:self.imageView2];
     
@@ -143,27 +150,79 @@
     
 }
 
+-(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer
+{
+    
+    if(tapGestureRecognizer.state != UIGestureRecognizerStateEnded)
+    {
+        return;
+    }
+    NSLog(@"Handle tap fired");
+    
+    if(m_PlotView == nil)
+    {
+        return;
+    }
+    
+    CGPoint location = [tapGestureRecognizer locationInView:tapGestureRecognizer.view];
+    
+    NSLog(@"x tapped %f y tapped %f", location.x, location.y);
+
+    
+    if(location.x > m_HdrInfo.samples || location.y > m_HdrInfo.lines)
+    {
+        return;
+    }
+    
+    [m_DataPlotter graphStopRunLoop];
+    [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
+    [m_DataPlotter graphStartRunLoop];
+
+    
+}
+
 -(void)addGraphToView
 {
     
         NSLog(@"add to graph vie");
     
-    MSHyperspectralDataPlotter *dataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
+   m_DataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
     
    // [dataPlotter createScatterPlotWithView:self.view];
-    [dataPlotter createScatterPlot];
+    [m_DataPlotter createScatterPlot];
     
-    CPTGraphHostingView *plotView = [dataPlotter getGraphView];
+    m_PlotView = [m_DataPlotter getGraphView];
     
-    [self addPanGestureRecognizerForView:plotView];
+    [self addPanGestureRecognizerForView:m_PlotView];
     
-    [self.view addSubview:plotView];
+    [self.view addSubview:m_PlotView];
     
-    [dataPlotter graphStartRunLoop];
+    [m_DataPlotter graphStartRunLoop];
+}
+
+-(void)addTapGestureRecognizerForView:(UIView*)view
+{
+    if(m_TapGesutreArray == nil)
+    {
+        m_TapGesutreArray = [[NSMutableArray alloc]init];
+    }
     
-    //[self.view addSubview:plotView];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    tapGestureRecognizer.delaysTouchesBegan = YES;
+
+    
+    [view addGestureRecognizer:tapGestureRecognizer];
+    
+    [m_TapGesutreArray addObject:tapGestureRecognizer];
     
 }
+
+
 
 -(void)addPanGestureRecognizerForView:(UIView*)view
 {
@@ -224,6 +283,8 @@
     }
     
 }
+
+
 
 -(void)setImageViewBorderForView:(UIView*)view
 {
