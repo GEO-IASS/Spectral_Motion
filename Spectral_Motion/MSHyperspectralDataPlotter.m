@@ -73,7 +73,7 @@
     newGraph.paddingBottom = 50.0;
     
     //  CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    m_GraphHostingView  = [[CPTGraphHostingView alloc]initWithFrame:CGRectMake(100, 100, 500, 500)];
+    m_GraphHostingView  = [[CPTGraphHostingView alloc]initWithFrame:CGRectMake(100, 100, 500, 800)];
     m_GraphHostingView.hostedGraph = newGraph;
     [view addSubview:m_GraphHostingView];
     

@@ -153,10 +153,10 @@
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer
 {
     
-    if(tapGestureRecognizer.state != UIGestureRecognizerStateEnded)
-    {
-        return;
-    }
+//    if(tapGestureRecognizer.state != UIGestureRecognizerStateBegan)
+//    {
+//        return;
+//    }
     NSLog(@"Handle tap fired");
     
     if(m_PlotView == nil)
@@ -174,9 +174,9 @@
         return;
     }
     
-    [m_DataPlotter graphStopRunLoop];
+    //[m_DataPlotter graphStopRunLoop];
     [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
-    [m_DataPlotter graphStartRunLoop];
+    //[m_DataPlotter graphStartRunLoop];
 
     
 }
@@ -212,9 +212,10 @@
     tapGestureRecognizer.numberOfTapsRequired = 1;
     tapGestureRecognizer.numberOfTouchesRequired = 1;
     
-    tapGestureRecognizer.cancelsTouchesInView = NO;
+    tapGestureRecognizer.cancelsTouchesInView = YES;
     tapGestureRecognizer.delaysTouchesBegan = YES;
-
+    tapGestureRecognizer.delegate = self;
+    
     
     [view addGestureRecognizer:tapGestureRecognizer];
     
@@ -278,7 +279,10 @@
     }
     else if (sender.state == UIGestureRecognizerStateBegan)
     {
-        [self addGraphToView];
+        if(m_PlotView ==nil)
+        {
+            [self addGraphToView];
+        }
 
     }
     
@@ -454,6 +458,11 @@
 
 //to simulataneously recognize UIPanGesturereRecognizers
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     return YES;
 }
