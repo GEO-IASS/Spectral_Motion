@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MSHyperspectralData.h"
+#import "CorePlot-CocoaTouch.h"
 
 
 @interface ViewController : UIViewController<UIScrollViewDelegate>
@@ -20,6 +21,7 @@
 
 -(void)setImageViewWithImage:(UIImage*)image;
 -(void)setHyperspectralDataPointer:(MSHyperspectralData*)hyperspectralData;
+-(void)setHyperspectralDataHeader:(HDRINFO) hdrInfo;
 -(void)setGreyScaleBand:(int)greyscaleBand;
 
 

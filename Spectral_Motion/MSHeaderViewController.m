@@ -954,6 +954,7 @@
     UIImage *image = [m_HyperspectralData UIImageFromCVMat:dstMatix];
     
     [imageViewer setHyperspectralDataPointer:m_HyperspectralData];
+    [imageViewer setHyperspectralDataHeader:hdrInfo];
     [imageViewer setImageViewWithImage:image];
     
     matrix.release();

@@ -40,6 +40,8 @@
 
 -(NSMutableArray*)getPixelValuesForAllBandsAtXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
 
+-(NSMutableArray*)getWavelengthValues;
+
 
 -(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat;
 

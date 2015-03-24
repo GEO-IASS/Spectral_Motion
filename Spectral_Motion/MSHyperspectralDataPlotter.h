@@ -8,7 +8,33 @@
 
 #import <Foundation/Foundation.h>
 #import "CorePlot-CocoaTouch.h"
+#import "MSHyperspectralData.h"
 
 @interface MSHyperspectralDataPlotter : NSObject
+
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *m_Graph;
+@property (nonatomic, strong) CPTGraphHostingView *m_GraphHostingView;
+@property (nonatomic, strong) CPTScatterPlot * m_BoundPlot;
+@property (nonatomic, strong) CPTXYPlotSpace * m_PlotSpace;
+
+
+-(id)initWithHyperpsectralData:(MSHyperspectralData*)hyperspectralData andHeader:(HDRINFO)hdrInfo;
+
+//-(id)initWithWavelengthsForXAxis:(NSMutableArray *) xValues PixelValuesForYAxis:(NSMutableArray *) yPixelValues andHeader:(HDRINFO) hdrInfo;
+
+-(void)createScatterPlot;
+
+-(void)createScatterPlotWithView:(UIView*)view;
+
+//-(void)setDelegate:(NSObject*)delegate;
+//-(void)setDataSource:(CPTPlotDataSource*)dataSource;
+
+-(void)graphStartRunLoop;
+
+-(void)graphStopRunLoop;
+
+-(CPTGraphHostingView*) getGraphView;
+
 
 @end

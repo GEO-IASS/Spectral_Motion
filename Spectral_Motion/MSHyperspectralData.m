@@ -726,6 +726,22 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
 
 }
 
+-(NSMutableArray*)getWavelengthValues
+{
+    int wavelengthCount = hdrInfo.bands;
+    NSMutableArray *wavelengthArr = [NSMutableArray arrayWithCapacity:wavelengthCount];
+    if(hdrInfo.wavelength == NULL)
+    {
+        return nil;
+    }
+    for(int i =0; i < wavelengthCount; i++)
+    {
+        wavelengthArr[i] = @(hdrInfo.wavelength[i]);
+    }
+ 
+    return wavelengthArr;
+}
+
 
 -(NSMutableArray*)get16BitPixelValuesForAllBandsAtCoordinates:(NSDictionary *)dictOfCoordinates
 {

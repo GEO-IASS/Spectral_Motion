@@ -11,14 +11,19 @@
 #import "MSHyperspectralData.h"
 #import "MVYSideMenuController.h"
 #import "UIView+Glow.h"
+#import "MSHyperspectralDataPlotter.h"
+
 
 @interface ViewController ()
 {
     MSHyperspectralData * m_HyperspectralData;
+    HDRINFO m_HdrInfo;
     UIImage *m_Image;
     int m_ChosenGreyScaleBand;
     UIPanGestureRecognizer *m_PanGestureRecognizer;
     UIPinchGestureRecognizer *m_PinchGestureRecognizer;
+    UILongPressGestureRecognizer * m_LongPressGestureRecognizer;
+    NSMutableArray *m_PanGestureArray;
     
 }
 @property(strong,nonatomic) UIImageView *imageView2;
@@ -31,7 +36,10 @@
 -(void)initImageView;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)addPinchGestureRecognizerForView:(UIView*)view;
+-(void)addLongPressGestureRecognizerForView:(UIView*)view;
+-(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender;
 -(void)setImageViewBorderForView:(UIView*)view;
+-(void)addGraphToView;
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
@@ -62,6 +70,8 @@
     [self addPanGestureRecognizerForView:self.imageView2];
     
     [self addPinchGestureRecognizerForView:self.imageView2];
+    
+    [self addLongPressGestureRecognizerForView:self.imageView2];
     
     [self setImageViewBorderForView:self.imageView2];
     
@@ -133,8 +143,42 @@
     
 }
 
+-(void)addGraphToView
+{
+    
+        NSLog(@"add to graph vie");
+    
+    MSHyperspectralDataPlotter *dataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
+    
+   // [dataPlotter createScatterPlotWithView:self.view];
+    [dataPlotter createScatterPlot];
+    
+    CPTGraphHostingView *plotView = [dataPlotter getGraphView];
+    
+    [self addPanGestureRecognizerForView:plotView];
+    
+    [self.view addSubview:plotView];
+    
+    [dataPlotter graphStartRunLoop];
+    
+    //[self.view addSubview:plotView];
+    
+}
+
 -(void)addPanGestureRecognizerForView:(UIView*)view
 {
+    if(m_PanGestureArray == nil)
+    {
+        m_PanGestureArray = [[NSMutableArray alloc]init];
+    }
+    
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    
+    [view addGestureRecognizer:panGestureRecognizer];
+    
+    [m_PanGestureArray addObject:panGestureRecognizer];
+ /*
     if(m_PanGestureRecognizer == nil)
     {
         m_PanGestureRecognizer = [[UIPanGestureRecognizer alloc]
@@ -142,6 +186,7 @@
                                   action:@selector(handlePan:)];
     }
     [view addGestureRecognizer:m_PanGestureRecognizer];
+  */
     
 }
 -(void)addPinchGestureRecognizerForView:(UIView*)view
@@ -156,7 +201,27 @@
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
 
+-(void)addLongPressGestureRecognizerForView:(UIView*)view
+{
+    m_LongPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressEventOccurred:)];
+    [m_LongPressGestureRecognizer setMinimumPressDuration:1];
+    [view addGestureRecognizer:m_LongPressGestureRecognizer];
+    
+}
 
+-(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        ;
+    }
+    else if (sender.state == UIGestureRecognizerStateBegan)
+    {
+        [self addGraphToView];
+
+    }
+    
+}
 
 -(void)setImageViewBorderForView:(UIView*)view
 {
@@ -268,6 +333,11 @@
     m_HyperspectralData = hyperspectralData;
 }
 
+-(void)setHyperspectralDataHeader:(HDRINFO)hdrInfo
+{
+    m_HdrInfo = hdrInfo;
+}
+
 -(void)testHdrParser
 {
     
@@ -310,7 +380,7 @@
     
     return dstMatrix;
 }
-
+/*
 #pragma mark - Touch event implementation
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -370,6 +440,7 @@
     }
     
 }
+*/
 
 
 
