@@ -14,7 +14,7 @@
 #import "MSHyperspectralDataPlotter.h"
 
 
-@interface ViewController ()
+@interface ViewController ()<UIGestureRecognizerDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
     HDRINFO m_HdrInfo;
@@ -175,6 +175,8 @@
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     
+    panGestureRecognizer.delegate = self;
+    
     [view addGestureRecognizer:panGestureRecognizer];
     
     [m_PanGestureArray addObject:panGestureRecognizer];
@@ -243,6 +245,8 @@
 
 }
 
+
+
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
     NSLog(@"pan fired");
@@ -309,6 +313,8 @@
     }
 #endif
 }
+
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -380,6 +386,18 @@
     
     return dstMatrix;
 }
+
+
+
+#pragma mark - UIGestureRecognizer Delegate
+
+//to simulataneously recognize UIPanGesturereRecognizers
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+
 /*
 #pragma mark - Touch event implementation
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
