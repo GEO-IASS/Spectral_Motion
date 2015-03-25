@@ -159,6 +159,15 @@
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)m_Graph.axisSet;
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPTDecimalFromDouble(m_StandardDeviation.doubleValue/ 15.0);
+    
+    // Put an area gradient under the plot above
+    // CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
+    CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
+    areaGradient.angle = 90.0;
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+    m_BoundPlot.areaFill      = areaGradientFill;
+    m_BoundPlot.areaBaseValue = CPTDecimalFromDouble(1.75);
 
 }
 
@@ -271,6 +280,15 @@
     
     m_BoundPlot.dataSource = self;
     [newGraph addPlot:m_BoundPlot];
+    
+    // Put an area gradient under the plot above
+   // CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
+    CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
+    areaGradient.angle = 90.0;
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+    m_BoundPlot.areaFill      = areaGradientFill;
+    m_BoundPlot.areaBaseValue = CPTDecimalFromDouble(1.75);
     
     
     newGraph.title = @"Spectral Profile";
