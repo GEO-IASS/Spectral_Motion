@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-setPixelIndexFunctionPointers"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "783"
+            endingLineNumber = "783"
             landmarkName = "-checkPixelValues:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,23 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "-readHyperspectralDataIntoBuffer:dataType:elementsToAllocate:fileName:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
@@ -250,55 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "-readHyperspectralDataIntoBuffer:dataType:elementsToAllocate:fileName:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "-populateHyperspectralCubeForShortType"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
-            landmarkName = "-populateHyperspectralCubeForShortType"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
@@ -314,12 +250,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "748"
-            endingLineNumber = "748"
-            landmarkName = "-checkPixelValues:"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "-readHyperspectralDataIntoBuffer:dataType:elementsToAllocate:fileName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,7 +266,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "-populateHyperspectralCubeForShortType"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
+            landmarkName = "-populateHyperspectralCubeForShortType"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
@@ -346,11 +314,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "933"
-            endingLineNumber = "933">
+            startingLineNumber = "804"
+            endingLineNumber = "804"
+            landmarkName = "-checkPixelValues:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -360,11 +330,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1016"
-            endingLineNumber = "1016">
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "-readHyperspectralDataIntoBuffer:dataType:elementsToAllocate:fileName:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -374,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "955"
-            endingLineNumber = "955">
+            startingLineNumber = "989"
+            endingLineNumber = "989">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -388,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948">
+            startingLineNumber = "1072"
+            endingLineNumber = "1072">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -402,11 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1171"
-            endingLineNumber = "1171">
+            startingLineNumber = "1011"
+            endingLineNumber = "1011">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -416,11 +388,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1217"
-            endingLineNumber = "1217">
+            startingLineNumber = "1004"
+            endingLineNumber = "1004">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -430,11 +402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958">
+            startingLineNumber = "1227"
+            endingLineNumber = "1227">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -444,11 +416,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "790"
-            endingLineNumber = "790"
+            startingLineNumber = "1273"
+            endingLineNumber = "1273">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448853416.101735"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1014"
+            endingLineNumber = "1014">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448853416.101735"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
             landmarkName = "-UIImageFromCVMat:"
             landmarkType = "5">
          </BreakpointContent>
@@ -460,11 +460,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "784"
-            endingLineNumber = "784"
+            startingLineNumber = "840"
+            endingLineNumber = "840"
             landmarkName = "-UIImageFromCVMat:"
             landmarkType = "5">
          </BreakpointContent>
@@ -476,11 +476,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1042"
-            endingLineNumber = "1042">
+            startingLineNumber = "1098"
+            endingLineNumber = "1098">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1027"
-            endingLineNumber = "1027">
+            startingLineNumber = "1083"
+            endingLineNumber = "1083">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -504,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1022"
-            endingLineNumber = "1022">
+            startingLineNumber = "1078"
+            endingLineNumber = "1078">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -518,11 +518,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1040"
-            endingLineNumber = "1040">
+            startingLineNumber = "1096"
+            endingLineNumber = "1096">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -532,11 +532,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "947"
-            endingLineNumber = "947">
+            startingLineNumber = "1003"
+            endingLineNumber = "1003">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -546,11 +546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1028"
-            endingLineNumber = "1028">
+            startingLineNumber = "1084"
+            endingLineNumber = "1084">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -560,11 +560,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1026"
-            endingLineNumber = "1026">
+            startingLineNumber = "1082"
+            endingLineNumber = "1082">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -574,11 +574,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1173"
-            endingLineNumber = "1173">
+            startingLineNumber = "1229"
+            endingLineNumber = "1229">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -620,11 +620,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "-loadHyperspectralImageFile:"
             landmarkType = "5">
          </BreakpointContent>
@@ -636,11 +636,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-populateHyperspectralCubeForShortType"
             landmarkType = "5">
          </BreakpointContent>
@@ -652,11 +652,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-populateHyperspectralCubeForShortType"
             landmarkType = "5">
          </BreakpointContent>
@@ -700,11 +700,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "-populateHyperspectralCubeForShortType"
             landmarkType = "5">
          </BreakpointContent>
@@ -716,11 +716,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "-populateHyperspectralCubeForShortType"
             landmarkType = "5">
          </BreakpointContent>
@@ -732,11 +732,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
             landmarkName = "-populateHyperspectralCubeForShortType"
             landmarkType = "5">
          </BreakpointContent>
@@ -764,11 +764,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448853416.101735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "783"
+            endingLineNumber = "783"
             landmarkName = "-checkPixelValues:"
             landmarkType = "5">
          </BreakpointContent>
@@ -844,11 +844,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
             landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -860,11 +860,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -892,11 +892,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -908,11 +908,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
+            startingLineNumber = "536"
+            endingLineNumber = "536"
             landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -924,71 +924,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
-            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
-            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
-            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
-            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "570"
@@ -1004,11 +940,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
+            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
+            landmarkName = "-createPrincipalComponentMatrixWithBandArray:andBandArraySize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1020,27 +1020,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
+            timestampString = "448819024.256426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448819024.256426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "446"
             endingLineNumber = "446"
-            landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/MSHyperspectralData.m"
-            timestampString = "447864076.718629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
             landmarkName = "-createPrincipalComponentMatrixWithRedBandArray:redBandsSize:greenBands:greenBandsSize:blueBands:blueBandsSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1132,11 +1132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448483929.395031"
+            timestampString = "448857084.274133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "-viewWillDisappear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1275,13 +1275,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448483180.374322"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448825279.819576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "-touchesEnded:withEvent:"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
+            landmarkName = "-get16BitPixelValuesForAllBandsAtCoordinates:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1292,12 +1292,188 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448483180.374322"
+            timestampString = "448852967.399818"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "-touchesEnded:withEvent:"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-addGraphToView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
+            timestampString = "448911241.979359"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-initWithHyperpsectralData:andHeader:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
+            timestampString = "448925286.783233"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "-numberForPlot:field:recordIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
+            timestampString = "448911241.979359"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-createScatterPlotWithView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448852967.399818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "-addGraphToView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448852967.399818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-addGraphToView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448852967.399818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-addGraphToView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448852967.399818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-addGraphToView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448852967.399818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "-handleTap:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralData.m"
+            timestampString = "448853382.852107"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "761"
+            endingLineNumber = "761"
+            landmarkName = "-get16BitPixelValuesForAllBandsAtCoordinates:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "448856954.985968"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "-handleTap:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
+            timestampString = "448925286.783233"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-createScatterPlot"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
