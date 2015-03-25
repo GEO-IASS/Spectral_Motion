@@ -168,6 +168,15 @@
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     m_BoundPlot.areaFill      = areaGradientFill;
     m_BoundPlot.areaBaseValue = CPTDecimalFromDouble(1.75);
+    
+    // Animate in the new plot
+    m_BoundPlot.opacity        = 0.0;
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.duration            = 1.0;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.fillMode            = kCAFillModeForwards;
+    fadeInAnimation.toValue             = @1.0;
+    [m_BoundPlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
 
 }
 
@@ -280,6 +289,16 @@
     
     m_BoundPlot.dataSource = self;
     [newGraph addPlot:m_BoundPlot];
+    
+    // Animate in the new plot
+    m_BoundPlot.opacity        = 0.0;
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.duration            = 1.0;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.fillMode            = kCAFillModeForwards;
+    fadeInAnimation.toValue             = @1.0;
+    [m_BoundPlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
+
     
     // Put an area gradient under the plot above
    // CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
