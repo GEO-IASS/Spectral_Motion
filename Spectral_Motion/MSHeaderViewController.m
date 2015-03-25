@@ -15,7 +15,7 @@
 #import "MSBandMappingTableVC.h"
 #import "MVYSideMenuController.h"
 
-@interface MSHeaderViewController ()<ImageViewerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
+@interface MSHeaderViewController ()<ProgressDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 {
     HDRINFO hdrInfo;
     MSENVIFileParser *m_EnviFileParser;
@@ -954,6 +954,7 @@
     UIImage *image = [m_HyperspectralData UIImageFromCVMat:dstMatix];
     
     [imageViewer setHyperspectralDataPointer:m_HyperspectralData];
+    [imageViewer setHyperspectralDataHeader:hdrInfo];
     [imageViewer setImageViewWithImage:image];
     
     matrix.release();

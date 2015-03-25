@@ -11,14 +11,22 @@
 #import "MSHyperspectralData.h"
 #import "MVYSideMenuController.h"
 #import "UIView+Glow.h"
+#import "MSHyperspectralDataPlotter.h"
 
-@interface ViewController ()
+
+@interface ViewController ()<UIGestureRecognizerDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
+    HDRINFO m_HdrInfo;
     UIImage *m_Image;
     int m_ChosenGreyScaleBand;
     UIPanGestureRecognizer *m_PanGestureRecognizer;
     UIPinchGestureRecognizer *m_PinchGestureRecognizer;
+    UILongPressGestureRecognizer * m_LongPressGestureRecognizer;
+    NSMutableArray *m_PanGestureArray;
+    NSMutableArray *m_TapGesutreArray;
+    CPTGraphHostingView *m_PlotView;
+    MSHyperspectralDataPlotter *m_DataPlotter;
     
 }
 @property(strong,nonatomic) UIImageView *imageView2;
@@ -27,11 +35,16 @@
 -(void)setNavigationBarTitle;
 -(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
+-(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer;
 -(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
 -(void)initImageView;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)addPinchGestureRecognizerForView:(UIView*)view;
+-(void)addLongPressGestureRecognizerForView:(UIView*)view;
+-(void)addTapGestureRecognizerForView:(UIView*)view;
+-(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender;
 -(void)setImageViewBorderForView:(UIView*)view;
+-(void)addGraphToView;
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
@@ -62,6 +75,10 @@
     [self addPanGestureRecognizerForView:self.imageView2];
     
     [self addPinchGestureRecognizerForView:self.imageView2];
+    
+    [self addLongPressGestureRecognizerForView:self.imageView2];
+    
+    [self addTapGestureRecognizerForView:self.imageView2];
     
     [self setImageViewBorderForView:self.imageView2];
     
@@ -133,8 +150,97 @@
     
 }
 
+-(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer
+{
+    
+//    if(tapGestureRecognizer.state != UIGestureRecognizerStateBegan)
+//    {
+//        return;
+//    }
+    NSLog(@"Handle tap fired");
+    
+    if(m_PlotView == nil)
+    {
+        return;
+    }
+    
+    CGPoint location = [tapGestureRecognizer locationInView:tapGestureRecognizer.view];
+    
+    NSLog(@"x tapped %f y tapped %f", location.x, location.y);
+
+    
+    if(location.x > m_HdrInfo.samples || location.y > m_HdrInfo.lines)
+    {
+        return;
+    }
+    
+    //[m_DataPlotter graphStopRunLoop];
+    [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
+    //[m_DataPlotter graphStartRunLoop];
+
+    
+}
+
+-(void)addGraphToView
+{
+    
+        NSLog(@"add to graph vie");
+    
+   m_DataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
+    
+   // [dataPlotter createScatterPlotWithView:self.view];
+    [m_DataPlotter createScatterPlot];
+    
+    m_PlotView = [m_DataPlotter getGraphView];
+    
+    [self addPanGestureRecognizerForView:m_PlotView];
+    
+    [self.view addSubview:m_PlotView];
+    
+    [m_DataPlotter graphStartRunLoop];
+}
+
+-(void)addTapGestureRecognizerForView:(UIView*)view
+{
+    if(m_TapGesutreArray == nil)
+    {
+        m_TapGesutreArray = [[NSMutableArray alloc]init];
+    }
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 1;
+    
+    tapGestureRecognizer.cancelsTouchesInView = YES;
+    tapGestureRecognizer.delaysTouchesBegan = YES;
+    tapGestureRecognizer.delegate = self;
+    
+    
+    [view addGestureRecognizer:tapGestureRecognizer];
+    
+    [m_TapGesutreArray addObject:tapGestureRecognizer];
+    
+}
+
+
+
 -(void)addPanGestureRecognizerForView:(UIView*)view
 {
+    if(m_PanGestureArray == nil)
+    {
+        m_PanGestureArray = [[NSMutableArray alloc]init];
+    }
+    
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    
+    panGestureRecognizer.delegate = self;
+    
+    [view addGestureRecognizer:panGestureRecognizer];
+    
+    [m_PanGestureArray addObject:panGestureRecognizer];
+ /*
     if(m_PanGestureRecognizer == nil)
     {
         m_PanGestureRecognizer = [[UIPanGestureRecognizer alloc]
@@ -142,6 +248,7 @@
                                   action:@selector(handlePan:)];
     }
     [view addGestureRecognizer:m_PanGestureRecognizer];
+  */
     
 }
 -(void)addPinchGestureRecognizerForView:(UIView*)view
@@ -156,63 +263,29 @@
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)addLongPressGestureRecognizerForView:(UIView*)view
 {
-    [super touchesBegan:touches withEvent:event];
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-  //  [super touchesMoved:touches withEvent:event];
-    NSArray *touchObjects = [touches allObjects];
-    UIImageView *selectedImageview;
+    m_LongPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressEventOccurred:)];
+    [m_LongPressGestureRecognizer setMinimumPressDuration:1];
+    [view addGestureRecognizer:m_LongPressGestureRecognizer];
     
-    for(UITouch * touch in touchObjects)
+}
+
+-(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
     {
-        //all multispectral images added will be given tag 27 for id purposes
-        if(touch.view.tag == 27)
-        {
-            NSLog(@"did touch uiimageView");
-            selectedImageview = (UIImageView*)touch.view;
-            break;
-        }
+        ;
     }
-    [selectedImageview stopGlowing];
-}
+    else if (sender.state == UIGestureRecognizerStateBegan)
+    {
+        if(m_PlotView ==nil)
+        {
+            [self addGraphToView];
+        }
 
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesCancelled:touches withEvent:event];
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSArray *touchObjects = [touches allObjects];
-    UIImageView *selectedImageview;
+    }
     
-    for(UITouch * touch in touchObjects)
-    {
-        //all multispectral images added will be given tag 27 for id purposes
-        if(touch.view.tag == 27)
-        {
-            NSLog(@"did touch uiimageView");
-            selectedImageview = (UIImageView*)touch.view;
-            break;
-        }
-    }
-    if(selectedImageview != nil)
-    {
-        [selectedImageview startGlowing];
-    }
-    //if user clicks somewhere else on screen, stop all objects from glowing
-    else
-    {
-        for(UIView *view in self.view.subviews)
-        {
-            [view stopGlowing];
-        }
-    }
-
 }
 
 
@@ -236,6 +309,8 @@
 
 
 }
+
+
 
 -(void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer
 {
@@ -304,6 +379,8 @@
 #endif
 }
 
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     //very important to release memory or will run into warnings
@@ -325,6 +402,11 @@
 -(void)setHyperspectralDataPointer:(MSHyperspectralData*)hyperspectralData
 {
     m_HyperspectralData = hyperspectralData;
+}
+
+-(void)setHyperspectralDataHeader:(HDRINFO)hdrInfo
+{
+    m_HdrInfo = hdrInfo;
 }
 
 -(void)testHdrParser
@@ -369,6 +451,86 @@
     
     return dstMatrix;
 }
+
+
+
+#pragma mark - UIGestureRecognizer Delegate
+
+//to simulataneously recognize UIPanGesturereRecognizers
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+
+/*
+#pragma mark - Touch event implementation
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //  [super touchesMoved:touches withEvent:event];
+    NSArray *touchObjects = [touches allObjects];
+    UIImageView *selectedImageview;
+    
+    for(UITouch * touch in touchObjects)
+    {
+        //all multispectral images added will be given tag 27 for id purposes
+        if(touch.view.tag == 27)
+        {
+            NSLog(@"did touch uiimageView");
+            selectedImageview = (UIImageView*)touch.view;
+            break;
+        }
+    }
+    [selectedImageview stopGlowing];
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSArray *touchObjects = [touches allObjects];
+    UIImageView *selectedImageview;
+    
+    for(UITouch * touch in touchObjects)
+    {
+        //all multispectral images added will be given tag 27 for id purposes
+        if(touch.view.tag == 27)
+        {
+            NSLog(@"did touch uiimageView");
+            selectedImageview = (UIImageView*)touch.view;
+            break;
+        }
+    }
+    if(selectedImageview != nil)
+    {
+        [selectedImageview startGlowing];
+    }
+    //if user clicks somewhere else on screen, stop all objects from glowing
+    else
+    {
+        for(UIView *view in self.view.subviews)
+        {
+            [view stopGlowing];
+        }
+    }
+    
+}
+*/
+
+
 
 /*
 #pragma mark - UIScrollView Delegate methods

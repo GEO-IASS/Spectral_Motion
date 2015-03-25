@@ -13,7 +13,7 @@
 #import "MSENVIFileParser.h"
 
 
-@protocol ImageViewerDelegate <NSObject>
+@protocol ProgressDelegate <NSObject>
 
 - (void) updateProgressView:(float)progress;
 
@@ -25,7 +25,7 @@
     HDRINFO hdrInfo;
 
 }
-@property(weak,nonatomic) id <ImageViewerDelegate> delegate;
+@property(weak,nonatomic) id <ProgressDelegate> delegate;
 
 
 //intializes a MSHyperspectral object and sets hdr information
@@ -38,6 +38,9 @@
 
 -(void)releaseHypCube;
 
+-(NSMutableArray*)getPixelValuesForAllBandsAtXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
+
+-(NSMutableArray*)getWavelengthValues;
 
 
 -(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat;
