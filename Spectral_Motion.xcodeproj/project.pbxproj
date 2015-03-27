@@ -78,6 +78,7 @@
 		14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */; };
 		14D9B9BD1AB13DA7004EF177 /* sample2.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */; };
 		14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */; };
+		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +253,8 @@
 		14D9B9B61AAE97F7004EF177 /* SharedHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
 		14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample2.a.bip; sourceTree = "<group>"; };
 		14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample2.a.hdr; sourceTree = "<group>"; };
+		14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageInfoPanelVC.h; sourceTree = "<group>"; };
+		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +283,8 @@
 			isa = PBXGroup;
 			children = (
 				14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */,
+				14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */,
+				14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */,
 				14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */,
 				146C76121A49CAAD00763A11 /* ViewController.h */,
 				146C76131A49CAAD00763A11 /* ViewController.m */,
@@ -704,6 +709,7 @@
 				1413ED291A9AD57F006BC611 /* MSImageBlur.m in Sources */,
 				146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */,
 				1413ED161A9999C4006BC611 /* MSHeaderViewController.m in Sources */,
+				14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */,
 				146C763E1A49DBE300763A11 /* MSHyperspectralData.m in Sources */,
 				14A8DE3C1AB71F1500CCDC17 /* README.md in Sources */,
 				14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */,

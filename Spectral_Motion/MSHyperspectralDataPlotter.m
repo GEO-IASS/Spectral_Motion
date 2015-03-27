@@ -147,9 +147,7 @@
 }
 
 -(void)adjustPlotSpaceForStdDeviationAndMean
-{
-   // m_PlotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble((1 * m_StandardDeviation.doubleValue) / 5)];
-    
+{    
     m_PlotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble((m_Mean.doubleValue) + (m_StandardDeviation.doubleValue))];
 
 
@@ -161,7 +159,6 @@
     y.majorIntervalLength = CPTDecimalFromDouble(m_StandardDeviation.doubleValue/ 15.0);
     
     // Put an area gradient under the plot above
-    // CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = 90.0;
