@@ -12,9 +12,13 @@
 #import "MVYSideMenuController.h"
 #import "UIView+Glow.h"
 #import "MSHyperspectralDataPlotter.h"
+#import "ImageViewerOptionsPopOver.h"
+#import "MSImageInfoPanelVC.h"
+#import "SharedHeader.h"
 
 
-@interface ViewController ()<UIGestureRecognizerDelegate>
+
+@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
     HDRINFO m_HdrInfo;
@@ -25,6 +29,9 @@
     UILongPressGestureRecognizer * m_LongPressGestureRecognizer;
     NSMutableArray *m_PanGestureArray;
     NSMutableArray *m_TapGesutreArray;
+    NSDictionary *m_ImageViewInfoViewDict;
+    MSImageInfoPanelVC *m_ImageInfoPanelVC;
+    UIPopoverController *m_ImageViewerOptionsPopOver;
     CPTGraphHostingView *m_PlotView;
     MSHyperspectralDataPlotter *m_DataPlotter;
     
@@ -45,6 +52,9 @@
 -(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender;
 -(void)setImageViewBorderForView:(UIView*)view;
 -(void)addGraphToView;
+-(void)addImageInfoPanelToView;
+-(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView;
+-(RGBPixel)getPixelForImage:(UIImage*) image AtXCoordinate:(int)x andYCoordinate:(int)Y;
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
@@ -150,6 +160,71 @@
     
 }
 
+-(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView
+{
+    if(m_ImageInfoPanelVC !=nil)
+    {
+        m_ImageInfoPanelVC.imageTypeLabel.text = @"RGB";
+        m_ImageInfoPanelVC.lineLabel.text = [NSString stringWithFormat:@"%i", yCoordinate];
+        m_ImageInfoPanelVC.sampleLabel.text = [NSString stringWithFormat:@"%i", xCoordinate];
+        RGBPixel pixel = [self getPixelForImage:imageView.image AtXCoordinate:xCoordinate andYCoordinate:yCoordinate];
+        
+        m_ImageInfoPanelVC.redPixelValLabel.text = [NSString stringWithFormat:@"%i", pixel.red];
+        m_ImageInfoPanelVC.greenPixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.green];
+        m_ImageInfoPanelVC.bluePixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.blue];
+        
+        
+    }
+    
+}
+
+-(RGBPixel)getPixelForImage:(UIImage *)image AtXCoordinate:(int)xCoordinate andYCoordinate:(int)yCoordinate
+{
+    RGBPixel pixel;
+    CFDataRef pixelData = CGDataProviderCopyData(CGImageGetDataProvider(image.CGImage));
+    const uint8_t* data = CFDataGetBytePtr(pixelData);
+    
+    //rgba pixel
+    int depth = 4;
+    
+    NSLog(@"image width = %f", image.size.width);
+    
+    uint8_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
+    
+    pixel.red = data[pixelIdx];
+    pixel.green = data[pixelIdx + 1];
+    pixel.blue = data[pixelIdx + 2];
+
+    pixel.alpha = data[pixelIdx + 3];
+    CFRelease(pixelData);
+    
+    return pixel;
+}
+
+-(void)addImageInfoPanelToView
+{
+    if(m_ImageInfoPanelVC == nil)
+    {
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+       m_ImageInfoPanelVC = (MSImageInfoPanelVC*) [mainStoryBoard instantiateViewControllerWithIdentifier:@"MSImageInfoPanelVC"];
+        
+        [self addPanGestureRecognizerForView:m_ImageInfoPanelVC.view];
+
+        [self addChildViewController:m_ImageInfoPanelVC];
+        
+        m_ImageInfoPanelVC.view.frame = CGRectMake(500.0f, m_PlotView.frame.origin.y, 250, 300);
+        [self.view addSubview:m_ImageInfoPanelVC.view];
+        [m_ImageInfoPanelVC didMoveToParentViewController:self];
+        
+        //x = 10 and y = 10 default graphview parameters
+        [self setImageInfoPanelValuesForXCoordinate:10
+                                     andYCoordinate:10
+                                      withImageView:imageView2];
+    }
+    
+}
+
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer
 {
     
@@ -174,17 +249,14 @@
         return;
     }
     
-    //[m_DataPlotter graphStopRunLoop];
     [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
-    //[m_DataPlotter graphStartRunLoop];
-
+    [self setImageInfoPanelValuesForXCoordinate:location.x andYCoordinate:location.y withImageView:(UIImageView*)tapGestureRecognizer.view];
     
 }
 
 -(void)addGraphToView
 {
-    
-        NSLog(@"add to graph vie");
+    NSLog(@"add to graph view");
     
    m_DataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
     
@@ -196,6 +268,9 @@
     [self addPanGestureRecognizerForView:m_PlotView];
     
     [self.view addSubview:m_PlotView];
+    
+    //add panel for pixel value viewing
+    [self addImageInfoPanelToView];
     
     [m_DataPlotter graphStartRunLoop];
 }
@@ -279,11 +354,59 @@
     }
     else if (sender.state == UIGestureRecognizerStateBegan)
     {
+        m_ImageViewerOptionsPopOver = nil;
+        SourceContext context;
+        
+        if([sender.view isKindOfClass:UIImageView.class])
+        {
+            context = ImageViewContext;
+        }
+        else if ([sender.view isKindOfClass:CPTGraphHostingView.class])
+        {
+            context = GraphViewContext;
+        }
+        
+        ImageViewerOptionsPopOver *popOverContent = [[ImageViewerOptionsPopOver alloc]initFromContext:context];
+        popOverContent.tableView.scrollEnabled = NO;
+        popOverContent.delegate = self;
+        
+        m_ImageViewerOptionsPopOver = [[UIPopoverController alloc]initWithContentViewController:popOverContent];
+        [m_ImageViewerOptionsPopOver presentPopoverFromRect:sender.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+        [m_ImageViewerOptionsPopOver setPopoverContentSize:CGSizeMake(200, 100) animated:YES];
+        
+        
+        /*
         if(m_PlotView ==nil)
         {
             [self addGraphToView];
         }
+         */
 
+    }
+    
+}
+
+-(void)didSelectOption:(NSUInteger)optionSelected
+{
+    
+    [m_ImageViewerOptionsPopOver dismissPopoverAnimated:NO];
+    
+    switch (optionSelected)
+    {
+        case 0:
+        {
+            if(m_PlotView ==nil)
+            {
+                [self addGraphToView];
+                [self addImageInfoPanelToView];
+            }
+            
+        }
+            break;
+            
+        default:
+            break;
     }
     
 }

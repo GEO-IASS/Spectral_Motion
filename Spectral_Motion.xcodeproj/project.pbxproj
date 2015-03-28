@@ -79,6 +79,7 @@
 		14D9B9BD1AB13DA7004EF177 /* sample2.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BB1AB13DA7004EF177 /* sample2.a.bip */; };
 		14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */; };
 		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
+		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -255,6 +256,8 @@
 		14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample2.a.hdr; sourceTree = "<group>"; };
 		14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageInfoPanelVC.h; sourceTree = "<group>"; };
 		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
+		14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerOptionsPopOver.h; sourceTree = "<group>"; };
+		14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewerOptionsPopOver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,9 +286,9 @@
 			isa = PBXGroup;
 			children = (
 				14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */,
+				14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */,
 				14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */,
 				14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */,
-				14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */,
 				146C76121A49CAAD00763A11 /* ViewController.h */,
 				146C76131A49CAAD00763A11 /* ViewController.m */,
 				1413ED111A998E82006BC611 /* MSHomeViewController.h */,
@@ -296,6 +299,8 @@
 				14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */,
 				14A8DE231AB5E74700CCDC17 /* MenuOptionsViewController.h */,
 				14A8DE241AB5E74700CCDC17 /* MenuOptionsViewController.m */,
+				14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */,
+				14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -722,6 +727,7 @@
 				14A8DE251AB5E74700CCDC17 /* MenuOptionsViewController.m in Sources */,
 				1413ED131A998E82006BC611 /* MSHomeViewController.m in Sources */,
 				146C760E1A49CAAD00763A11 /* main.m in Sources */,
+				14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */,
 				14A8DE1B1AB5E04E00CCDC17 /* MVYSideMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

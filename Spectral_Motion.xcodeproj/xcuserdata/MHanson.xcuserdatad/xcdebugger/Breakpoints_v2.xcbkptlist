@@ -1132,11 +1132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448857084.274133"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "-viewWillDisappear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1292,11 +1292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1324,11 +1324,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
-            timestampString = "448945641.260903"
+            timestampString = "449180362.125855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "-numberForPlot:field:recordIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1356,11 +1356,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1372,11 +1372,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1388,11 +1388,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1404,11 +1404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449218258.200238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
@@ -1420,11 +1420,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448852967.399818"
+            timestampString = "449217435.856546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-handleTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1452,11 +1452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "448856954.985968"
+            timestampString = "449217435.856546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-handleTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1468,12 +1468,154 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/MSHyperspectralDataPlotter.m"
-            timestampString = "448945641.260903"
+            timestampString = "449180362.125855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-createScatterPlot"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ImageViewerOptionsPopOver.m"
+            timestampString = "449180705.020729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "449218258.200238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "-longPressEventOccurred:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ImageViewerOptionsPopOver.m"
+            timestampString = "449181047.214796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ImageViewerOptionsPopOver.m"
+            timestampString = "449181048.56585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "449218258.200238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
+            landmarkName = "-didSelectOption:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ImageViewerOptionsPopOver.m"
+            timestampString = "449182807.881988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ImageViewerOptionsPopOver tableView:didSelectRowAtIndexPath:]"
+                  moduleName = "Spectral_Motion"
+                  urlString = "file:///Users/MHanson/Documents/Spectral%20Motion/Spectral_Motion/ImageViewerOptionsPopOver.m"
+                  timestampString = "449182833.986934"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__63-[ImageViewerOptionsPopOver tableView:didSelectRowAtIndexPath:]_block_invoke"
+                  moduleName = "Spectral_Motion"
+                  urlString = "file:///Users/MHanson/Documents/Spectral%20Motion/Spectral_Motion/ImageViewerOptionsPopOver.m"
+                  timestampString = "449182833.987181"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spectral_Motion/ViewController.m"
+            timestampString = "449217408.571777"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-getPixelForImage:AtXCoordinate:andYCoordinate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
