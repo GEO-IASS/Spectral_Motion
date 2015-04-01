@@ -55,6 +55,7 @@
 -(void)addImageInfoPanelToView;
 -(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView;
 -(RGBPixel)getPixelForImage:(UIImage*) image AtXCoordinate:(int)x andYCoordinate:(int)Y;
+-(BOOL)isColorSpaceRGB:(UIImage*) image;
 -(cv::Mat)deblurImage:(cv::Mat)matrix;
 
 @end
@@ -174,6 +175,7 @@
         m_ImageInfoPanelVC.redPixelValLabel.text = [NSString stringWithFormat:@"%i", pixel.red];
         m_ImageInfoPanelVC.greenPixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.green];
         m_ImageInfoPanelVC.bluePixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.blue];
+      
         
         m_ImageInfoPanelVC.redPixelValueImageView.backgroundColor =
         [UIColor colorWithRed:pixel.red
@@ -203,16 +205,32 @@
     CFDataRef pixelData = CGDataProviderCopyData(CGImageGetDataProvider(image.CGImage));
     const uint8_t* data =  CFDataGetBytePtr(pixelData);
     
-    //rgb pixel(no alpha)
-    int depth = 3;
+    BOOL rgbColorSpace = [self isColorSpaceRGB:image];
     
-    uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
+    if(rgbColorSpace)
+    {
+        //rgb pixel(no alpha channel)
+       int depth = 3;
+        uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
+        
+        NSLog(@"pixelIdx %i", pixelIdx);
+        pixel.red = (data[pixelIdx]);
+        pixel.green = (data[pixelIdx + 1]);
+        pixel.blue = (data[pixelIdx + 2]);
 
-    NSLog(@"pixelIdx %i", pixelIdx);
-    
-    pixel.red = (data[pixelIdx]);
-    pixel.green = (data[pixelIdx + 1]);
-    pixel.blue = (data[pixelIdx + 2]);
+    }
+    else
+    {
+        int depth = 1;
+        uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
+        
+        NSLog(@"pixelIdx %i", pixelIdx);
+        //just assign one value for grayvalue intensity
+        pixel.red = (data[pixelIdx]);
+        pixel.green = pixel.red;
+        pixel.blue = pixel.red;
+        
+    }
     
     NSLog(@"red: %i", pixel.red);
     NSLog(@"green: %i", pixel.green);
@@ -220,6 +238,22 @@
     CFRelease(pixelData);
     
     return pixel;
+}
+
+-(BOOL)isColorSpaceRGB:(UIImage *)image
+{
+    BOOL rgbColorSpace = NO;
+    
+    CGColorSpaceRef colorspace = CGImageGetColorSpace([image CGImage]);
+    
+    CGColorSpaceModel colorSpaceModel = CGColorSpaceGetModel(colorspace);
+    
+    if(colorSpaceModel == kCGColorSpaceModelRGB)
+    {
+        rgbColorSpace = YES;
+    }
+    
+    return rgbColorSpace;
 }
 
 -(void)addImageInfoPanelToView
@@ -396,14 +430,6 @@
         
         [m_ImageViewerOptionsPopOver setPopoverContentSize:CGSizeMake(200, 100) animated:YES];
         
-        
-        /*
-        if(m_PlotView ==nil)
-        {
-            [self addGraphToView];
-        }
-         */
-
     }
     
 }
