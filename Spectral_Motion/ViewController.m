@@ -173,6 +173,23 @@
         m_ImageInfoPanelVC.greenPixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.green];
         m_ImageInfoPanelVC.bluePixelValueLabel.text = [NSString stringWithFormat:@"%i", pixel.blue];
         
+        m_ImageInfoPanelVC.redPixelValueImageView.backgroundColor =
+        [UIColor colorWithRed:pixel.red
+                        green:0.0f
+                         blue:0.0f
+                        alpha:1.0];
+        
+        m_ImageInfoPanelVC.greenPixelValueImageView.backgroundColor =
+        [UIColor colorWithRed:0.0f
+                        green:pixel.green
+                         blue:0.0f
+                        alpha:1.0];
+        
+        m_ImageInfoPanelVC.bluePixelValueImageView.backgroundColor =
+        [UIColor colorWithRed:0.0f
+                        green:0.0f
+                         blue:pixel.blue
+                        alpha:1.0f];
         
     }
     
@@ -182,20 +199,22 @@
 {
     RGBPixel pixel;
     CFDataRef pixelData = CGDataProviderCopyData(CGImageGetDataProvider(image.CGImage));
-    const uint8_t* data = CFDataGetBytePtr(pixelData);
+    const uint8_t* data =  CFDataGetBytePtr(pixelData);
     
-    //rgba pixel
-    int depth = 4;
+    //rgb pixel(no alpha)
+    int depth = 3;
     
-    NSLog(@"image width = %f", image.size.width);
-    
-    uint8_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
-    
-    pixel.red = data[pixelIdx];
-    pixel.green = data[pixelIdx + 1];
-    pixel.blue = data[pixelIdx + 2];
+    uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
 
-    pixel.alpha = data[pixelIdx + 3];
+    NSLog(@"pixelIdx %i", pixelIdx);
+    
+    pixel.red = (data[pixelIdx]);
+    pixel.green = (data[pixelIdx + 1]);
+    pixel.blue = (data[pixelIdx + 2]);
+    
+    NSLog(@"red: %i", pixel.red);
+    NSLog(@"green: %i", pixel.green);
+    NSLog(@"blue: %i", pixel.blue);
     CFRelease(pixelData);
     
     return pixel;
@@ -250,7 +269,7 @@
     }
     
     [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
-    [self setImageInfoPanelValuesForXCoordinate:location.x andYCoordinate:location.y withImageView:(UIImageView*)tapGestureRecognizer.view];
+    [self setImageInfoPanelValuesForXCoordinate:(int)location.x andYCoordinate:(int)location.y withImageView:(UIImageView*)tapGestureRecognizer.view];
     
 }
 
@@ -399,7 +418,7 @@
             if(m_PlotView ==nil)
             {
                 [self addGraphToView];
-                [self addImageInfoPanelToView];
+                //[self addImageInfoPanelToView];
             }
             
         }
