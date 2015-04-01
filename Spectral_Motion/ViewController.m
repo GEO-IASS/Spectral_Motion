@@ -68,11 +68,13 @@
     
     if(m_ChosenGreyScaleBand == -1)
     {
+        self.sliderBackgroundView.hidden = YES;
         self.bandSlider.hidden = YES;
         self.sliderValueLabel.hidden = YES;
     }
     else
     {
+        self.sliderBackgroundView.hidden = NO;
         self.bandSlider.hidden = NO;
         self.sliderValueLabel.hidden = NO;
 

@@ -24,6 +24,7 @@
 -(void)setHyperspectralDataHeader:(HDRINFO) hdrInfo;
 -(void)setGreyScaleBand:(int)greyscaleBand;
 
+@property (weak, nonatomic) IBOutlet UIView *sliderBackgroundView;
 
 
 @end
