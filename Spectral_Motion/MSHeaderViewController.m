@@ -359,16 +359,21 @@
         [m_MSBandMappingTableVC setWavelenghths:wavelengths andBandCount:hdrInfo.bands];
     }
     
-    BOOL colorMappingBool = ([self.displayTypePickerView selectedRowInComponent:0] == 2)? NO : YES;
+    BOOL colorMappingBool = ([self.displayTypePickerView
+                              selectedRowInComponent:0] == 2)? NO : YES;
+    
     [m_MSBandMappingTableVC setColorMappingBOOL:colorMappingBool];
 
     
-    [self presentViewController:m_NavControllerForBandTVC animated:YES completion:^{
+    [self presentViewController:m_NavControllerForBandTVC
+                       animated:YES
+                     completion:^{
         
     }];
     
     
-    m_NavControllerForBandTVC.view.superview.center =CGPointMake(self.view.center.x, self.view.center.y);
+    m_NavControllerForBandTVC.view.superview.center =
+    CGPointMake(self.view.center.x, self.view.center.y);
     
 }
 

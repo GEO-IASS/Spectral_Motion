@@ -88,6 +88,39 @@
     return cell;
 }
 
+#pragma mark- TableView delegate Methods
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    switch (indexPath.row)
+    {
+            //Add image with different image parameters
+        case 0:
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Hello" message:@"" delegate:nil cancelButtonTitle:@"" otherButtonTitles: nil ];
+            
+            [alert show];
+            
+            ;
+        }
+            break;
+            
+            //Edit existing image parameters
+        case 1:
+        {
+         
+            ;
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+}
+
 
 /*
 // Override to support conditional editing of the table view.
