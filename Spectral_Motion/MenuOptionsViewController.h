@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol OptionSelectedDelegate <NSObject>
+
+-(void)didSelectOptionWithIndex:(NSUInteger) selectedOption;
+
+@end
+
 @interface MenuOptionsViewController : UITableViewController
+@property(weak ,nonatomic) id<OptionSelected> delegate;
 
 @end

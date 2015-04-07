@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MSHyperspectralData.h"
+#import "MenuOptionsViewController.h"
 #import "CorePlot-CocoaTouch.h"
 
 
-@interface ViewController : UIViewController<UIScrollViewDelegate>
+@interface ViewController : UIViewController<UIScrollViewDelegate, OptionSelectedDelegate>
 
 @property (weak, nonatomic) IBOutlet UISlider *bandSlider;
 

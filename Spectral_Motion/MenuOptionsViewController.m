@@ -16,6 +16,7 @@
 @end
 
 @implementation MenuOptionsViewController
+@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,15 +94,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    [self.delegate didSelectOptionWithIndex:indexPath.row];
+    
+    /*
     switch (indexPath.row)
     {
             //Add image with different image parameters
         case 0:
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Hello" message:@"" delegate:nil cancelButtonTitle:@"" otherButtonTitles: nil ];
-            
-            [alert show];
-            
+    
             ;
         }
             break;
@@ -118,6 +119,7 @@
         default:
             break;
     }
+     */
     
 }
 

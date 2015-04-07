@@ -15,6 +15,7 @@
 #import "ImageViewerOptionsPopOver.h"
 #import "MSImageInfoPanelVC.h"
 #import "SharedHeader.h"
+#import "MSHeaderViewController.h"
 
 
 
@@ -635,6 +636,29 @@
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     return YES;
+}
+
+#pragma mark - Option Selected Delegate
+
+-(void)didSelectOptionWithIndex:(NSUInteger)selectedOption
+{
+    switch (selectedOption)
+    {
+        case 0:
+        {
+            ;
+        }
+        break;
+            
+        case 1:
+        {
+            ;
+        }
+        break;
+            
+        default:
+            break;
+    }
 }
 
 
