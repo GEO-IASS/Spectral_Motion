@@ -642,11 +642,16 @@
 
 -(void)didSelectOptionWithIndex:(NSUInteger)selectedOption
 {
+    MVYSideMenuController *sideMenuController = [self sideMenuController];
+    [sideMenuController closeMenu];
+    
     switch (selectedOption)
     {
         case 0:
         {
-            ;
+            
+            
+           
         }
         break;
             
