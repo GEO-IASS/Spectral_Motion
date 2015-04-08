@@ -15,6 +15,6 @@
 @end
 
 @interface MenuOptionsViewController : UITableViewController
-@property(weak ,nonatomic) id<OptionSelected> delegate;
+@property(weak ,nonatomic) id<OptionSelectedDelegate> delegate;
 
 @end

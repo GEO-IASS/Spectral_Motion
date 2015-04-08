@@ -80,6 +80,8 @@
 		14D9B9BE1AB13DA7004EF177 /* sample2.a.hdr in Resources */ = {isa = PBXBuildFile; fileRef = 14D9B9BC1AB13DA7004EF177 /* sample2.a.hdr */; };
 		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
 		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
+		14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */; };
+		14EB92BC1AD4C37E00EBA2CF /* ImageDisplayTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,6 +260,9 @@
 		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
 		14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerOptionsPopOver.h; sourceTree = "<group>"; };
 		14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewerOptionsPopOver.m; sourceTree = "<group>"; };
+		14EB92B81AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDisplayTypeTableVC.h; sourceTree = "<group>"; };
+		14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDisplayTypeTableVC.m; sourceTree = "<group>"; };
+		14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImageDisplayTypes.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +306,8 @@
 				14A8DE241AB5E74700CCDC17 /* MenuOptionsViewController.m */,
 				14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */,
 				14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */,
+				14EB92B81AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.h */,
+				14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -510,6 +517,7 @@
 				146C760C1A49CAAD00763A11 /* Info.plist */,
 				146C760D1A49CAAD00763A11 /* main.m */,
 				14A8DE1D1AB5E40100CCDC17 /* MenuOptions.plist */,
+				14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -674,6 +682,7 @@
 				143BBFE51ABA5C5B00CC8B6D /* inputenable@2x.png in Resources */,
 				14A8DE1E1AB5E40100CCDC17 /* MenuOptions.plist in Resources */,
 				14A8DE2B1AB5F63C00CCDC17 /* Menu-26.png in Resources */,
+				14EB92BC1AD4C37E00EBA2CF /* ImageDisplayTypes.plist in Resources */,
 				146C761C1A49CAAD00763A11 /* LaunchScreen.xib in Resources */,
 				1413ED2F1A9AE3C5006BC611 /* spectral_motion_logo3.png in Resources */,
 				14A8DE271AB5EF7900CCDC17 /* Menu-64.png in Resources */,
@@ -713,6 +722,7 @@
 				146C76141A49CAAD00763A11 /* ViewController.m in Sources */,
 				1413ED291A9AD57F006BC611 /* MSImageBlur.m in Sources */,
 				146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */,
+				14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */,
 				1413ED161A9999C4006BC611 /* MSHeaderViewController.m in Sources */,
 				14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */,
 				146C763E1A49DBE300763A11 /* MSHyperspectralData.m in Sources */,

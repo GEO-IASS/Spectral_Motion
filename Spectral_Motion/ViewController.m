@@ -15,7 +15,8 @@
 #import "ImageViewerOptionsPopOver.h"
 #import "MSImageInfoPanelVC.h"
 #import "SharedHeader.h"
-#import "MSHeaderViewController.h"
+#import "ImageDisplayTypeTableVC.h"
+#import "MenuOptionsViewController.h"
 
 
 
@@ -36,6 +37,9 @@
     CPTGraphHostingView *m_PlotView;
     MSHyperspectralDataPlotter *m_DataPlotter;
     
+    UINavigationController *m_ImageConfigNavController;
+    ImageDisplayTypeTableVC *m_ImageDisplayTypeVC;
+    
 }
 @property(strong,nonatomic) UIImageView *imageView2;
 
@@ -54,6 +58,9 @@
 -(void)setImageViewBorderForView:(UIView*)view;
 -(void)addGraphToView;
 -(void)addImageInfoPanelToView;
+-(void)instantiateImageDisplayTypeVC;
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
+-(void)cancelSelectedOption;
 -(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView;
 -(RGBPixel)getPixelForImage:(UIImage*) image AtXCoordinate:(int)x andYCoordinate:(int)Y;
 -(BOOL)isColorSpaceRGB:(UIImage*) image;
@@ -125,6 +132,8 @@
     MVYSideMenuController *sideMenuController = [self sideMenuController];
     sideMenuController.options.panFromBezel = YES;
     sideMenuController.options.panFromNavBar = YES;
+    MenuOptionsViewController *menuOptionsVC = (MenuOptionsViewController*) sideMenuController.menuViewController;
+    menuOptionsVC.delegate = self;
     
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
     
@@ -645,19 +654,18 @@
     MVYSideMenuController *sideMenuController = [self sideMenuController];
     [sideMenuController closeMenu];
     
+    
     switch (selectedOption)
     {
         case 0:
         {
-            
-            
-           
+            [self instantiateImageDisplayTypeVC];
         }
         break;
             
         case 1:
         {
-            ;
+            [self instantiateImageDisplayTypeVC];
         }
         break;
             
@@ -666,6 +674,54 @@
     }
 }
 
+-(void)cancelSelectedOption
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
+
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
+{
+    //UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBandSelection)];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel"
+                                                                    style:UIBarButtonItemStylePlain target:self
+                                                                   action:@selector(cancelSelectedOption)];
+    
+    //navController.topViewController.navigationItem.rightBarButtonItem=saveButton;
+    navController.topViewController.navigationItem.leftBarButtonItem = cancelButton;
+}
+
+
+-(void)instantiateImageDisplayTypeVC
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    m_ImageDisplayTypeVC = (ImageDisplayTypeTableVC*)[mainStoryboard instantiateViewControllerWithIdentifier:@"ImageDisplayTypeTableVC"];
+    
+    m_ImageConfigNavController = [[UINavigationController alloc]initWithRootViewController:m_ImageDisplayTypeVC];
+    
+    m_ImageConfigNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+    m_ImageConfigNavController.title = @"Choose Image Display Type";
+    [self setNavControllerButtonsForNavController:m_ImageConfigNavController];
+    
+    
+    [self presentViewController:m_ImageConfigNavController
+                       animated:YES
+                     completion:^{
+                         
+                     }];
+    
+    
+    m_ImageConfigNavController.view.superview.center =
+    CGPointMake(self.view.center.x, self.view.center.y);
+
+
+    
+    
+}
 
 /*
 #pragma mark - Touch event implementation
