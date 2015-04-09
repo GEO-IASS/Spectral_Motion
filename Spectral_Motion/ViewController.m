@@ -701,11 +701,17 @@
     
     m_ImageDisplayTypeVC = (ImageDisplayTypeTableVC*)[mainStoryboard instantiateViewControllerWithIdentifier:@"ImageDisplayTypeTableVC"];
     
+    [m_ImageDisplayTypeVC setHdrInfo:m_HdrInfo];
+
+    
     m_ImageConfigNavController = [[UINavigationController alloc]initWithRootViewController:m_ImageDisplayTypeVC];
     
     m_ImageConfigNavController.modalPresentationStyle = UIModalPresentationFormSheet;
     m_ImageConfigNavController.title = @"Choose Image Display Type";
     [self setNavControllerButtonsForNavController:m_ImageConfigNavController];
+
+    //set parent navigation controller reference for pushing later on down the stack
+    m_ImageDisplayTypeVC.m_ParentNavigationController = m_ImageConfigNavController;
     
     
     [self presentViewController:m_ImageConfigNavController

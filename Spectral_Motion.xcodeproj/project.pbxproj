@@ -82,6 +82,7 @@
 		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
 		14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */; };
 		14EB92BC1AD4C37E00EBA2CF /* ImageDisplayTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */; };
+		14EB92BF1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92BE1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -263,6 +264,8 @@
 		14EB92B81AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDisplayTypeTableVC.h; sourceTree = "<group>"; };
 		14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDisplayTypeTableVC.m; sourceTree = "<group>"; };
 		14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ImageDisplayTypes.plist; sourceTree = "<group>"; };
+		14EB92BD1AD5B32D00EBA2CF /* MSBandPickerViewsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBandPickerViewsVC.h; sourceTree = "<group>"; };
+		14EB92BE1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBandPickerViewsVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +311,8 @@
 				14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */,
 				14EB92B81AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.h */,
 				14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */,
+				14EB92BD1AD5B32D00EBA2CF /* MSBandPickerViewsVC.h */,
+				14EB92BE1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -722,6 +727,7 @@
 				146C76141A49CAAD00763A11 /* ViewController.m in Sources */,
 				1413ED291A9AD57F006BC611 /* MSImageBlur.m in Sources */,
 				146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */,
+				14EB92BF1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m in Sources */,
 				14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */,
 				1413ED161A9999C4006BC611 /* MSHeaderViewController.m in Sources */,
 				14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */,

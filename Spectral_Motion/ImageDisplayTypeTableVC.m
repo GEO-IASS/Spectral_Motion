@@ -7,15 +7,22 @@
 //
 
 #import "ImageDisplayTypeTableVC.h"
+#import "MSBandPickerViewsVC.h"
 
 @interface ImageDisplayTypeTableVC ()
 {
     NSArray *m_ImageDisplayTypes;
 }
 
+-(void)saveBandSelection;
+-(void)cancelBandSelection;
+
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
+
 @end
 
 @implementation ImageDisplayTypeTableVC
+@synthesize m_ParentNavigationController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +37,11 @@
     NSString *pathToPlist = [NSString stringWithFormat:@"%@/ImageDisplayTypes.plist",[[NSBundle mainBundle]resourcePath]];
     m_ImageDisplayTypes = [NSArray arrayWithContentsOfFile:pathToPlist];
     
+}
+
+-(void)setHdrInfo:(HDRINFO)hdrInfo
+{
+    m_HdrInfo = hdrInfo;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,23 +76,46 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //push to controller for choosing bands
+    
     switch (indexPath.row)
     {
+            //greyscale image selected
         case 0:
         {
-            //push to controller for choosing bands if need be
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             
+            MSBandPickerViewsVC *bandPickerViewsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"MSBandPickerViewsVC"];
+            
+            bandPickerViewsVC.m_ShouldShowColorOptions = [NSNumber numberWithBool:NO];
+            bandPickerViewsVC.m_NumberOfBands = [NSNumber numberWithInt: m_HdrInfo.bands];
+            
+            [self setNavControllerButtonsForNavController:m_ParentNavigationController];
+            
+            [m_ParentNavigationController pushViewController:bandPickerViewsVC animated:YES];
         }
             
         break;
             
+            //rgb image selected
          case 1:
         {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            
+            MSBandPickerViewsVC *bandPickerViewsVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"MSBandPickerViewsVC"];
+            
+            bandPickerViewsVC.m_ShouldShowColorOptions = [NSNumber numberWithBool:YES];
+            bandPickerViewsVC.m_NumberOfBands = [NSNumber numberWithInt: m_HdrInfo.bands];
+            
+            [self setNavControllerButtonsForNavController:m_ParentNavigationController];
+            
+            [m_ParentNavigationController pushViewController:bandPickerViewsVC animated:YES];
             
         }
             
         break;
             
+            //grayscale pca selected
         case 2:
         {
             
@@ -88,6 +123,7 @@
             
             break;
             
+            //color pca selected
         case 3:
         {
             
@@ -99,6 +135,40 @@
             break;
     }
 }
+
+-(void)saveBandSelection
+{
+    //here after bands have been selected, add new image to view
+    
+}
+
+-(void)cancelBandSelection
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+}
+
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
+{
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Done"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+   
+                                   action:@selector(saveBandSelection)];
+    
+   
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel"
+                                                                    style:UIBarButtonItemStylePlain target:self
+                                                                   action:@selector(cancelBandSelection)];
+    
+    
+    navController.topViewController.navigationItem.rightBarButtonItem = saveButton;
+    navController.topViewController.navigationItem.leftBarButtonItem = cancelButton;
+}
+
 
 
 /*

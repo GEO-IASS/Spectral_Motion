@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSENVIFileParser.h"
 
 @interface ImageDisplayTypeTableVC : UITableViewController
+{
+    HDRINFO m_HdrInfo;
+}
+@property (strong,nonatomic) UINavigationController *m_ParentNavigationController;
 
+
+-(void)setHdrInfo:(HDRINFO) hdrInfo;
 @end
