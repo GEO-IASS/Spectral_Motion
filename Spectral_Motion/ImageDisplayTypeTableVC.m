@@ -14,10 +14,10 @@
     NSArray *m_ImageDisplayTypes;
 }
 
--(void)saveBandSelection;
--(void)cancelBandSelection;
+//-(void)saveBandSelection;
+//-(void)cancelBandSelection;
 
--(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
+//-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
 
 @end
 
@@ -136,7 +136,7 @@
     }
 }
 
-
+/*
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
 {
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
@@ -156,7 +156,7 @@
     navController.topViewController.navigationItem.leftBarButtonItem = cancelButton;
 }
 
-
+*/
 
 /*
 // Override to support conditional editing of the table view.

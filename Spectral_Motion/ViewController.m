@@ -362,19 +362,22 @@
 
 -(void)didFinishSelectingImageBands:(NSArray *)bands
 {
-    cv::Mat newImage;
+    cv::Mat newCVImage;
     
     //greycale image if any of bands are set to -1
     if(bands[1] == [NSNumber numberWithInt:-1])
     {
-       newImage = [m_HyperspectralData createCVMatrixForBand:((NSNumber*)bands[0]).intValue];
+       newCVImage = [m_HyperspectralData createCVMatrixForBand:((NSNumber*)bands[0]).intValue];
     
     }
     else
     {
-        newImage = [m_HyperspectralData createCVBGRMatrixWithBlueBand:((NSNumber*)bands[2]).intValue greenBand:((NSNumber*)bands[1]).intValue  andRedBand:((NSNumber*)bands[0]).intValue];
+        newCVImage = [m_HyperspectralData createCVBGRMatrixWithBlueBand:((NSNumber*)bands[0]).intValue greenBand:((NSNumber*)bands[1]).intValue  andRedBand:((NSNumber*)bands[2]).intValue];
     }
+    
+    UIImage *finalUIImage = [m_HyperspectralData UIImageFromCVMat:newCVImage];
 
+    [self addNewImageToViewWithImage:finalUIImage];
 }
 
 -(void)addTapGestureRecognizerForView:(UIView*)view
