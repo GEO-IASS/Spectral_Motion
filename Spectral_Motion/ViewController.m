@@ -50,7 +50,7 @@
 -(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer;
--(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
+-(void)resizeView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
 -(void)initImageViewWithImage:(UIImage*) newImage;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)addPinchGestureRecognizerForView:(UIView*)view;
@@ -437,8 +437,9 @@
     {
         m_PinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                     initWithTarget:self
-                                    action:@selector(resizeScrollView:)];
+                                    action:@selector(resizeView:)];
     }
+    
     
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
@@ -522,7 +523,7 @@
     [view.layer setBorderWidth:3.0];
     
 }
--(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer
+-(void)resizeView:(UIPinchGestureRecognizer*)pinchGestureRecognizer
 {
     NSLog(@"pinch fired");
     pinchGestureRecognizer.view.transform = CGAffineTransformScale(pinchGestureRecognizer.view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
