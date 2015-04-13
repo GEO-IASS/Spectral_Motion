@@ -14,6 +14,8 @@
     HDRINFO m_HdrInfo;
 }
 @property (strong,nonatomic) UINavigationController *m_ParentNavigationController;
+@property (strong,nonatomic) UIViewController * m_ImageViewController;
+
 
 
 -(void)setHdrInfo:(HDRINFO) hdrInfo;

@@ -22,7 +22,7 @@
 @end
 
 @implementation ImageDisplayTypeTableVC
-@synthesize m_ParentNavigationController;
+@synthesize m_ParentNavigationController, m_ImageViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

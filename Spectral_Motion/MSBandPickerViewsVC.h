@@ -7,15 +7,15 @@
 //
 
 #import "ViewController.h"
-@protocol ImageGeneratedDelegate<NSObject>;
+@protocol ImageOptionsSelectedDelegate<NSObject>;
 
--(void)didFinishCreatingImage:(UIImage*) image;
+-(void)didFinishSelectingImageBands:(NSArray*)bands;
 
 @end
 
 @interface MSBandPickerViewsVC : ViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property(weak, nonatomic) id<ImageGeneratedDelegate> delegate;
+@property(weak, nonatomic) id<ImageOptionsSelectedDelegate> delegate;
 
 @property(strong,nonatomic) NSNumber *m_NumberOfBands;
 @property(strong,nonatomic) NSNumber *m_ShouldShowColorOptions;

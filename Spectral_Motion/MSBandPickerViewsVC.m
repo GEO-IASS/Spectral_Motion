@@ -7,6 +7,7 @@
 //
 
 #import "MSBandPickerViewsVC.h"
+#import "ImageDisplayTypeTableVC.h"
 
 @interface MSBandPickerViewsVC ()
 
@@ -55,10 +56,36 @@
 {
     //here after bands have been selected, create new image and call delegate to add to view
     
+    UINavigationController *navController = (UINavigationController*)self.parentViewController;
+    
+    ImageDisplayTypeTableVC *imageDisplayTypeController = navController.childViewControllers[0];
+    
+    NSLog(@"controller %@", imageDisplayTypeController.description);
+    
+    /*set delegate to ImageViewController so it can implement didFinishSelectingImageBands
+    to add new image to its view */
+    self.delegate = (ViewController<ImageOptionsSelectedDelegate>*)imageDisplayTypeController.m_ImageViewController;//this is original calling ImageViewController pointer
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
+        if(m_ShouldShowColorOptions == [NSNumber numberWithBool:YES])
+        {
+            int redBand = (int) [self.colorBandPickerView selectedRowInComponent:0];
+            int greenBand = (int) [self.colorBandPickerView selectedRowInComponent:1];
+            int blueBand = (int) [self.colorBandPickerView selectedRowInComponent:2];
+
+            
+            [delegate didFinishSelectingImageBands:[NSArray arrayWithObjects:[NSNumber numberWithInt:redBand],[NSNumber numberWithInt:greenBand], [NSNumber numberWithInt:blueBand], nil]];
+
+        }
+        else
+        {
+            int greyscaleBand = [self.greyscaleBandPickerView selectedRowInComponent:0];
+            
+            //extra 2 bands set to -1 so ImageViewer knows to generate greyscaleview
+            [delegate didFinishSelectingImageBands:[NSArray arrayWithObjects:[NSNumber numberWithInt:greyscaleBand],[NSNumber numberWithInt:-1], [NSNumber numberWithInt:-1], nil]];
+        }
         
-        //[delegate didFinishCreatingImage:<#(UIImage *)#>];
     }];
     
 }

@@ -17,10 +17,11 @@
 #import "SharedHeader.h"
 #import "ImageDisplayTypeTableVC.h"
 #import "MenuOptionsViewController.h"
+#import "MSBandPickerViewsVC.h"
 
 
 
-@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate>
+@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate, ImageOptionsSelectedDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
     HDRINFO m_HdrInfo;
@@ -37,19 +38,20 @@
     CPTGraphHostingView *m_PlotView;
     MSHyperspectralDataPlotter *m_DataPlotter;
     
+    NSMutableArray *m_ImageViewArray;
+    UIImageView *m_CallingImageView;
+    
     UINavigationController *m_ImageConfigNavController;
     ImageDisplayTypeTableVC *m_ImageDisplayTypeVC;
     
 }
-@property(strong,nonatomic) UIImageView *imageView2;
-
 -(void)configureSideMenu;
 -(void)setNavigationBarTitle;
 -(void)showSideMenu;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer;
 -(void)resizeScrollView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
--(void)initImageView;
+-(void)initImageViewWithImage:(UIImage*) newImage;
 -(void)addPanGestureRecognizerForView:(UIView*)view;
 -(void)addPinchGestureRecognizerForView:(UIView*)view;
 -(void)addLongPressGestureRecognizerForView:(UIView*)view;
@@ -57,7 +59,8 @@
 -(void)longPressEventOccurred:(UILongPressGestureRecognizer*)sender;
 -(void)setImageViewBorderForView:(UIView*)view;
 -(void)addGraphToView;
--(void)addImageInfoPanelToView;
+-(void)addNewImageToViewWithImage:(UIImage*)newImage;
+-(void)addImageInfoPanelToViewWithImageView:(UIImageView*)callingImageView;
 -(void)instantiateImageDisplayTypeVC;
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
 -(void)cancelSelectedOption;
@@ -69,7 +72,6 @@
 @end
 
 @implementation ViewController
-@synthesize imageView2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,24 +91,62 @@
 
     }
     
-    [self initImageView];
+    [self addNewImageToViewWithImage:m_Image];
     self.sliderValueLabel.text = [NSString stringWithFormat:@"Band %i",m_ChosenGreyScaleBand];
     self.bandSlider.value = m_ChosenGreyScaleBand;
-    
-    [self addPanGestureRecognizerForView:self.imageView2];
-    
-    [self addPinchGestureRecognizerForView:self.imageView2];
-    
-    [self addLongPressGestureRecognizerForView:self.imageView2];
-    
-    [self addTapGestureRecognizerForView:self.imageView2];
-    
-    [self setImageViewBorderForView:self.imageView2];
     
     [self configureSideMenu];
     [self setNavigationBarTitle];
     
 }
+
+-(void)addNewImageToViewWithImage:(UIImage*)newImage
+{
+    
+    [self initImageViewWithImage:newImage];
+    
+}
+
+-(void)initImageViewWithImage:(UIImage *)newImage
+{
+    // imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, m_Image.size.width, m_Image.size.height)];
+    
+    UIImageView *newImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, newImage.size.width, newImage.size.height)];
+    
+    newImageView.center = self.view.center;
+    
+    newImageView.contentMode = UIViewContentModeScaleAspectFill;
+    // self.imageView2.image = m_Image;
+    newImageView.image = newImage;
+    newImageView.userInteractionEnabled = YES;
+    newImageView.multipleTouchEnabled = YES;
+    newImageView.tag = 27;//so we know this is an imageview and not a graph
+    [self.view addSubview:newImageView];
+    
+    [self addPanGestureRecognizerForView:newImageView];
+    
+    [self addPinchGestureRecognizerForView:newImageView];
+    
+    [self addLongPressGestureRecognizerForView:newImageView];
+    
+    [self addTapGestureRecognizerForView:newImageView];
+    
+    [self setImageViewBorderForView:newImageView];
+    
+    if(m_ImageViewArray == nil)
+    {
+        m_ImageViewArray = [[NSMutableArray alloc]init];
+    }
+    
+    [m_ImageViewArray addObject:newImageView];
+    
+    //self.scrollViewForImage.minimumZoomScale = 0.5;
+    //self.scrollViewForImage.maximumZoomScale = 6.0;
+    //self.scrollViewForImage.contentSize = self.imageView.image.size;
+    //self.scrollViewForImage.delegate = self;
+    
+}
+
 
 -(void)setNavigationBarTitle
 {
@@ -152,26 +192,6 @@
     
 }
 
--(void)initImageView
-{
-    imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, m_Image.size.width, m_Image.size.height)];
-    
-    imageView2.center = self.view.center;
-    
-    self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView2.image = m_Image;
-    self.imageView2.userInteractionEnabled = YES;
-    self.imageView2.multipleTouchEnabled = YES;
-    self.imageView2.tag = 27;
-    [self.view addSubview:imageView2];
-    
-    
-    //self.scrollViewForImage.minimumZoomScale = 0.5;
-    //self.scrollViewForImage.maximumZoomScale = 6.0;
-    //self.scrollViewForImage.contentSize = self.imageView.image.size;
-    //self.scrollViewForImage.delegate = self;
-    
-}
 
 -(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView
 {
@@ -266,7 +286,7 @@
     return rgbColorSpace;
 }
 
--(void)addImageInfoPanelToView
+-(void)addImageInfoPanelToViewWithImageView:(UIImageView *)callingImageView
 {
     if(m_ImageInfoPanelVC == nil)
     {
@@ -285,7 +305,7 @@
         //x = 10 and y = 10 default graphview parameters
         [self setImageInfoPanelValuesForXCoordinate:10
                                      andYCoordinate:10
-                                      withImageView:imageView2];
+                                      withImageView:callingImageView];
     }
     
 }
@@ -335,9 +355,26 @@
     [self.view addSubview:m_PlotView];
     
     //add panel for pixel value viewing
-    [self addImageInfoPanelToView];
+    [self addImageInfoPanelToViewWithImageView:m_CallingImageView];
     
     [m_DataPlotter graphStartRunLoop];
+}
+
+-(void)didFinishSelectingImageBands:(NSArray *)bands
+{
+    cv::Mat newImage;
+    
+    //greycale image if any of bands are set to -1
+    if(bands[1] == [NSNumber numberWithInt:-1])
+    {
+       newImage = [m_HyperspectralData createCVMatrixForBand:((NSNumber*)bands[0]).intValue];
+    
+    }
+    else
+    {
+        newImage = [m_HyperspectralData createCVBGRMatrixWithBlueBand:((NSNumber*)bands[2]).intValue greenBand:((NSNumber*)bands[1]).intValue  andRedBand:((NSNumber*)bands[0]).intValue];
+    }
+
 }
 
 -(void)addTapGestureRecognizerForView:(UIView*)view
@@ -425,6 +462,7 @@
         if([sender.view isKindOfClass:UIImageView.class])
         {
             context = ImageViewContext;
+            m_CallingImageView = (UIImageView*) sender.view;
         }
         else if ([sender.view isKindOfClass:CPTGraphHostingView.class])
         {
@@ -613,9 +651,20 @@
         
     NSLog(@"image complete..sending image to view");
     
-    self.imageView2.contentMode = UIViewContentModeScaleAspectFit;
-    
-    self.imageView2.image = singleBandGreyScaleImg;
+    for(UIView *imageView in [self.view subviews])
+    {
+        if([imageView isKindOfClass:UIImageView.class])
+        {
+            BOOL rgbColorSpace = [self isColorSpaceRGB:((UIImageView*)imageView).image];
+            
+            if(!rgbColorSpace)
+            {
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                
+                ((UIImageView*)imageView).image = singleBandGreyScaleImg;
+            }
+        }
+    }
     
     matrix.release();
     dstMatrix.release();
@@ -712,6 +761,7 @@
 
     //set parent navigation controller reference for pushing later on down the stack
     m_ImageDisplayTypeVC.m_ParentNavigationController = m_ImageConfigNavController;
+    m_ImageDisplayTypeVC.m_ImageViewController = self;
     
     
     [self presentViewController:m_ImageConfigNavController
