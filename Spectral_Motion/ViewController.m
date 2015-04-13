@@ -372,7 +372,7 @@
     }
     else
     {
-        newCVImage = [m_HyperspectralData createCVBGRMatrixWithBlueBand:((NSNumber*)bands[0]).intValue greenBand:((NSNumber*)bands[1]).intValue  andRedBand:((NSNumber*)bands[2]).intValue];
+        newCVImage = [m_HyperspectralData createCVBGRMatrixWithBlueBand:((NSNumber*)bands[2]).intValue greenBand:((NSNumber*)bands[1]).intValue  andRedBand:((NSNumber*)bands[0]).intValue];
     }
     
     UIImage *finalUIImage = [m_HyperspectralData UIImageFromCVMat:newCVImage];
