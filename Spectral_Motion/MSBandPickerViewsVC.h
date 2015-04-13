@@ -7,16 +7,24 @@
 //
 
 #import "ViewController.h"
+@protocol ImageGeneratedDelegate<NSObject>;
 
-@interface MSBandPickerViewsVC : ViewController<UIPickerViewDataSource>
+-(void)didFinishCreatingImage:(UIImage*) image;
+
+@end
+
+@interface MSBandPickerViewsVC : ViewController<UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property(weak, nonatomic) id<ImageGeneratedDelegate> delegate;
+
 @property(strong,nonatomic) NSNumber *m_NumberOfBands;
 @property(strong,nonatomic) NSNumber *m_ShouldShowColorOptions;
+@property(strong,nonatomic) UINavigationController *m_ParentNavController;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *redBandPickerView;
-@property (weak, nonatomic) IBOutlet UIView *redBandPickerBackgroundView;
-@property (weak, nonatomic) IBOutlet UIPickerView *greenBandPickerView;
-@property (weak, nonatomic) IBOutlet UIView *greenBandPickerBackgroundView;
-@property (weak, nonatomic) IBOutlet UIPickerView *blueBandPickerView;
-@property (weak, nonatomic) IBOutlet UIView *blueBandPickerBackgroundView;
+@property (weak, nonatomic) IBOutlet UIPickerView *colorBandPickerView;
+@property (weak, nonatomic) IBOutlet UIView *colorBandPickerViewBackground;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *greyscaleBandPickerView;
+@property (weak, nonatomic) IBOutlet UIView *greyscalePickerViewBackground;
 
 @end

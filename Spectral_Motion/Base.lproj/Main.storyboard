@@ -580,90 +580,82 @@
         <!--Band Picker ViewsVC-->
         <scene sceneID="3C1-Y5-MOK">
             <objects>
-                <viewController storyboardIdentifier="MSBandPickerViewsVC" id="Tew-95-M6A" customClass="MSBandPickerViewsVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MSBandPickerViewsVC" modalPresentationStyle="formSheet" id="Tew-95-M6A" customClass="MSBandPickerViewsVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EhX-WF-rNT">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="800"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="N1B-RC-rrG">
-                                <rect key="frame" x="16" y="20" width="736" height="268"/>
+                            <view contentMode="scaleAspectFit" id="N1B-RC-rrG">
+                                <rect key="frame" x="80" y="210" width="380" height="261"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="Cf5-d7-0zD">
-                                        <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
+                                        <rect key="frame" x="8" y="8" width="368" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <items/>
                                     </toolbar>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Red Band" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xz1-C5-5vJ">
-                                        <rect key="frame" x="8" y="0.0" width="720" height="44"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xz1-C5-5vJ">
+                                        <rect key="frame" x="26" y="8" width="81" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <pickerView contentMode="scaleToFill" id="04e-7l-9Zd">
-                                        <rect key="frame" x="0.0" y="52" width="736" height="216"/>
+                                    <pickerView tag="7" contentMode="scaleToFill" id="04e-7l-9Zd">
+                                        <rect key="frame" x="8" y="52" width="364" height="201"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Green" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BIT-Id-SOl">
+                                        <rect key="frame" x="152" y="8" width="81" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2q8-aZ-v8n">
+                                        <rect key="frame" x="282" y="8" width="81" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="bzm-qY-tvt">
-                                <rect key="frame" x="16" y="323" width="736" height="268"/>
+                            <view contentMode="scaleAspectFit" id="ucg-v5-k72">
+                                <rect key="frame" x="80" y="502" width="380" height="261"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="LHK-xr-4hg">
-                                        <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="62N-kx-I3f">
+                                        <rect key="frame" x="8" y="8" width="368" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <items/>
                                     </toolbar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Green Band" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W34-cg-YWY">
-                                        <rect key="frame" x="8" y="0.0" width="720" height="44"/>
+                                    <pickerView tag="11" contentMode="scaleToFill" id="joC-Xp-YRh">
+                                        <rect key="frame" x="8" y="52" width="364" height="201"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Greyscale Band" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xbC-nF-qr7">
+                                        <rect key="frame" x="17" y="8" width="346" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <pickerView contentMode="scaleToFill" id="6dJ-aH-urg">
-                                        <rect key="frame" x="0.0" y="52" width="736" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="Meg-kO-a8g">
-                                <rect key="frame" x="16" y="622" width="736" height="268"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="3EZ-VS-9Pl">
-                                        <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <items/>
-                                    </toolbar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Blue Band" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fim-5S-Das">
-                                        <rect key="frame" x="8" y="0.0" width="720" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <pickerView contentMode="scaleToFill" id="HtJ-Ll-9ju">
-                                        <rect key="frame" x="0.0" y="52" width="736" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    </pickerView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="800"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="800"/>
                     <connections>
-                        <outlet property="blueBandPickerBackgroundView" destination="Meg-kO-a8g" id="fYc-6P-chN"/>
-                        <outlet property="blueBandPickerView" destination="HtJ-Ll-9ju" id="EoI-dd-eBh"/>
-                        <outlet property="greenBandPickerBackgroundView" destination="bzm-qY-tvt" id="53T-2K-UwD"/>
-                        <outlet property="greenBandPickerView" destination="6dJ-aH-urg" id="2wZ-QH-HgF"/>
-                        <outlet property="redBandPickerBackgroundView" destination="N1B-RC-rrG" id="P4W-G0-mAe"/>
-                        <outlet property="redBandPickerView" destination="04e-7l-9Zd" id="vsi-vI-Ffd"/>
+                        <outlet property="colorBandPickerView" destination="04e-7l-9Zd" id="paz-bm-Q1q"/>
+                        <outlet property="colorBandPickerViewBackground" destination="N1B-RC-rrG" id="beJ-fC-6He"/>
+                        <outlet property="greyscaleBandPickerView" destination="joC-Xp-YRh" id="6CS-hX-LxH"/>
+                        <outlet property="greyscalePickerViewBackground" destination="ucg-v5-k72" id="6TL-Vh-jOS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jk-6c-gIM" userLabel="First Responder" sceneMemberID="firstResponder"/>

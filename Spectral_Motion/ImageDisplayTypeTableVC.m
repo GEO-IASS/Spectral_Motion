@@ -90,7 +90,7 @@
             bandPickerViewsVC.m_ShouldShowColorOptions = [NSNumber numberWithBool:NO];
             bandPickerViewsVC.m_NumberOfBands = [NSNumber numberWithInt: m_HdrInfo.bands];
             
-            [self setNavControllerButtonsForNavController:m_ParentNavigationController];
+            bandPickerViewsVC.m_ParentNavController = m_ParentNavigationController;
             
             [m_ParentNavigationController pushViewController:bandPickerViewsVC animated:YES];
         }
@@ -107,7 +107,7 @@
             bandPickerViewsVC.m_ShouldShowColorOptions = [NSNumber numberWithBool:YES];
             bandPickerViewsVC.m_NumberOfBands = [NSNumber numberWithInt: m_HdrInfo.bands];
             
-            [self setNavControllerButtonsForNavController:m_ParentNavigationController];
+            bandPickerViewsVC.m_ParentNavController = m_ParentNavigationController;
             
             [m_ParentNavigationController pushViewController:bandPickerViewsVC animated:YES];
             
@@ -136,19 +136,6 @@
     }
 }
 
--(void)saveBandSelection
-{
-    //here after bands have been selected, add new image to view
-    
-}
-
--(void)cancelBandSelection
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-        
-    }];
-}
 
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
 {
