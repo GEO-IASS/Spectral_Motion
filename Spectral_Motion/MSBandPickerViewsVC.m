@@ -123,7 +123,7 @@
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    if(m_ShouldShowColorOptions)
+    if(m_ShouldShowColorOptions == [NSNumber numberWithBool:YES])
     {
         return 3;
     }

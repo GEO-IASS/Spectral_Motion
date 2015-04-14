@@ -420,15 +420,6 @@
     [view addGestureRecognizer:panGestureRecognizer];
     
     [m_PanGestureArray addObject:panGestureRecognizer];
- /*
-    if(m_PanGestureRecognizer == nil)
-    {
-        m_PanGestureRecognizer = [[UIPanGestureRecognizer alloc]
-                                  initWithTarget:self
-                                  action:@selector(handlePan:)];
-    }
-    [view addGestureRecognizer:m_PanGestureRecognizer];
-  */
     
 }
 -(void)addPinchGestureRecognizerForView:(UIView*)view
