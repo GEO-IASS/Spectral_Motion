@@ -424,13 +424,16 @@
 }
 -(void)addPinchGestureRecognizerForView:(UIView*)view
 {
-    if(m_PinchGestureRecognizer == nil)
-    {
+    //commented out so we can use one gesturerecognizer for multiple views. I don't know why this
+    // commented out code doesn't work for multiple views
+    //if(m_PinchGestureRecognizer == nil)
+   // {
         m_PinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                     initWithTarget:self
                                     action:@selector(resizeView:)];
-    }
-    
+        m_PinchGestureRecognizer.delegate = self;
+
+    //}
     
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
