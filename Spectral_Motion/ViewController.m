@@ -48,6 +48,7 @@
 -(void)configureSideMenu;
 -(void)setNavigationBarTitle;
 -(void)showSideMenu;
+-(void)showSlider:(BOOL)showSlider;
 -(void)handlePan:(UIPanGestureRecognizer*)panGestureRecognizer;
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer;
 -(void)resizeView:(UIPinchGestureRecognizer*)pinchGestureRecognizer;
@@ -79,16 +80,11 @@
     
     if(m_ChosenGreyScaleBand == -1)
     {
-        self.sliderBackgroundView.hidden = YES;
-        self.bandSlider.hidden = YES;
-        self.sliderValueLabel.hidden = YES;
+        [self showSlider:NO];
     }
     else
     {
-        self.sliderBackgroundView.hidden = NO;
-        self.bandSlider.hidden = NO;
-        self.sliderValueLabel.hidden = NO;
-
+        [self showSlider:YES];
     }
     
     [self addNewImageToViewWithImage:m_Image];
@@ -98,6 +94,23 @@
     [self configureSideMenu];
     [self setNavigationBarTitle];
     
+}
+
+-(void)showSlider:(BOOL)showSlider
+{
+    if(showSlider)
+    {
+        self.sliderBackgroundView.hidden = NO;
+        self.bandSlider.hidden = NO;
+        self.sliderValueLabel.hidden = NO;
+    }
+    else
+    {
+        self.sliderBackgroundView.hidden = YES;
+        self.bandSlider.hidden = YES;
+        self.sliderValueLabel.hidden = YES;
+
+    }
 }
 
 -(void)addNewImageToViewWithImage:(UIImage*)newImage
@@ -140,10 +153,11 @@
     
     [m_ImageViewArray addObject:newImageView];
     
-    //self.scrollViewForImage.minimumZoomScale = 0.5;
-    //self.scrollViewForImage.maximumZoomScale = 6.0;
-    //self.scrollViewForImage.contentSize = self.imageView.image.size;
-    //self.scrollViewForImage.delegate = self;
+    if(![self isColorSpaceRGB:newImageView.image])
+    {
+        //show slider for Grayscale image
+        [self showSlider:YES];
+    }
     
 }
 
@@ -176,7 +190,6 @@
     menuOptionsVC.delegate = self;
     
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_setting"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
-    
     
     self.navigationItem.rightBarButtonItem = menuButton;
     
@@ -243,7 +256,6 @@
        int depth = 3;
         uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
         
-        NSLog(@"pixelIdx %i", pixelIdx);
         pixel.red = (data[pixelIdx]);
         pixel.green = (data[pixelIdx + 1]);
         pixel.blue = (data[pixelIdx + 2]);
@@ -254,7 +266,6 @@
         int depth = 1;
         uint32_t pixelIdx = (xCoordinate + (yCoordinate * (image.size.width ))) * depth;
         
-        NSLog(@"pixelIdx %i", pixelIdx);
         //just assign one value for grayvalue intensity
         pixel.red = (data[pixelIdx]);
         pixel.green = pixel.red;
@@ -262,9 +273,6 @@
         
     }
     
-    NSLog(@"red: %i", pixel.red);
-    NSLog(@"green: %i", pixel.green);
-    NSLog(@"blue: %i", pixel.blue);
     CFRelease(pixelData);
     
     return pixel;
@@ -523,7 +531,6 @@
     pinchGestureRecognizer.view.transform = CGAffineTransformScale(pinchGestureRecognizer.view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
     pinchGestureRecognizer.scale = 1;
 
-
 }
 
 
@@ -666,7 +673,6 @@
     
     matrix.release();
     dstMatrix.release();
-    
 }
 
 -(cv::Mat)deblurImage:(cv::Mat)matrix
