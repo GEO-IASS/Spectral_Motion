@@ -8,6 +8,8 @@
 
 #import "MSBandMappingTableVC.h"
 #import "MSColorMapPopOver.h"
+#import "ImageDisplayTypeTableVC.h"
+#import "ViewController.h"
 
 @interface MSBandMappingTableVC ()<CellSelected>
 {
@@ -20,10 +22,15 @@
     
     
 }
+
+-(void) setNavControllerButtonsForNavController;
+-(void)cancelBandSelection;
+-(void)saveBandSelection;
+
 @end
 
 @implementation MSBandMappingTableVC
-@synthesize delegate, /*m_BandsMapped,*/ m_BandsSelected; //, m_BlueBandsMapped,m_RedBandsMapped,m_GreenBandsMapped;
+@synthesize delegate, m_ParentNavController,  m_BandsSelected;
 
 
 
@@ -60,6 +67,13 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    //this indicates this controller was launched from ImageViewer and not from Header which doesn't require buttons added to its navigation controller since the done button is on the form
+    if(m_ParentNavController !=nil)
+    {
+        [self setNavControllerButtonsForNavController:m_ParentNavController];
+    }
+
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -84,6 +98,145 @@
     // Return the number of rows in the section.
     return m_BandCount;
 }
+
+-(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
+{
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Done"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   
+                                   action:@selector(saveBandSelection)];
+    
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel"
+                                                                    style:UIBarButtonItemStylePlain target:self
+                                                                   action:@selector(cancelBandSelection)];
+    
+    
+    navController.topViewController.navigationItem.rightBarButtonItem = saveButton;
+    navController.topViewController.navigationItem.leftBarButtonItem = cancelButton;
+}
+
+-(void)saveBandSelection
+{
+    //here after bands have been selected, create new image and call delegate to add to view
+    
+    UINavigationController *navController = (UINavigationController*)self.parentViewController;
+    
+    ImageDisplayTypeTableVC *imageDisplayTypeController = navController.childViewControllers[0];
+    
+    NSLog(@"controller %@", imageDisplayTypeController.description);
+    
+    /*set delegate to ImageViewController so it can implement didFinishSelectingImageBands
+     to add new image to its view */
+    self.delegate = (ViewController<PCABandsSelectedDelegate>*)imageDisplayTypeController.m_ImageViewController;//this is original calling ImageViewController pointer
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+        //mapped colors for PCA
+        if(m_ColorMapping)
+        {
+            
+            short *colorsMappedArr = [self getColorsMapped];
+            
+           int redBandsMappedCountPCA    = 0;
+           int greenBandsMappedCountPCA  = 0;
+           int blueBandsMappedCountPCA   = 0;
+            
+            HDRINFO hdrInfo = [(ViewController*)imageDisplayTypeController.m_ImageViewController getHdrInfo];
+            
+            for(int i = 0; i <  hdrInfo.bands; i++)
+            {
+                switch (colorsMappedArr[i])
+                {
+                    case 1:
+                        redBandsMappedCountPCA++;
+                        break;
+                        
+                    case 2:
+                        greenBandsMappedCountPCA++;
+                        break;
+                        
+                    case 3:
+                        blueBandsMappedCountPCA++;
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }
+            
+            int *redBandsMappedPCA = (int*)calloc(redBandsMappedCountPCA, sizeof(int));
+            int *greenBandsMappedPCA = (int*)calloc(greenBandsMappedCountPCA, sizeof(int));
+            int *blueBandsMappedPCA = (int*)calloc(blueBandsMappedCountPCA, sizeof(int));
+            
+            for(int i = 0; i < hdrInfo.bands; i++)
+            {
+                switch (colorsMappedArr[i])
+                {
+                    case 1:
+                        *redBandsMappedPCA = i;
+                        redBandsMappedPCA++;
+                        break;
+                        
+                    case 2:
+                        *greenBandsMappedPCA = i;
+                        greenBandsMappedPCA++;
+                        break;
+                        
+                    case 3:
+                        *blueBandsMappedPCA = i;
+                        blueBandsMappedPCA++;
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            
+            //reset pointers to beginning of their array
+            redBandsMappedPCA -= redBandsMappedCountPCA;
+            greenBandsMappedPCA -= greenBandsMappedCountPCA;
+            blueBandsMappedPCA-= blueBandsMappedCountPCA;
+
+        
+            [delegate didFinishMappingColorsForPCAWithRedArray:redBandsMappedPCA redArraryCount:redBandsMappedCountPCA greenArray:greenBandsMappedPCA greenArrayCount:greenBandsMappedCountPCA andBlueArray:blueBandsMappedPCA blueArrayCount:blueBandsMappedCountPCA];
+            
+        }
+        else
+        {
+            //greycale PCA
+            int bandsMappedCount = (int)[m_BandsSelected count];
+            int *bandsMapped = (int*) calloc(bandsMappedCount, sizeof(int));
+            
+            for(int i =0; i < bandsMappedCount; i++)
+            {
+                NSNumber *bandNum = (NSNumber*) m_BandsSelected[i];
+                
+                bandsMapped[i] = [bandNum intValue];
+            }
+
+            
+            [delegate didFinishSelectingBandsForPCAWithArray:bandsMapped andBandCount:bandsMappedCount];
+            
+        }
+        
+    }];
+    
+}
+
+
+
+-(void)cancelBandSelection
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

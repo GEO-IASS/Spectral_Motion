@@ -80,7 +80,7 @@
         }
         else
         {
-            int greyscaleBand = [self.greyscaleBandPickerView selectedRowInComponent:0];
+            int greyscaleBand = (int) [self.greyscaleBandPickerView selectedRowInComponent:0];
             
             //extra 2 bands set to -1 so ImageViewer knows to generate greyscaleview
             [delegate didFinishSelectingImageBands:[NSArray arrayWithObjects:[NSNumber numberWithInt:greyscaleBand],[NSNumber numberWithInt:-1], [NSNumber numberWithInt:-1], nil]];

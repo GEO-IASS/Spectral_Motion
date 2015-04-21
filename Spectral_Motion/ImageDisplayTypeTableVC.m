@@ -8,6 +8,7 @@
 
 #import "ImageDisplayTypeTableVC.h"
 #import "MSBandPickerViewsVC.h"
+#import "MSBandMappingTableVC.h"
 
 @interface ImageDisplayTypeTableVC ()
 {
@@ -22,7 +23,7 @@
 @end
 
 @implementation ImageDisplayTypeTableVC
-@synthesize m_ParentNavigationController, m_ImageViewController;
+@synthesize m_ParentNavigationController, m_ImageViewController, m_BandMappingTableVC;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -119,6 +120,21 @@
         case 2:
         {
             
+            m_BandMappingTableVC = nil;
+            
+            m_BandMappingTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BandMappingTableVC"];
+                
+            float *wavelengths = m_HdrInfo.wavelength;
+            [m_BandMappingTableVC setWavelenghths:wavelengths andBandCount:m_HdrInfo.bands];
+            
+            BOOL colorMappingBool = NO;//case 2 is greyscale PCA selection
+            
+            [m_BandMappingTableVC setColorMappingBOOL:colorMappingBool];
+            
+            m_BandMappingTableVC.m_ParentNavController = m_ParentNavigationController;
+            
+            [m_ParentNavigationController pushViewController:m_BandMappingTableVC animated:YES];
+            
         }
             
             break;
@@ -126,6 +142,18 @@
             //color pca selected
         case 3:
         {
+            m_BandMappingTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BandMappingTableVC"];
+                
+            float *wavelengths = m_HdrInfo.wavelength;
+            [m_BandMappingTableVC setWavelenghths:wavelengths andBandCount:m_HdrInfo.bands];
+            
+            BOOL colorMappingBool = YES;//case 3 is color PCA selection
+            
+            [m_BandMappingTableVC setColorMappingBOOL:colorMappingBool];
+            
+            m_BandMappingTableVC.m_ParentNavController = m_ParentNavigationController;
+            
+            [m_ParentNavigationController pushViewController:m_BandMappingTableVC animated:YES];
             
         }
             

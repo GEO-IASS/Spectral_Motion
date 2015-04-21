@@ -18,10 +18,11 @@
 #import "ImageDisplayTypeTableVC.h"
 #import "MenuOptionsViewController.h"
 #import "MSBandPickerViewsVC.h"
+#import "MBProgressHUD.h"
 
 
 
-@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate, ImageOptionsSelectedDelegate>
+@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate, ImageOptionsSelectedDelegate, PCABandsSelectedDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
     HDRINFO m_HdrInfo;
@@ -43,6 +44,8 @@
     
     UINavigationController *m_ImageConfigNavController;
     ImageDisplayTypeTableVC *m_ImageDisplayTypeVC;
+    
+    MBProgressHUD *m_ProgressHud;
     
 }
 -(void)configureSideMenu;
@@ -94,6 +97,11 @@
     [self configureSideMenu];
     [self setNavigationBarTitle];
     
+}
+
+-(HDRINFO)getHdrInfo
+{
+    return m_HdrInfo;
 }
 
 -(void)showSlider:(BOOL)showSlider
@@ -726,6 +734,130 @@
             break;
     }
 }
+
+#pragma mark - PCABandsSelected Delegate methods
+
+-(void)didFinishMappingColorsForPCAWithRedArray:(int *)redBands redArraryCount:(int)redCount greenArray:(int *)greenBands greenArrayCount:(int)greenCount andBlueArray:(int *)blueBands blueArrayCount:(int)blueCount
+{
+    __block cv::Mat matrix;
+    __block cv::Mat dstMatix;
+    __block UIImage *finalImage;
+    
+    NSOperation *updateUIOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+           // [self updateViewWithHUD];
+            m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
+            m_ProgressHud.labelText =@"Running Principal Component Analysis";
+            [self.view addSubview:m_ProgressHud];
+            [m_ProgressHud show:YES];
+            
+        });
+        
+        
+    }];
+    
+    NSOperation *createImageOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        
+        matrix = [m_HyperspectralData createPrincipalComponentMatrixWithRedBandArray:redBands redBandsSize:redCount greenBands:greenBands greenBandsSize:greenCount blueBands:blueBands blueBandsSize:blueCount];
+        
+        dstMatix = [self deblurImage:matrix];
+        
+        finalImage = [m_HyperspectralData UIImageFromCVMat:dstMatix];
+
+    }];
+    
+
+    NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [m_ProgressHud removeFromSuperview];
+            m_ProgressHud = nil;
+            
+            [self addNewImageToViewWithImage:finalImage];
+        });
+        
+    }];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    
+    [completionOperation addDependency:createImageOperation];
+    [createImageOperation addDependency:updateUIOperation];
+    [queue addOperation:updateUIOperation];
+    [queue addOperation:createImageOperation];
+    [queue addOperation:completionOperation];
+}
+
+-(void)didFinishSelectingBandsForPCAWithArray:(int *)selectedBands andBandCount:(int)bandCount
+{
+    
+    __block cv::Mat matrix;
+    __block cv::Mat dstMatix;
+    __block UIImage *finalImage;
+    
+    NSOperation *updateUIOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // [self updateViewWithHUD];
+            m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
+            m_ProgressHud.labelText =@"Running Principal Component Analysis";
+            [self.view addSubview:m_ProgressHud];
+            [m_ProgressHud show:YES];
+            
+        });
+        
+        
+    }];
+    
+    NSOperation *createImageOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:selectedBands andBandArraySize:bandCount];
+        
+        dstMatix = [self deblurImage:matrix];
+        
+        finalImage = [m_HyperspectralData UIImageFromCVMat:dstMatix];
+        
+    }];
+    
+    
+    NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [m_ProgressHud removeFromSuperview];
+            m_ProgressHud = nil;
+            
+            [self addNewImageToViewWithImage:finalImage];
+        });
+        
+    }];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    
+    [completionOperation addDependency:createImageOperation];
+    [createImageOperation addDependency:updateUIOperation];
+    [queue addOperation:updateUIOperation];
+    [queue addOperation:createImageOperation];
+    [queue addOperation:completionOperation];
+
+    
+}
+
+/*
+-(void)didFinishSelectingBandsForPCA:(NSArray *)bandsSelected
+{
+    NSLog(@"finsihed selecting bands");
+}
+
+-(void)didFinishMappingColorsForPCA:(NSDictionary *)bandsMapped
+{
+    NSLog(@"finsihed selecting colors bands");
+}
+ */
 
 -(void)cancelSelectedOption
 {

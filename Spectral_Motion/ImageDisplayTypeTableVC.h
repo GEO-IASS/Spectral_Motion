@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MSENVIFileParser.h"
+#import "MSBandMappingTableVC.h"
 
 @interface ImageDisplayTypeTableVC : UITableViewController
 {
@@ -15,6 +16,7 @@
 }
 @property (strong,nonatomic) UINavigationController *m_ParentNavigationController;
 @property (strong,nonatomic) UIViewController * m_ImageViewController;
+@property (strong, nonatomic) MSBandMappingTableVC *m_BandMappingTableVC;
 
 
 

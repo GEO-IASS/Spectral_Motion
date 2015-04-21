@@ -10,9 +10,10 @@
 #import "MSHyperspectralData.h"
 #import "MenuOptionsViewController.h"
 #import "CorePlot-CocoaTouch.h"
+#import "MSBandMappingTableVC.h"
 
 
-@interface ViewController : UIViewController<UIScrollViewDelegate, OptionSelectedDelegate>
+@interface ViewController : UIViewController<UIScrollViewDelegate, OptionSelectedDelegate, PCABandsSelectedDelegate>
 
 @property (weak, nonatomic) IBOutlet UISlider *bandSlider;
 
@@ -23,7 +24,9 @@
 -(void)setImageViewWithImage:(UIImage*)image;
 -(void)setHyperspectralDataPointer:(MSHyperspectralData*)hyperspectralData;
 -(void)setHyperspectralDataHeader:(HDRINFO) hdrInfo;
+-(HDRINFO)getHdrInfo;
 -(void)setGreyScaleBand:(int)greyscaleBand;
+
 
 @property (weak, nonatomic) IBOutlet UIView *sliderBackgroundView;
 

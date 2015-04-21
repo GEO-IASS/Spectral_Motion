@@ -917,18 +917,6 @@
         case 2:
         {
        
-           /* self.loadDataProgressView.hidden = YES;
-            self.loadingImageLabel.hidden = YES;
-                                   
-            m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
-                                   
-            m_ProgressHud.labelText =@"Running Principal Component Analysis";
-                                   
-            [m_BlurredImageView addSubview:m_ProgressHud];
-            
-            [m_ProgressHud show:YES];
-            */
-            
             
             matrix = [m_HyperspectralData createPrincipalComponentMatrixWithBandArray:m_BandsMapped andBandArraySize:m_BandsMappedCount];
             dstMatix = [self deblurImage:matrix];
@@ -951,7 +939,7 @@
            
            dstMatix = [self deblurImage:matrix];
             
-        [imageViewer setGreyScaleBand:-1];
+           [imageViewer setGreyScaleBand:-1];
 
         }
             break;

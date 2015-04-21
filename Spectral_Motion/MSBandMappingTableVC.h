@@ -8,17 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol BandsSelectedDelegate <NSObject>
+@protocol PCABandsSelectedDelegate <NSObject>
 
--(void)didFinishSelectingBandsForPCA:(NSArray*) bandsSelected;
+//-(void)didFinishSelectingBandsForPCA:(NSArray*) bandsSelected;
 
--(void)didFinishMappingColorsForPCA:(NSDictionary*) bandsMapped;
+-(void)didFinishSelectingBandsForPCAWithArray:(int*) selectedBands andBandCount:(int) bandCount;
+
+
+-(void)didFinishMappingColorsForPCAWithRedArray:(int*) redBands redArraryCount:(int) redCount greenArray:(int*) greenBands greenArrayCount:(int) greenCount andBlueArray:(int*) blueBands blueArrayCount:(int) blueCount;
+
+
+//-(void)didFinishMappingColorsForPCA:(NSDictionary*) bandsMapped;
 
 
 @end
 
+
 @interface MSBandMappingTableVC : UITableViewController
 @property(strong,nonatomic) NSMutableArray *m_BandsSelected;
+@property (strong,nonatomic) UINavigationController *m_ParentNavController;// for ImageViewController
+
 //@property(strong,nonatomic)NSDictionary *m_BandsMapped;
 
 //@property(strong,nonatomic) NSMutableArray *m_RedBandsMapped;
@@ -26,7 +35,8 @@
 //@property(strong,nonatomic) NSMutableArray *m_BlueBandsMapped;
 
 
-@property(nonatomic,weak) id<BandsSelectedDelegate> delegate;
+@property(nonatomic,weak) id<PCABandsSelectedDelegate> delegate;
+
 
 -(void)setWavelenghths:(float*)wavelengthArr andBandCount:(int)bandCount;
 
