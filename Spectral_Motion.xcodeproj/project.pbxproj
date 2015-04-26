@@ -70,6 +70,7 @@
 		143BC0551AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 143BC0541AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m */; };
 		143BC0581AEDA59200A6E57B /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0561AEDA59200A6E57B /* check@2x.png */; };
 		143BC0591AEDA59200A6E57B /* checkblank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0571AEDA59200A6E57B /* checkblank@2x.png */; };
+		143BC05B1AEDAAF000A6E57B /* SpectralLibrary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 143BC05A1AEDAAF000A6E57B /* SpectralLibrary.plist */; };
 		146C760E1A49CAAD00763A11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C760D1A49CAAD00763A11 /* main.m */; };
 		146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C76101A49CAAD00763A11 /* AppDelegate.m */; };
 		146C76141A49CAAD00763A11 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C76131A49CAAD00763A11 /* ViewController.m */; };
@@ -251,6 +252,7 @@
 		143BC0541AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSpectralSignatureSelectorTableVC.m; sourceTree = "<group>"; };
 		143BC0561AEDA59200A6E57B /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		143BC0571AEDA59200A6E57B /* checkblank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkblank@2x.png"; sourceTree = "<group>"; };
+		143BC05A1AEDAAF000A6E57B /* SpectralLibrary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SpectralLibrary.plist; sourceTree = "<group>"; };
 		146C76081A49CAAD00763A11 /* Spectral_Motion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spectral_Motion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		146C760C1A49CAAD00763A11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		146C760D1A49CAAD00763A11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				146C760D1A49CAAD00763A11 /* main.m */,
 				14A8DE1D1AB5E40100CCDC17 /* MenuOptions.plist */,
 				14EB92BB1AD4C37E00EBA2CF /* ImageDisplayTypes.plist */,
+				143BC05A1AEDAAF000A6E57B /* SpectralLibrary.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				14A8DE2A1AB5F63C00CCDC17 /* Menu-32.png in Resources */,
 				1413ED1B1A99BD3D006BC611 /* tableview_background.jpg in Resources */,
 				143BC02D1AED6D0400A6E57B /* sample2.a.bip in Resources */,
+				143BC05B1AEDAAF000A6E57B /* SpectralLibrary.plist in Resources */,
 				1413ED231A99C4B2006BC611 /* prismCube.jpg in Resources */,
 				143BC0481AEDA15F00A6E57B /* constructionasphalt.txt in Resources */,
 				143BC0471AEDA15F00A6E57B /* blackpaint.txt in Resources */,
