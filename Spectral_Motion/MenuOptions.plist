@@ -18,5 +18,13 @@
 		<key>MenuOptionDesc</key>
 		<string>Edits an existing image. This will allow you to modify parameters for an existing image and rerender it to the screen.\n This will replace to current image with the images with new parameters</string>
 	</dict>
+	<dict>
+		<key>MenuOptionName</key>
+		<string>Add Spectral Signature To Graph</string>
+		<key>MenuOptionImage</key>
+		<string>Add Image-100.png</string>
+		<key>MenuOptionDesc</key>
+		<string>Adds the plot of a chosen material to the current graph. This is useful in comparing the signatures of the image to a given material for object identification.</string>
+	</dict>
 </array>
 </plist>

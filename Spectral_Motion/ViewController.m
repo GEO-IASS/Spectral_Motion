@@ -66,6 +66,7 @@
 -(void)addNewImageToViewWithImage:(UIImage*)newImage;
 -(void)addImageInfoPanelToViewWithImageView:(UIImageView*)callingImageView;
 -(void)instantiateImageDisplayTypeVC;
+-(void)instantiateSpectralSignatureSelectorVC;
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController;
 -(void)cancelSelectedOption;
 -(void)setImageInfoPanelValuesForXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate withImageView:(UIImageView*)imageView;
@@ -718,15 +719,23 @@
     
     switch (selectedOption)
     {
+            //add new image to screen
         case 0:
         {
             [self instantiateImageDisplayTypeVC];
         }
         break;
             
+            // TODO: edits existing image(NOT yet Implemented)
         case 1:
         {
             [self instantiateImageDisplayTypeVC];
+        }
+        break;
+            
+        case 2:
+        {
+            
         }
         break;
             
@@ -912,6 +921,11 @@
 
 
     
+    
+}
+
+-(void)instantiateSpectralSignatureSelectorVC
+{
     
 }
 

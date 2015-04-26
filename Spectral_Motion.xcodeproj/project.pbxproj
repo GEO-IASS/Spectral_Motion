@@ -55,6 +55,21 @@
 		143BC02C1AED6D0400A6E57B /* f970620t01p02_r03_sc03.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0261AED6D0400A6E57B /* f970620t01p02_r03_sc03.a.bip */; };
 		143BC02D1AED6D0400A6E57B /* sample2.a.bip in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0271AED6D0400A6E57B /* sample2.a.bip */; };
 		143BC0351AED797700A6E57B /* Aviris.wvln in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0341AED797700A6E57B /* Aviris.wvln */; };
+		143BC0471AEDA15F00A6E57B /* blackpaint.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0381AEDA15F00A6E57B /* blackpaint.txt */; };
+		143BC0481AEDA15F00A6E57B /* constructionasphalt.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0391AEDA15F00A6E57B /* constructionasphalt.txt */; };
+		143BC0491AEDA15F00A6E57B /* constructionconcrete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC03A1AEDA15F00A6E57B /* constructionconcrete.txt */; };
+		143BC04A1AEDA15F00A6E57B /* constructiontar.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC03B1AEDA15F00A6E57B /* constructiontar.txt */; };
+		143BC04B1AEDA15F00A6E57B /* whitemarble.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC03C1AEDA15F00A6E57B /* whitemarble.txt */; };
+		143BC04C1AEDA15F00A6E57B /* granite.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC03E1AEDA15F00A6E57B /* granite.txt */; };
+		143BC04D1AEDA15F00A6E57B /* marble.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC03F1AEDA15F00A6E57B /* marble.txt */; };
+		143BC04E1AEDA15F00A6E57B /* redorangesandyloam.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0411AEDA15F00A6E57B /* redorangesandyloam.txt */; };
+		143BC04F1AEDA15F00A6E57B /* conifer.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0431AEDA15F00A6E57B /* conifer.txt */; };
+		143BC0501AEDA15F00A6E57B /* decidous.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0441AEDA15F00A6E57B /* decidous.txt */; };
+		143BC0511AEDA15F00A6E57B /* drygrass.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0451AEDA15F00A6E57B /* drygrass.txt */; };
+		143BC0521AEDA15F00A6E57B /* grass.txt in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0461AEDA15F00A6E57B /* grass.txt */; };
+		143BC0551AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 143BC0541AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m */; };
+		143BC0581AEDA59200A6E57B /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0561AEDA59200A6E57B /* check@2x.png */; };
+		143BC0591AEDA59200A6E57B /* checkblank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143BC0571AEDA59200A6E57B /* checkblank@2x.png */; };
 		146C760E1A49CAAD00763A11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C760D1A49CAAD00763A11 /* main.m */; };
 		146C76111A49CAAD00763A11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C76101A49CAAD00763A11 /* AppDelegate.m */; };
 		146C76141A49CAAD00763A11 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146C76131A49CAAD00763A11 /* ViewController.m */; };
@@ -220,6 +235,22 @@
 		143BC0261AED6D0400A6E57B /* f970620t01p02_r03_sc03.a.bip */ = {isa = PBXFileReference; lastKnownFileType = file; name = f970620t01p02_r03_sc03.a.bip; path = "Sample Data/f970620t01p02_r03_sc03.a.bip"; sourceTree = "<group>"; };
 		143BC0271AED6D0400A6E57B /* sample2.a.bip */ = {isa = PBXFileReference; lastKnownFileType = file; name = sample2.a.bip; path = "Sample Data/sample2.a.bip"; sourceTree = "<group>"; };
 		143BC0341AED797700A6E57B /* Aviris.wvln */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Aviris.wvln; path = "Spectral_Motion/Sensor Wavelength Data/Aviris.wvln"; sourceTree = "<group>"; };
+		143BC0381AEDA15F00A6E57B /* blackpaint.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blackpaint.txt; sourceTree = "<group>"; };
+		143BC0391AEDA15F00A6E57B /* constructionasphalt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constructionasphalt.txt; sourceTree = "<group>"; };
+		143BC03A1AEDA15F00A6E57B /* constructionconcrete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constructionconcrete.txt; sourceTree = "<group>"; };
+		143BC03B1AEDA15F00A6E57B /* constructiontar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constructiontar.txt; sourceTree = "<group>"; };
+		143BC03C1AEDA15F00A6E57B /* whitemarble.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = whitemarble.txt; sourceTree = "<group>"; };
+		143BC03E1AEDA15F00A6E57B /* granite.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = granite.txt; sourceTree = "<group>"; };
+		143BC03F1AEDA15F00A6E57B /* marble.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = marble.txt; sourceTree = "<group>"; };
+		143BC0411AEDA15F00A6E57B /* redorangesandyloam.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = redorangesandyloam.txt; sourceTree = "<group>"; };
+		143BC0431AEDA15F00A6E57B /* conifer.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conifer.txt; sourceTree = "<group>"; };
+		143BC0441AEDA15F00A6E57B /* decidous.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = decidous.txt; sourceTree = "<group>"; };
+		143BC0451AEDA15F00A6E57B /* drygrass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drygrass.txt; sourceTree = "<group>"; };
+		143BC0461AEDA15F00A6E57B /* grass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grass.txt; sourceTree = "<group>"; };
+		143BC0531AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSpectralSignatureSelectorTableVC.h; sourceTree = "<group>"; };
+		143BC0541AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSpectralSignatureSelectorTableVC.m; sourceTree = "<group>"; };
+		143BC0561AEDA59200A6E57B /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
+		143BC0571AEDA59200A6E57B /* checkblank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkblank@2x.png"; sourceTree = "<group>"; };
 		146C76081A49CAAD00763A11 /* Spectral_Motion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spectral_Motion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		146C760C1A49CAAD00763A11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		146C760D1A49CAAD00763A11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -319,6 +350,8 @@
 				14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */,
 				14EB92BD1AD5B32D00EBA2CF /* MSBandPickerViewsVC.h */,
 				14EB92BE1AD5B32D00EBA2CF /* MSBandPickerViewsVC.m */,
+				143BC0531AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.h */,
+				143BC0541AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -457,6 +490,8 @@
 		143BBFCB1ABA5C5B00CC8B6D /* Spectral Motion Resources */ = {
 			isa = PBXGroup;
 			children = (
+				143BC0561AEDA59200A6E57B /* check@2x.png */,
+				143BC0571AEDA59200A6E57B /* checkblank@2x.png */,
 				143BBFCC1ABA5C5B00CC8B6D /* bigbutton@2x.png */,
 				143BBFCD1ABA5C5B00CC8B6D /* btnall@2x.png */,
 				143BBFCE1ABA5C5B00CC8B6D /* btnback@2x.png */,
@@ -487,6 +522,57 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		143BC0361AEDA15F00A6E57B /* Spectral Library */ = {
+			isa = PBXGroup;
+			children = (
+				143BC0371AEDA15F00A6E57B /* Man-Made */,
+				143BC03D1AEDA15F00A6E57B /* Rocks */,
+				143BC0401AEDA15F00A6E57B /* Soil */,
+				143BC0421AEDA15F00A6E57B /* Vegetation */,
+			);
+			path = "Spectral Library";
+			sourceTree = "<group>";
+		};
+		143BC0371AEDA15F00A6E57B /* Man-Made */ = {
+			isa = PBXGroup;
+			children = (
+				143BC0381AEDA15F00A6E57B /* blackpaint.txt */,
+				143BC0391AEDA15F00A6E57B /* constructionasphalt.txt */,
+				143BC03A1AEDA15F00A6E57B /* constructionconcrete.txt */,
+				143BC03B1AEDA15F00A6E57B /* constructiontar.txt */,
+				143BC03C1AEDA15F00A6E57B /* whitemarble.txt */,
+			);
+			path = "Man-Made";
+			sourceTree = "<group>";
+		};
+		143BC03D1AEDA15F00A6E57B /* Rocks */ = {
+			isa = PBXGroup;
+			children = (
+				143BC03E1AEDA15F00A6E57B /* granite.txt */,
+				143BC03F1AEDA15F00A6E57B /* marble.txt */,
+			);
+			path = Rocks;
+			sourceTree = "<group>";
+		};
+		143BC0401AEDA15F00A6E57B /* Soil */ = {
+			isa = PBXGroup;
+			children = (
+				143BC0411AEDA15F00A6E57B /* redorangesandyloam.txt */,
+			);
+			path = Soil;
+			sourceTree = "<group>";
+		};
+		143BC0421AEDA15F00A6E57B /* Vegetation */ = {
+			isa = PBXGroup;
+			children = (
+				143BC0431AEDA15F00A6E57B /* conifer.txt */,
+				143BC0441AEDA15F00A6E57B /* decidous.txt */,
+				143BC0451AEDA15F00A6E57B /* drygrass.txt */,
+				143BC0461AEDA15F00A6E57B /* grass.txt */,
+			);
+			path = Vegetation;
+			sourceTree = "<group>";
+		};
 		146C75FF1A49CAAD00763A11 = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +595,7 @@
 		146C760A1A49CAAD00763A11 /* Spectral_Motion */ = {
 			isa = PBXGroup;
 			children = (
+				143BC0361AEDA15F00A6E57B /* Spectral Library */,
 				1431E72E1AC06C5100AF3F0E /* MSHyperspectralDataPlotter.h */,
 				1431E72F1AC06C5100AF3F0E /* MSHyperspectralDataPlotter.m */,
 				141CB21A1A4A453800470591 /* NSString+MSString.h */,
@@ -690,10 +777,15 @@
 			files = (
 				1413ED1D1A99C14F006BC611 /* hyperspace-background.jpg in Resources */,
 				143BBFE61ABA5C5B00CC8B6D /* listviewtop@2x.png in Resources */,
+				143BC0501AEDA15F00A6E57B /* decidous.txt in Resources */,
+				143BC04F1AEDA15F00A6E57B /* conifer.txt in Resources */,
 				143BBFE91ABA5C5B00CC8B6D /* squarebg@2x.png in Resources */,
+				143BC0491AEDA15F00A6E57B /* constructionconcrete.txt in Resources */,
 				1413ED1F1A99C364006BC611 /* Higgs-boson_c.jpg in Resources */,
 				143BBFDE1ABA5C5B00CC8B6D /* btnback@2x.png in Resources */,
 				146C76171A49CAAD00763A11 /* Main.storyboard in Resources */,
+				143BC0521AEDA15F00A6E57B /* grass.txt in Resources */,
+				143BC04A1AEDA15F00A6E57B /* constructiontar.txt in Resources */,
 				143BBFE81ABA5C5B00CC8B6D /* mainbutton@2x.png in Resources */,
 				143BBFDF1ABA5C5B00CC8B6D /* button@2x.png in Resources */,
 				14A8DE3B1AB71F1500CCDC17 /* .gitignore in Resources */,
@@ -701,11 +793,15 @@
 				143BBFDC1ABA5C5B00CC8B6D /* bigbutton@2x.png in Resources */,
 				14A8DE211AB5E4A700CCDC17 /* Edit Image-100.png in Resources */,
 				143BBFE51ABA5C5B00CC8B6D /* inputenable@2x.png in Resources */,
+				143BC04E1AEDA15F00A6E57B /* redorangesandyloam.txt in Resources */,
 				143BC0281AED6D0400A6E57B /* f970619t01p02_r02_sc05.a.rfl in Resources */,
+				143BC0591AEDA59200A6E57B /* checkblank@2x.png in Resources */,
 				14A8DE1E1AB5E40100CCDC17 /* MenuOptions.plist in Resources */,
 				143BC0161AED658D00A6E57B /* f970619t01p02_r02_sc01.a.rfl in Resources */,
 				14A8DE2B1AB5F63C00CCDC17 /* Menu-26.png in Resources */,
+				143BC04C1AEDA15F00A6E57B /* granite.txt in Resources */,
 				143BC0151AED658D00A6E57B /* f970619t01p02_r02_sc01.a.hdr in Resources */,
+				143BC0511AEDA15F00A6E57B /* drygrass.txt in Resources */,
 				14EB92BC1AD4C37E00EBA2CF /* ImageDisplayTypes.plist in Resources */,
 				146C761C1A49CAAD00763A11 /* LaunchScreen.xib in Resources */,
 				1413ED2F1A9AE3C5006BC611 /* spectral_motion_logo3.png in Resources */,
@@ -717,15 +813,20 @@
 				1413ED1B1A99BD3D006BC611 /* tableview_background.jpg in Resources */,
 				143BC02D1AED6D0400A6E57B /* sample2.a.bip in Resources */,
 				1413ED231A99C4B2006BC611 /* prismCube.jpg in Resources */,
+				143BC0481AEDA15F00A6E57B /* constructionasphalt.txt in Resources */,
+				143BC0471AEDA15F00A6E57B /* blackpaint.txt in Resources */,
 				143BC02B1AED6D0400A6E57B /* sample2.a.hdr in Resources */,
 				1413ED211A99C3A7006BC611 /* particleFever_poster-small.jpg in Resources */,
+				143BC04D1AEDA15F00A6E57B /* marble.txt in Resources */,
 				143BBFEA1ABA5C5B00CC8B6D /* tabbg@2x.png in Resources */,
 				143BBFE31ABA5C5B00CC8B6D /* inputbg@2x.png in Resources */,
 				1413ED191A99AD3D006BC611 /* Spectral_Motion_Logo.png in Resources */,
 				143BBFE41ABA5C5B00CC8B6D /* inputbgdesable@2x.png in Resources */,
 				143BBFED1ABA68B800CC8B6D /* topbg.png in Resources */,
+				143BC0581AEDA59200A6E57B /* check@2x.png in Resources */,
 				143BC02C1AED6D0400A6E57B /* f970620t01p02_r03_sc03.a.bip in Resources */,
 				1413ED2B1A9ADDD3006BC611 /* tableview_background2.jpeg in Resources */,
+				143BC04B1AEDA15F00A6E57B /* whitemarble.txt in Resources */,
 				143BC0351AED797700A6E57B /* Aviris.wvln in Resources */,
 				143BBFE21ABA5C5B00CC8B6D /* input@2x.png in Resources */,
 				143BBFE71ABA5C5B00CC8B6D /* mainbackground@2x..png in Resources */,
@@ -758,6 +859,7 @@
 				14A8DE3D1AB71F1500CCDC17 /* UIView+Glow.m in Sources */,
 				1431E7301AC06C5100AF3F0E /* MSHyperspectralDataPlotter.m in Sources */,
 				14A8DE1C1AB5E04E00CCDC17 /* MVYSideMenuOptions.m in Sources */,
+				143BC0551AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m in Sources */,
 				141CB21C1A4A453800470591 /* NSString+MSString.m in Sources */,
 				14D9B9751AA7A1FB004EF177 /* MBProgressHUD.m in Sources */,
 				14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */,
