@@ -31,7 +31,7 @@
     self.ImageFileTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
-    m_ImageFileNames = [[NSArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3", nil];
+    m_ImageFileNames = [[NSArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3(reflectance Data)", @"Sample Image 4(reflectance Data)", nil];
     
     
     UIImageView *tableViewImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableview_background2.jpeg"]];
@@ -130,6 +130,47 @@
     
     //hardcoding file name for now temporarily
     
+    switch ([self.ImageFileTableView indexPathForSelectedRow].row)
+    {
+        case 0:
+        {
+            msHeaderVC.m_HeaderFileName = @"f970620t01p02_r03_sc03.a";
+            [msHeaderVC parseHeaderFile];
+
+        }
+            break;
+            
+        case 1:
+        {
+            msHeaderVC.m_HeaderFileName = @"sample2.a";
+            [msHeaderVC parseHeaderFile];
+            
+        }
+            break;
+            
+        case 2:
+        {
+            msHeaderVC.m_HeaderFileName = @"f970619t01p02_r02_sc05.a";
+            [msHeaderVC parseHeaderFile];
+
+            
+        }
+            break;
+            
+        case 3:
+        {
+            msHeaderVC.m_HeaderFileName = @"f970619t01p02_r02_sc01.a";
+            [msHeaderVC parseHeaderFile];
+
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    /*
+    
     if([self.ImageFileTableView indexPathForSelectedRow].row == 0)
     {
         msHeaderVC.m_HeaderFileName = @"f970620t01p02_r03_sc03.a";
@@ -147,7 +188,7 @@
         msHeaderVC.m_HeaderFileName = @"f970619t01p02_r02_sc05.a";
         [msHeaderVC parseHeaderFile];
     }
-    
+    */
 
     
 }

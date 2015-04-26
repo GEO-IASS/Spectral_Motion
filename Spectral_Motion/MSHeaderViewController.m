@@ -712,7 +712,7 @@
     else
     {
         self.redBandTextField.text = 0;
-        self.greenBandLabel.text = 0;
+        self.greenBandTextField.text = 0;
         self.blueBandTextField.text = 0;
     }
 

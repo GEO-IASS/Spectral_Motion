@@ -59,6 +59,7 @@
 -(void)setDataType;
 -(void)setDefaultBands;
 -(void)setWaveLength;
+-(void)setWavelengthWithAlternateFile:(NSString *) wvlnFile;
 -(void)setByteOrder;
 -(void)setFileType;
 -(void)setInterleaveType;
@@ -414,10 +415,58 @@
   
     if(wavelengthStr == nil)
     {
-        hdrInfo.wavelength = 0;
+        //hdrInfo.wavelength = 0;
+        [self setWavelengthWithAlternateFile:@"Aviris"];
         return ;
     }
    
+    
+    NSArray *wavelengthArray = [wavelengthStr componentsSeparatedByString:@","];
+    
+    float *wavelength = (float*)calloc(wavelengthArray.count, sizeof(float));
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
+    
+    
+    for(int i =0; i < wavelengthArray.count; i++)
+    {
+        NSString *wavelengthStrItem = [wavelengthArray[i] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        wavelength[i] =  [numberFormatter numberFromString:wavelengthStrItem].floatValue;
+        
+    }
+    
+    hdrInfo.wavelength = wavelength;
+    
+}
+
+-(void)setWavelengthWithAlternateFile:(NSString *) wvlnFile
+{
+    NSError *error;
+    
+    NSRegularExpression *regex = [[NSRegularExpression alloc]initWithPattern:WAVELENGTH_REGEXP options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    NSString *file = [[NSBundle mainBundle] pathForResource:wvlnFile ofType:@"wvln"];
+    
+    NSString *fileStr = [NSString stringWithContentsOfFile:file
+                                                  encoding:NSUTF8StringEncoding error:NULL];
+    
+    
+    NSTextCheckingResult *textCheckingResult = [regex firstMatchInString:fileStr options:0 range:NSMakeRange(0, fileStr.length)];
+    
+    NSRange matchRange = [textCheckingResult range];
+    NSString *wavelengthStr = [fileStr substringWithRange:matchRange];
+    NSLog(@"Found string '%@'", wavelengthStr);
+    
+    
+    wavelengthStr = [wavelengthStr stringBetweenString:@"{" andString:@"}"];
+    
+    if(wavelengthStr == nil)
+    {
+        hdrInfo.wavelength = 0;
+        return ;
+    }
+    
     
     NSArray *wavelengthArray = [wavelengthStr componentsSeparatedByString:@","];
     
