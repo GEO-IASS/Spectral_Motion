@@ -19,10 +19,11 @@
 #import "MenuOptionsViewController.h"
 #import "MSBandPickerViewsVC.h"
 #import "MBProgressHUD.h"
+#import "MSSpectralSignatureSelectorTableVC.h"
 
 
 
-@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate, ImageOptionsSelectedDelegate, PCABandsSelectedDelegate>
+@interface ViewController ()<UIGestureRecognizerDelegate, OptionSelectedDelegate, ImageOptionsSelectedDelegate, PCABandsSelectedDelegate, SpectralSignaturesSelectionDelegate>
 {
     MSHyperspectralData * m_HyperspectralData;
     HDRINFO m_HdrInfo;
@@ -44,6 +45,10 @@
     
     UINavigationController *m_ImageConfigNavController;
     ImageDisplayTypeTableVC *m_ImageDisplayTypeVC;
+    
+    UINavigationController *m_SpectralSignatureSelectionNavController;
+    MSSpectralSignatureSelectorTableVC *m_SpectralSignatureSelectorTableVC;
+    
     
     MBProgressHUD *m_ProgressHud;
     
@@ -735,7 +740,19 @@
             
         case 2:
         {
+            if(m_PlotView != nil)
+            {
+                [self instantiateSpectralSignatureSelectorVC];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No graph Present" message:@"First add a New Graph by long pressing Image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                
+            }
             
+            break;
         }
         break;
             
@@ -926,6 +943,43 @@
 
 -(void)instantiateSpectralSignatureSelectorVC
 {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    m_SpectralSignatureSelectorTableVC = (MSSpectralSignatureSelectorTableVC*)[mainStoryboard instantiateViewControllerWithIdentifier:@"MSSpectralSignatureSelector"];
+    
+    m_SpectralSignatureSelectorTableVC.delegate = self;
+    
+    
+    m_SpectralSignatureSelectionNavController = [[UINavigationController alloc]initWithRootViewController:m_SpectralSignatureSelectorTableVC];
+    
+    
+    m_SpectralSignatureSelectionNavController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    m_SpectralSignatureSelectorTableVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    m_SpectralSignatureSelectionNavController.title = @"Spectral Library";
+  
+    
+    
+    [self presentViewController:m_SpectralSignatureSelectionNavController
+                       animated:YES
+                     completion:^{
+                         
+                     //    m_SpectralSignatureSelectionNavController.view.superview.frame = CGRectMake(0, 0, 600, 900);//it's important to do this after
+
+                         
+                     }];
+    
+    
+    m_SpectralSignatureSelectionNavController.view.superview.center =
+    CGPointMake(self.view.center.x, self.view.center.y);
+    
+
+}
+
+-(void)didSelectSpectralSignaturesWithIndexPaths:(NSArray *)indexPaths
+{
+    NSLog(@"Index Paths chosen %@", indexPaths);
+    
     
 }
 

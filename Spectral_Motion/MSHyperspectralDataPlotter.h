@@ -27,7 +27,9 @@
 
 -(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
 
--(void)createScatterPlotWithView:(UIView*)view;
+-(void)createScatterPlotWithView:(UIView *)view;
+
+-(void)plotReflectanceDataAtIndexPaths:(NSArray *) indexPaths;
 
 //-(void)setDelegate:(NSObject*)delegate;
 //-(void)setDataSource:(CPTPlotDataSource*)dataSource;

@@ -319,6 +319,216 @@
 
 }
 
+-(void)plotReflectanceDataAtIndexPaths:(NSArray *) indexPaths
+{
+    for(NSIndexPath *path in indexPaths)
+    {
+      
+        switch (path.section)
+        {
+            case 0://Vegetation
+            {
+                switch (path.row)
+                {
+                    case 0://grass
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 1://dry grass
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 2://conifer
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 3://decidous
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                        
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                case 1:// Man-Made
+            {
+                switch (path.row)
+                {
+                    case 0:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 1:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 2:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 3:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 4:
+                    {
+                        ;
+                    }
+                        
+                        break;
+
+                        
+                        
+                        
+                    default:
+                        break;
+                }
+
+                
+            }
+                break;
+                
+                
+                
+                
+                
+                
+                
+                
+                case 2://Rocks
+            {
+                switch (path.row)
+                {
+                    case 0:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 1:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 2:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 3:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 4:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                }
+                
+                
+                
+                case 3://Soil
+            {
+                switch (path.row)
+                {
+                    case 0:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 1:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 2:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 3:
+                    {
+                        ;
+                    }
+                        
+                        break;
+                        
+                    case 4:
+                    {
+                        ;
+                    }
+       
+            
+                break;
+                }
+                
+            default:
+                break;
+        }
+            
+            
+            }
+        
+        }
+    }
+}
+
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     return m_HdrInfo.bands;

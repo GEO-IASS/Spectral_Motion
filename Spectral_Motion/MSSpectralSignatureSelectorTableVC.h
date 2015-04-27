@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SpectralSignaturesSelectionDelegate <NSObject>
+
+-(void) didSelectSpectralSignaturesWithIndexPaths:(NSArray *) indexPaths;
+
+@end
+
 @interface MSSpectralSignatureSelectorTableVC : UITableViewController
+@property(weak, nonatomic) id<SpectralSignaturesSelectionDelegate> delegate;
 
 @end
