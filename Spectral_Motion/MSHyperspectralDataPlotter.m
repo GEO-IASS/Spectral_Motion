@@ -64,6 +64,7 @@
     
 }
 
+/*
 -(void)createScatterPlotWithView:(UIView*)view
 {
     
@@ -128,6 +129,7 @@
     [newGraph addPlot:m_BoundPlot];
     
 }
+ */
 
 -(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate
 {
@@ -321,6 +323,8 @@
 
 -(void)plotReflectanceDataAtIndexPaths:(NSArray *) indexPaths
 {
+    
+    
     for(NSIndexPath *path in indexPaths)
     {
       
