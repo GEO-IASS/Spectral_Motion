@@ -48,6 +48,7 @@
 
 -(cv::Mat)createCVMatrixForBand:(int)band;
 
+-(cv::Mat)createNDVIMatrix;
 
 -(cv::Mat)createCVBGRMatrixWithBlueBand:(int) blueBand greenBand:(int)greenBand andRedBand:(int) redBand;
 -(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize;

@@ -212,12 +212,21 @@
 
 -(void)unhideUIElements
 {
-    //show rgb textfields
+    //10 means show rgb textfields
     if(self.setPCABandsView.tag == 10)
     {
         [self hideRGBGUIElements:YES];
         self.redBandTextField.hidden = NO;
         self.redBand_greyBand_label.hidden = NO;
+    }
+    
+    //11 means hide all views
+    else if (self.setPCABandsView.tag == 11)
+    {
+        [self hideRGBGUIElements:YES];
+        self.redBandTextField.hidden = YES;
+        self.redBand_greyBand_label.hidden = YES;
+
     }
     //remove rgb textfields
     else
@@ -231,6 +240,7 @@
 
 -(void)changeGUIBasedOnPickerviewSelection:(int)rowSelected;
 {
+    
     switch (rowSelected)
     {
             //greychannel display option selected
@@ -332,6 +342,35 @@
 
         }
             break;
+            
+            //NDVI image option selected
+        case 4:
+        {
+            
+            //if pcaview is not hidden, we hide, then unhide elements behind it
+            if(!self.setPCABandsView.hidden)
+            {
+                self.setPCABandsView.hidden = YES;
+                
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDidStopSelector:@selector(unhideUIElements)];
+                self.setPCABandsView.tag = 11;
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.setPCABandsView cache:NO];
+                [UIView commitAnimations];
+            }
+            
+            else//only hide all elements
+            {
+                [self hideRGBGUIElements:YES];
+                self.redBand_greyBand_label.hidden = YES;
+                self.redBandTextField.hidden = YES;
+            }
+         
+        }
+            break;
+
             
         default:
             break;
@@ -656,6 +695,16 @@
         [m_BlurredImageView addSubview:m_ProgressHud];
         [m_ProgressHud show:YES];
     }
+    else if([self.displayTypePickerView selectedRowInComponent:0] == 4)//NDVI
+    {
+        /*
+        [self hideProgressView:YES];
+        m_ProgressHud = [[MBProgressHUD alloc]initWithView:m_BlurredImageView];
+        m_ProgressHud.labelText =@"Running Principal Component Analysis";
+        [m_BlurredImageView addSubview:m_ProgressHud];
+        [m_ProgressHud show:YES];
+        */
+    }
     
 }
 
@@ -854,6 +903,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    
     [self changeGUIBasedOnPickerviewSelection:(int)row];
 
     
@@ -943,6 +993,19 @@
 
         }
             break;
+            
+            //push to imageviewer with ndvi
+        case 4:
+        {
+            matrix = [m_HyperspectralData createNDVIMatrix];
+            
+            dstMatix = [self deblurImage:matrix];
+            
+            [imageViewer setGreyScaleBand:-1];
+            
+        }
+            break;
+            
             
         default:
             break;

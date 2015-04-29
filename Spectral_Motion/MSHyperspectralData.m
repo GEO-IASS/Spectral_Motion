@@ -14,6 +14,29 @@
 #define BIL "bil"
 #define BSQ "bsq"
 
+//wavelength ranges
+
+//NIR
+#define NIR_RANGE_MIN 0.75
+#define NIR_RANGE_MAX 1.4
+
+//VIS(RED)
+#define VIS_RED_RANGE_MIN 0.62
+#define VIS_RED_RANGE_MAX 0.75
+
+
+typedef enum WAVELENGTH_RANGE
+{
+    ULTRAVIOLET = 0,
+    VISIBLE,
+    VISIBLE_RED,
+    NEAR_INFRARED,
+    MID_INFRARED,
+    FAR_INFRARED
+    
+    
+}WAVELENGTH_RANGE;
+
 using namespace cv;
 
 @interface Objc_CVMatWrapper : NSObject
@@ -62,14 +85,14 @@ using namespace cv;
     SEL m_PopulateHyperspectralCube;
     SEL m_CreateCVMatrixForBand;
     SEL m_CreateBGRCVMatrixForBands;
+    SEL m_CreateNDVIMatrix;
+    //SEL m_GetMedianMatrixInWavelengthRange;
     SEL m_GetPixelValuesForAllBandsAtCoordinates;
 
     
     //function pointer for getting pixel index
     int (*getPixelIndex) (int x, int y, int z, int width, int height, int depth);
     
-
-
 }
 
 -(void)setHDRInfoWithFileName:(NSString*)fileName;
@@ -86,6 +109,11 @@ using namespace cv;
 -(Mat)scaleImage:(Mat) img cvFormat:(int)rtype;
 
 
+//maybe won't use
+-(Mat)getMedianMatrixInWavelengthRange:(WAVELENGTH_RANGE) range;
+
+-(Mat)getMedian16BitMatrixInWavelengthRange:(WAVELENGTH_RANGE)range;
+
 -(void)setPixelIndexFunctionPointers;
 
 
@@ -94,9 +122,17 @@ using namespace cv;
 
 -(void)populateHyperspectralCubeForShortType;
 
+//The methods returning objective-c objects do the real work. The calling method that
+//uses this method is just the API interface for external classes. For example, API will call
+//createNDVIMatrix which internally may call create16BitNDVIMatrix or something else depending on data type
 -(Objc_CVMatWrapper*)create16BitCVMatrixForBand:(NSNumber*) band;
 
 -(Objc_CVMatWrapper*)create16BitBGRMatrixForBands:(NSDictionary*)dictOfBands;
+
+-(Objc_CVMatWrapper*)create16BitNDVIMatrix;
+
+//range here wraps WAVELENGTH_RANGE enum
+//-(Objc_CVMatWrapper*)getMedian16BitMatrixInWavelengthRange:(NSValue *) range;
 
 -(NSMutableArray*)get16BitPixelValuesForAllBandsAtCoordinates:(NSDictionary*)dictOfCoordinates;
 
@@ -108,6 +144,8 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
 int getBIPPixelIndex(int x, int y, int z, int width, int height, int depth);
 
 int getBILPixelIndex(int x, int y, int z, int width, int height, int depth);
+
+int getBSQPixelIndex(int x, int y, int z, int width, int height, int depth);
 
 
 @end
@@ -159,7 +197,7 @@ int getBILPixelIndex(int x, int y, int z, int width, int height, int depth);
     else if (strcmp(hdrInfo.interleave, BSQ)==0)
     {
         NSLog(@"bsq format");
-        //set to get BSQPixelIndex function
+        getPixelIndex = getBSQPixelIndex;
     }
     else
     {   //TODO: replace with another function. Perhaps greyscale i.e one band pixel index??
@@ -239,6 +277,8 @@ int getBILPixelIndex(int x, int y, int z, int width, int height, int depth);
             m_PopulateHyperspectralCube = @selector(populateHyperspectralCubeForShortType);
             m_CreateCVMatrixForBand = @selector(create16BitCVMatrixForBand:);
             m_CreateBGRCVMatrixForBands = @selector(create16BitBGRMatrixForBands:);
+            m_CreateNDVIMatrix = @selector(create16BitNDVIMatrix);
+           // m_GetMedianMatrixInWavelengthRange = @selector(getMedian16BitMatrixInWavelengthRange:);
             m_GetPixelValuesForAllBandsAtCoordinates = @selector(get16BitPixelValuesForAllBandsAtCoordinates:);
 
             m_DataSize = nPixelsInBand * hdrInfo.bands * sizeof(int16_t);
@@ -326,8 +366,17 @@ int getBIPPixelIndex(int x, int y, int z, int width, int height, int depth)
 int getBILPixelIndex(int x, int y, int z, int width, int height, int depth)
 {
     //(row*bands+band*column)*samples*allocation
-    return ((   (y * depth) + z * width   ) * width );
+    //return ((   (y * depth) + z * width   ) * width );
+return ((   (y * depth) + z * x   ) * width );
+
 }
+
+int getBSQPixelIndex(int x, int y, int z, int width, int height, int depth)
+{
+    // (lines*band*samples+row*samples + column)*allocation
+    return (height * z * width + (y * width) + x);
+}
+
 
 int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
 {
@@ -432,6 +481,12 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     free(m_HyperspectralCube);
 }
 
+//have to change this below method to call internal methods depending on data type: Like
+//create16BitPrincipalComponentMatrixWithBandArray...etc.. It will need to return Objc
+//wrapper object because it will use selector funtionality, which must return objective-c
+//data type
+
+//used for rgb pca image
 -(cv::Mat)createPrincipalComponentMatrixWithRedBandArray:(int[])redBands redBandsSize:(int) redBandsSize greenBands:(int[])greenBands greenBandsSize:(int)greenBandSize blueBands:(int[])blueBands blueBandsSize:(int)blueBandsSize
 {
     
@@ -504,6 +559,12 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
 }
 
+//have to change this below method to call internal methods depending on data type: Like
+//create16BitPrincipalComponentMatrixWithBandArray...etc.. It will need to return Objc
+//wrapper object because it will use selector funtionality, which must return objective-c
+//data type
+
+//used for greyscale pca image
 -(cv::Mat)createPrincipalComponentMatrixWithBandArray:(int[])bandArray andBandArraySize:(int)arraySize
 {
     /*First populate Mat in format for PCA.(Each element in column vector represents a pixels value for a particular band. The number of rows represent the number of bands used
@@ -586,9 +647,7 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     NSLog(@"post pca image size = %zu", postPCAMatrix.total());
     
     NSLog(@"rows : %i columns : %i", postPCAMatrix.rows, postPCAMatrix.cols);
-    
-    //m_FinalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
-    
+        
     Mat finalPCAMatrix = postPCAMatrix.reshape(1, hdrInfo.lines);
 
     
@@ -600,6 +659,8 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     cv::normalize(finalPCAMatrix, normalizedPCA, 0, 255, NORM_MINMAX, CV_8UC1);
     return normalizedPCA;
 }
+
+
 
 
 -(Objc_CVMatWrapper*)create16BitCVMatrixForBand:(NSNumber*) band
@@ -637,7 +698,149 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     return cvWrapper;
     
 }
+/*
+-(Mat)getMedianMatrixInWavelengthRange:(WAVELENGTH_RANGE) range
+{
+    int width = hdrInfo.samples;
+    int height = hdrInfo.lines;
+    
+    Mat medianMatrix(height, width, CV_16UC3);
+    
+    NSValue *wavelengthEnum = [NSValue valueWithBytes:&range objCType:@encode(WAVELENGTH_RANGE)];
+    
+    Objc_CVMatWrapper *objc_Img = (Objc_CVMatWrapper *)[self performSelector:m_GetMedianMatrixInWavelengthRange withObject:wavelengthEnum];
+    
+    return [objc_Img getMatrix];
+}
+*/
+-(Mat)getMedian16BitMatrixInWavelengthRange:(WAVELENGTH_RANGE)range
+{
+    float *wavelengths = hdrInfo.wavelength;
+    
+    float lowWavelengthValue;
+    float highWavelengthValue;
+    
+    switch (range)
+    {
+        case ULTRAVIOLET:
+        
+            break;
+            
+        case VISIBLE:
+            
+            break;
+            
+        case VISIBLE_RED:
+            lowWavelengthValue  = VIS_RED_RANGE_MIN;
+            highWavelengthValue = VIS_RED_RANGE_MAX;
+            
+            break;
+            
+        case NEAR_INFRARED:
+            lowWavelengthValue  = NIR_RANGE_MIN;
+            highWavelengthValue = NIR_RANGE_MAX;
+            
+            break;
+            
+        case MID_INFRARED:
+            
+            break;
+            
+        case FAR_INFRARED:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    /*steps
+     1. run binary search for lower value in range object to find the low value index
+     2. run binrary search for higher value in range object to find the high value index
+     3. divide high value index - low value index by 2 and take rounded value as median for the
+     create16bitcvmatrixforband method
+    */
+    
+    int lowBandIdx = [self searchForFirstOccurenceOfWavelengthValue: lowWavelengthValue arrStartingPos:0 arrEndingPos:hdrInfo.bands -1 ];
+    
+    int highBandIdx = [self searchForFirstOccurenceOfWavelengthValue: highWavelengthValue arrStartingPos:0 arrEndingPos:hdrInfo.bands -1 ];
+    
+    int medianMatrixIdx = (int) ( (highBandIdx - lowBandIdx) / 2 );
+    
+    Objc_CVMatWrapper * medianMatrix = [self create16BitCVMatrixForBand:[NSNumber numberWithInt:medianMatrixIdx]];
+    
+    return [medianMatrix getMatrix];
+}
 
+//only works for ordered lists. This implementation assumes list of wavalengths are ordered and monotonically increasing
+-(int)searchForFirstOccurenceOfWavelengthValue:(float) wavelengthValue arrStartingPos:(int) startPos arrEndingPos:(int) endPos
+{
+    float *wavelengths = hdrInfo.wavelength;
+    
+    float targetWavelength;// = *(wavelengths + startPos);
+    int targetIdx;
+    
+    for(int idx = startPos; idx < endPos; idx++)
+    {
+        targetWavelength = *(wavelengths + idx);
+        
+        if(targetWavelength >= wavelengthValue)
+        {
+            targetIdx = idx;
+            break;
+        }
+    }
+    
+    return targetIdx;
+}
+
+-(cv::Mat)createNDVIMatrix
+{
+    Objc_CVMatWrapper *objc_Img = (Objc_CVMatWrapper *) [self performSelector:m_CreateNDVIMatrix];
+    
+    return [objc_Img getMatrix];
+}
+
+//these methods can acutally use getMedian16BitMatrix.. methods directly. Since already in
+//method that knows its processing 16-bit data, no need for extra function pointer TODO:
+-(Objc_CVMatWrapper*)create16BitNDVIMatrix
+{
+    int width = hdrInfo.samples;
+    int height = hdrInfo.lines;
+    
+    Mat ndviMatrix(height, width, CV_16UC3);
+    
+    Mat visRedMatrix = [self getMedian16BitMatrixInWavelengthRange:VISIBLE_RED];
+    
+    Mat nirMatrix = [self getMedian16BitMatrixInWavelengthRange:NEAR_INFRARED];
+    
+    ndviMatrix = nirMatrix - visRedMatrix;
+    
+/*
+ matrix with values between -1 and 1 by specification. We scale it by 255 so OpenCV doesn't round down to 0.
+ */
+    divide(ndviMatrix, (nirMatrix + visRedMatrix), ndviMatrix, 255.0);
+  
+    Mat scaledImg = [self scaleImage:ndviMatrix cvFormat:CV_8UC3];
+    Objc_CVMatWrapper *objcMatWrapper = [[Objc_CVMatWrapper alloc]
+                                         initWithCVMatrix:scaledImg];
+    
+    return objcMatWrapper ;
+
+}
+
+/*
+-(Objc_CVMatWrapper *)getMedian16BitMatrixInWavelengthRange:(NSValue *)range
+{
+    WAVELENGTH_RANGE rangeBuffer;
+    
+    [range getValue:&rangeBuffer];
+    
+    NSLog(@"Wavelength range extracted %i", rangeBuffer);
+    
+    
+}
+ */
 
 -(cv::Mat)createCVMatrixForBand:(int)band
 {
@@ -705,9 +908,10 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
    Mat scaledImg = [self scaleImage:imgBand cvFormat:CV_8UC3];
 
     
-    Objc_CVMatWrapper *objcMatWrapper = [[Objc_CVMatWrapper alloc]initWithCVMatrix:scaledImg];
+    Objc_CVMatWrapper *objcMatWrapper = [[Objc_CVMatWrapper alloc]
+                                         initWithCVMatrix:scaledImg];
     
-    return objcMatWrapper ;
+    return objcMatWrapper;
     
 }
 

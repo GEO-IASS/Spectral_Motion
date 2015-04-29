@@ -6,5 +6,6 @@
 	<string>3-Channel RGB</string>
 	<string> GreyScale PCA</string>
 	<string>3-Channel RGB PCA</string>
+	<string>NDVI(Normal Difference Vegetation Index)</string>
 </array>
 </plist>
