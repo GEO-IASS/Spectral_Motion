@@ -319,7 +319,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1023"
             endingLineNumber = "1023"
-            landmarkName = "-checkPixelValues:"
+            landmarkName = "-scaleImage:cvFormat:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1441,7 +1441,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "980"
             endingLineNumber = "980"
-            landmarkName = "-get16BitPixelValuesForAllBandsAtCoordinates:"
+            landmarkName = "-getPixelValuesForAllBandsAtXCoordinate:andYCoordinate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1919,7 +1919,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "950"
             endingLineNumber = "950"
-            landmarkName = "-getWavelengthValues"
+            landmarkName = "-get16BitPixelValuesForAllBandsAtCoordinates:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

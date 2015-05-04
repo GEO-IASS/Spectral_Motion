@@ -765,7 +765,7 @@ int getStandardPixelIndex(int x, int y, int z, int width, int height, int depth)
     
     int highBandIdx = [self searchForFirstOccurenceOfWavelengthValue: highWavelengthValue arrStartingPos:0 arrEndingPos:hdrInfo.bands -1 ];
     
-    int medianMatrixIdx = (int) ( (highBandIdx - lowBandIdx) / 2 );
+    int medianMatrixIdx = (int) ( (highBandIdx + lowBandIdx) / 2 );
     
     Objc_CVMatWrapper * medianMatrix = [self create16BitCVMatrixForBand:[NSNumber numberWithInt:medianMatrixIdx]];
     
