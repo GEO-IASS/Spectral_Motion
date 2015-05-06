@@ -17,8 +17,6 @@
 #define DATA_TYPE_REGEXP @"data\\s*type\\s*=\\s*[0-9]{1,5}\\s*\n"
 #define BYTE_ORDER_REGEXP @"byte\\s*order\\s*=\\s*[0-9]{1,5}\\s*\n"
 
-//below maybe should be first thig parsed to determine file type
-
 /*
  [A-Za-z]{0,20}  - Match 0 to 20 characters in range A-Z and a-z from 0 to 20 times
  
@@ -125,13 +123,7 @@
     NSLog(@"found sample size %@", sampleSizeStr);
     
     sampleSizeStr = [sampleSizeStr stringBetweenString:@"=" andString:@"\n"];
-    
-    /*
-    if(sampleSizeStr == nil)
-    {
-        return 0;
-    }
-     */
+   
     
     sampleSizeStr = [sampleSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
@@ -142,12 +134,6 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *sampleSizeNSNumber = [numberFormatter numberFromString:sampleSizeStr];
-    /*
-    if(sampleSizeNSNumber == nil)
-    {
-        return 0;
-    }
-     */
     
     int sampleSize = sampleSizeNSNumber.intValue;
     
@@ -177,12 +163,7 @@
     
     
     lineSizeStr = [lineSizeStr stringBetweenString:@"=" andString:@"\n"];
-    /*
-    if(lineSizeStr == nil)
-    {
-        return 0;
-    }
-    */
+
     lineSizeStr = [lineSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     //remove any extra end of line characters like carraige return
@@ -191,12 +172,7 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *lineSizeNumber = [numberFormatter numberFromString:lineSizeStr];
-    /*
-    if(lineSizeNumber == nil)
-    {
-        return 0;
-    }
-    */
+    
     int lineSize = lineSizeNumber.intValue;
     hdrInfo.lines = lineSize;
 
@@ -225,12 +201,7 @@
     
     
     bandSizeStr = [bandSizeStr stringBetweenString:@"=" andString:@"\n"];
-    /*
-    if(bandSizeStr == nil)
-    {
-        return 0;
-    }
-    */
+   
     bandSizeStr = [bandSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     bandSizeStr = [bandSizeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -239,12 +210,7 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *bandSizeNumber = [numberFormatter numberFromString:bandSizeStr];
-    /*
-    if(bandSizeNumber == nil)
-    {
-        return 0;
-    }
-    */
+    
     int bandSize = bandSizeNumber.intValue;
     hdrInfo.bands = bandSize;
     
@@ -272,12 +238,7 @@
     
     
     headerOffsetStr = [headerOffsetStr stringBetweenString:@"=" andString:@"\n"];
-    /*
-    if(headerOffsetStr == nil)
-    {
-        return 0;
-    }
-    */
+   
     headerOffsetStr = [headerOffsetStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     headerOffsetStr = [headerOffsetStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -287,12 +248,7 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *headerOffsetNumber = [numberFormatter numberFromString:headerOffsetStr];
-    /*
-    if(headerOffsetNumber == nil)
-    {
-        return 0;
-    }
-    */
+   
     int headerOffset = headerOffsetNumber.intValue;
     hdrInfo.header_Offset = headerOffset;
 
@@ -321,26 +277,16 @@
     
     
     dataTypeStr = [dataTypeStr stringBetweenString:@"=" andString:@"\n"];
-  /*
-    if(dataTypeStr == nil)
-    {
-        return 0;
-    }
-    */
+  
     dataTypeStr = [dataTypeStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    dataTypeStr = [dataTypeStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    dataTypeStr = [dataTypeStr stringByTrimmingCharactersInSet:
+                   [NSCharacterSet newlineCharacterSet]];
 
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *dataTypeNumber = [numberFormatter numberFromString:dataTypeStr];
-    /*
-    if(dataTypeNumber == nil)
-    {
-        return 0;
-    }
-     */
     
     int dataType = dataTypeNumber.intValue;
     hdrInfo.dataType = dataType;
@@ -467,7 +413,6 @@
         return ;
     }
     
-    
     NSArray *wavelengthArray = [wavelengthStr componentsSeparatedByString:@","];
     
     float *wavelength = (float*)calloc(wavelengthArray.count, sizeof(float));
@@ -508,12 +453,7 @@
     
     
     byteOrderStr = [byteOrderStr stringBetweenString:@"=" andString:@"\n"];
-   /*
-    if(byteOrderStr == nil)
-    {
-        return 0;
-    }
-    */
+
     byteOrderStr = [byteOrderStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     byteOrderStr = [byteOrderStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
@@ -522,12 +462,6 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
     
     NSNumber *byteOrderNumber = [numberFormatter numberFromString:byteOrderStr];
-    /*
-    if(byteOrderNumber == nil)
-    {
-        return 0;
-    }
-     */
     
     int byteOrder = byteOrderNumber.intValue;
     
@@ -556,12 +490,7 @@
     
     
     fileTypeStr = [fileTypeStr stringBetweenString:@"=" andString:@"\n"];
-  /*
-    if(fileTypeStr == nil)
-    {
-        return 0;
-    }
-    */
+  
     const char * fileType = [fileTypeStr UTF8String];
     
     hdrInfo.fileType = fileType;
@@ -590,12 +519,7 @@
     
     
     interleaveTypeStr = [interleaveTypeStr stringBetweenString:@"=" andString:@"\n"];
-   /*
-    if(interleaveTypeStr == nil)
-    {
-        return 0;
-    }
-    */
+  
     interleaveTypeStr = [interleaveTypeStr stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     const char * interleaveType = [interleaveTypeStr UTF8String];

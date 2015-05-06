@@ -136,11 +136,8 @@
     //parse plist file that has display type options
     NSString *pathToPlist = [NSString stringWithFormat:@"%@/ImageDisplayTypes.plist",[[NSBundle mainBundle]resourcePath]];
     displayTypeOptions = [NSArray arrayWithContentsOfFile:pathToPlist];
-
-    //displayTypeOptions = [[NSArray alloc]initWithObjects:@"1-Channel GreyScale", @"3-Channel RGB", @" GreyScale PCA", @"3-Channel RGB PCA", nil];
     
     [self setNavigationBarTitle];
-       // [self setBackgroundImage];
 }
 
 -(void)viewDidAppear:(BOOL)animated

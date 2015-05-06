@@ -12,7 +12,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSENVIFileParser.h"
 
-
+/*Class Implements this Delegate if Loading a new Hyperspectral Data cube to receive progress float*/
 @protocol ProgressDelegate <NSObject>
 
 - (void) updateProgressView:(float)progress;
@@ -27,7 +27,6 @@
 }
 @property(weak,nonatomic) id <ProgressDelegate> delegate;
 
-
 //intializes a MSHyperspectral object and sets hdr information
 -(id)initWithHDRFile:(NSString*)fileName;
 
@@ -41,7 +40,6 @@
 -(NSMutableArray*)getPixelValuesForAllBandsAtXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
 
 -(NSMutableArray*)getWavelengthValues;
-
 
 -(UIImage *)UIImageFromCVMat:(cv::Mat)cvMat;
 
