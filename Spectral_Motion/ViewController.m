@@ -136,7 +136,6 @@
 
 -(void)initImageViewWithImage:(UIImage *)newImage
 {
-    // imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, m_Image.size.width, m_Image.size.height)];
     
     UIImageView *newImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, newImage.size.width, newImage.size.height)];
     
@@ -332,6 +331,8 @@
     
 }
 
+//This method updates the plot when a user selects a point of the hyperspectral image. This allows the user to view the plot of the wavelength range corresponding to that pixel
+
 -(void)handleTap:(UITapGestureRecognizer*)tapGestureRecognizer
 {
     
@@ -340,22 +341,18 @@
 //        return;
 //    }
     NSLog(@"Handle tap fired");
-    
     if(m_PlotView == nil)
     {
         return;
     }
     
     CGPoint location = [tapGestureRecognizer locationInView:tapGestureRecognizer.view];
-    
     NSLog(@"x tapped %f y tapped %f", location.x, location.y);
 
-    
     if(location.x > m_HdrInfo.samples || location.y > m_HdrInfo.lines)
     {
         return;
     }
-    
     [m_DataPlotter updateScatterPlotForAllBandsWithXCoordinate:(int)location.x andYCoordinate:(int)location.y];
     [self setImageInfoPanelValuesForXCoordinate:(int)location.x andYCoordinate:(int)location.y withImageView:(UIImageView*)tapGestureRecognizer.view];
     
@@ -367,7 +364,6 @@
     
    m_DataPlotter = [[MSHyperspectralDataPlotter alloc]initWithHyperpsectralData:m_HyperspectralData andHeader:m_HdrInfo];
     
-   // [dataPlotter createScatterPlotWithView:self.view];
     [m_DataPlotter createScatterPlot];
     
     m_PlotView = [m_DataPlotter getGraphView];
@@ -418,7 +414,6 @@
     tapGestureRecognizer.delaysTouchesBegan = YES;
     tapGestureRecognizer.delegate = self;
     
-    
     [view addGestureRecognizer:tapGestureRecognizer];
     
     [m_TapGesutreArray addObject:tapGestureRecognizer];
@@ -433,8 +428,6 @@
     {
         m_PanGestureArray = [[NSMutableArray alloc]init];
     }
-    
-    
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     
     panGestureRecognizer.delegate = self;
@@ -446,16 +439,10 @@
 }
 -(void)addPinchGestureRecognizerForView:(UIView*)view
 {
-    //commented out so we can use one gesturerecognizer for multiple views. I don't know why this
-    // commented out code doesn't work for multiple views
-    //if(m_PinchGestureRecognizer == nil)
-   // {
-        m_PinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
+    m_PinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                     initWithTarget:self
                                     action:@selector(resizeView:)];
-        m_PinchGestureRecognizer.delegate = self;
-
-    //}
+    m_PinchGestureRecognizer.delegate = self;
     
     [view addGestureRecognizer:m_PinchGestureRecognizer];
 }
@@ -514,7 +501,6 @@
             if(m_PlotView ==nil)
             {
                 [self addGraphToView];
-                //[self addImageInfoPanelToView];
             }
             
         }
@@ -567,53 +553,6 @@
     
     panGestureRecognizer.view.center = newCenter;
     [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
-    
-    
-#if 0
-    
-    if(panGestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        
-        
-    }
-    
-    else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged)
-    {
-        
-        CGPoint center = panGestureRecognizer.view.center;
-        CGPoint translation = [panGestureRecognizer translationInView:panGestureRecognizer.view];
-        
-        if(abs(center.y + translation.y)>850)
-        {
-            center=CGPointMake(center.x +translation.x,
-                               850);
-        }
-       /*
-        if(abs(center.y + translation.y)>200)
-        {
-            center=CGPointMake(center.x +translation.x,
-                               200);
-        }
-        */
-        if(abs(center.x + translation.x)>680)
-        {
-            center=CGPointMake(680,
-                               center.y +translation.y);
-        }
-
-     
-        else
-        {
-            center = CGPointMake(center.x + translation.x,
-                                 center.y + translation.y);
-        
-            panGestureRecognizer.view.center = center;
-            [panGestureRecognizer setTranslation:CGPointZero inView:panGestureRecognizer.view];
-        
-        }
-    
-    }
-#endif
 }
 
 
@@ -646,16 +585,12 @@
     m_HdrInfo = hdrInfo;
 }
 
--(void)testHdrParser
-{
-    
-}
-
 -(void)setGreyScaleBand:(int)greyscaleBand
 {
     m_ChosenGreyScaleBand = greyscaleBand;
 }
 
+//When user usese slider, update grayscale image with correct band from hyperspectral image
 - (IBAction)sliderValueChanged:(id)sender
 {
     float bandIdx = self.bandSlider.value;
@@ -731,7 +666,7 @@
         }
         break;
             
-            // TODO: edits existing image(NOT yet Implemented)
+            // TODO: edits existing image(NOT yet Implemented). Add new image to screen
         case 1:
         {
             [self instantiateImageDisplayTypeVC];
@@ -773,7 +708,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-           // [self updateViewWithHUD];
             m_ProgressHud = [[MBProgressHUD alloc]initWithView:self.view];
             m_ProgressHud.labelText =@"Running Principal Component Analysis";
             [self.view addSubview:m_ProgressHud];
@@ -873,18 +807,6 @@
     
 }
 
-/*
--(void)didFinishSelectingBandsForPCA:(NSArray *)bandsSelected
-{
-    NSLog(@"finsihed selecting bands");
-}
-
--(void)didFinishMappingColorsForPCA:(NSDictionary *)bandsMapped
-{
-    NSLog(@"finsihed selecting colors bands");
-}
- */
-
 -(void)cancelSelectedOption
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -895,17 +817,14 @@
 
 -(void)setNavControllerButtonsForNavController:(UINavigationController*)navController
 {
-    //UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBandSelection)];
-    
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel"
                                                                     style:UIBarButtonItemStylePlain target:self
                                                                    action:@selector(cancelSelectedOption)];
     
-    //navController.topViewController.navigationItem.rightBarButtonItem=saveButton;
     navController.topViewController.navigationItem.leftBarButtonItem = cancelButton;
 }
 
-
+//Instantiate view controller that allows user to select image display type for new hyperspectral image
 -(void)instantiateImageDisplayTypeVC
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -941,6 +860,7 @@
     
 }
 
+//Instantiates view controller that allows user to select spectral library files
 -(void)instantiateSpectralSignatureSelectorVC
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -964,8 +884,6 @@
                        animated:YES
                      completion:^{
                          
-                     //    m_SpectralSignatureSelectionNavController.view.superview.frame = CGRectMake(0, 0, 600, 900);//it's important to do this after
-
                          
                      }];
     
@@ -979,8 +897,7 @@
 -(void)didSelectSpectralSignaturesWithIndexPaths:(NSArray *)indexPaths
 {
     NSLog(@"Index Paths chosen %@", indexPaths);
-    
-    
+    //TODO: Add Spectral Libraries to existing plot depening on the indexpaths selected
 }
 
 /*
