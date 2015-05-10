@@ -64,73 +64,6 @@
     
 }
 
-/*
--(void)createScatterPlotWithView:(UIView*)view
-{
-    
-    // Create graph from a custom theme
-    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme      =  [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [newGraph applyTheme:theme];
-    self.m_Graph = newGraph;
-    
-    newGraph.paddingLeft   = 70.0;
-    newGraph.paddingTop    = 50.0;
-    newGraph.paddingRight  = 10.0;
-    newGraph.paddingBottom = 50.0;
-    
-    //  CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    m_GraphHostingView  = [[CPTGraphHostingView alloc]initWithFrame:CGRectMake(100, 100, 500, 800)];
-    m_GraphHostingView.hostedGraph = newGraph;
-    [view addSubview:m_GraphHostingView];
-    
-    
-    newGraph.plotAreaFrame.masksToBorder = NO;
-    
-    // Setup plot space
-    //CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
-    m_PlotSpace = (CPTXYPlotSpace *) newGraph.defaultPlotSpace;
-    m_PlotSpace.allowsUserInteraction = YES;
-    m_PlotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_XMinValue.doubleValue) length:CPTDecimalFromDouble(m_XMaxValue.doubleValue)];
-    m_PlotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_YMinValue.doubleValue) length:CPTDecimalFromDouble(m_YMaxValue.doubleValue)];
-    m_PlotSpace.delegate = self;
-    
-    
-    // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
-    CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.25);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(m_XMinValue.doubleValue);
-    x.minorTicksPerInterval       = 2;
-    x.title = @"Wavalength in micrometers(µm)";
-    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.00) length:CPTDecimalFromDouble(m_XMinValue.doubleValue)],
-                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_XMaxValue.doubleValue) length:CPTDecimalFromDouble(m_XMaxValue.doubleValue + 0.5)]];
-    x.labelExclusionRanges = exclusionRanges;
-    
-    CPTXYAxis *y = axisSet.yAxis;
-    
-    //so we can have four intervals for y axis, we divide max value by 4
-    y.majorIntervalLength         = CPTDecimalFromDouble((double)(m_YMaxValue.doubleValue/4));
-    y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(m_XMinValue.doubleValue);
-    
-    
-    // Create a blue plot area
-   // CPTScatterPlot *boundLinePlot = [[CPTScatterPlot alloc] init];
-    m_BoundPlot = [[CPTScatterPlot alloc]init];
-    m_BoundPlot.identifier = @"Blue Plot";
-    
-    CPTMutableLineStyle *lineStyle = [m_BoundPlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth         = 1.0;
-    lineStyle.lineColor         = [CPTColor blueColor];
-    m_BoundPlot.dataLineStyle = lineStyle;
-    
-    m_BoundPlot.dataSource = self;
-    [newGraph addPlot:m_BoundPlot];
-    
-}
- */
-
 -(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate
 {
     m_YValues = nil;
@@ -150,15 +83,17 @@
 
 -(void)adjustPlotSpaceForStdDeviationAndMean
 {    
-    m_PlotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble((m_Mean.doubleValue) + (m_StandardDeviation.doubleValue))];
+    m_PlotSpace.yRange  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                       length:CPTDecimalFromDouble((m_Mean.doubleValue) + (m_StandardDeviation.doubleValue))];
 
 
-    m_PlotSpace.globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_YMinValue.doubleValue) length:CPTDecimalFromDouble(m_Mean.doubleValue + (2 * m_StandardDeviation.doubleValue))];
+    m_PlotSpace.globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_YMinValue.doubleValue)
+                                                            length:CPTDecimalFromDouble(m_Mean.doubleValue + (2 * m_StandardDeviation.doubleValue))];
     m_PlotSpace.delegate = self;
-    
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)m_Graph.axisSet;
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPTDecimalFromDouble(m_StandardDeviation.doubleValue/ 15.0);
+    
     
     // Put an area gradient under the plot above
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
@@ -195,13 +130,12 @@
     
     m_Mean = avg;
     NSLog(@"Mean : %f", m_Mean.doubleValue);
-    
 }
 
 
 -(void)graphStartRunLoop
 {
-    CFRunLoopRun();//for delegate processing
+    CFRunLoopRun();//for delegate processing, class must be part of runloop
 }
 
 -(void)graphStopRunLoop
@@ -234,7 +168,6 @@
     newGraph.plotAreaFrame.masksToBorder = NO;
     
     // Setup plot space
-    //CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     m_PlotSpace = (CPTXYPlotSpace *) newGraph.defaultPlotSpace;
     m_PlotSpace.allowsUserInteraction = YES;
     
@@ -243,11 +176,13 @@
     [self calculateAndSetStandardDeviationForNumbers:m_YValues];
     
     
-    m_PlotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_XMinValue.doubleValue) length:CPTDecimalFromDouble(m_XMaxValue.doubleValue)];
+    m_PlotSpace.xRange  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_XMinValue.doubleValue)
+                                                       length:CPTDecimalFromDouble(m_XMaxValue.doubleValue)];
     
  
     
-    m_PlotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble((m_Mean.doubleValue) + (m_StandardDeviation.doubleValue))];
+    m_PlotSpace.yRange  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                       length:CPTDecimalFromDouble((m_Mean.doubleValue) + (m_StandardDeviation.doubleValue))];
     
     //set global range to constrain scrolling
     m_PlotSpace.globalXRange = m_PlotSpace.xRange;
@@ -256,24 +191,28 @@
     m_PlotSpace.delegate = self;
     
     
-    // Axes
+    // X Axis
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.majorIntervalLength         = CPTDecimalFromDouble(0.25);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(m_XMinValue.doubleValue);
     x.minorTicksPerInterval       = 2;
     x.title = @"Wavalength in micrometers(µm)";
+    
+    //Set ranges not to include in plot
     NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.00) length:CPTDecimalFromDouble(m_XMinValue.doubleValue)],
                                  [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(m_XMaxValue.doubleValue) length:CPTDecimalFromDouble(m_XMaxValue.doubleValue + 0.5)]];
     x.labelExclusionRanges = exclusionRanges;
+    
     //locks x axis so it doesn't scroll off the graphhostingview
     x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
 
-    
+    //Y Axis
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPTDecimalFromDouble(m_StandardDeviation.doubleValue/ 15.0);
     y.minorTicksPerInterval       = 5;
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(m_XMinValue.doubleValue);
+    
     //locks y axis so it doesn't scroll off the graphhostingview
     y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
     
@@ -300,7 +239,6 @@
 
     
     // Put an area gradient under the plot above
-   // CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = 90.0;
@@ -321,10 +259,9 @@
 
 }
 
+// TODO: Adds Spectral Library Reflectance Values to Plot
 -(void)plotReflectanceDataAtIndexPaths:(NSArray *) indexPaths
 {
-    
-    
     for(NSIndexPath *path in indexPaths)
     {
       
@@ -478,6 +415,8 @@
                         break;
                         
                 }
+                
+                
                 
                 
                 

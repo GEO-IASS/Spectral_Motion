@@ -97,6 +97,8 @@
 		14D9B9751AA7A1FB004EF177 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9741AA7A1FB004EF177 /* MBProgressHUD.m */; };
 		14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B11AADDD2B004EF177 /* MSBandMappingTableVC.m */; };
 		14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */; };
+		14E4802B1B0020B6009534E2 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14E480291B0020B6009534E2 /* DBChooser.bundle */; };
+		14E4802C1B0020B6009534E2 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4802A1B0020B6009534E2 /* DBChooser.framework */; };
 		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
 		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
 		14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */; };
@@ -296,6 +298,8 @@
 		14D9B9B31AADDEA9004EF177 /* MSColorMapPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorMapPopOver.h; sourceTree = "<group>"; };
 		14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorMapPopOver.m; sourceTree = "<group>"; };
 		14D9B9B61AAE97F7004EF177 /* SharedHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
+		14E480291B0020B6009534E2 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DBChooser.bundle; sourceTree = "<group>"; };
+		14E4802A1B0020B6009534E2 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
 		14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageInfoPanelVC.h; sourceTree = "<group>"; };
 		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
 		14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerOptionsPopOver.h; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 				1413ED311A9AE457006BC611 /* QuartzCore.framework in Frameworks */,
 				1413ED251A9AD019006BC611 /* CoreImage.framework in Frameworks */,
 				1494CCA21A8F10ED00F89A3B /* CoreGraphics.framework in Frameworks */,
+				14E4802C1B0020B6009534E2 /* DBChooser.framework in Frameworks */,
 				14AFDD1F1A8B152F0037D0F0 /* UIKit.framework in Frameworks */,
 				14AFDD1A1A8B14820037D0F0 /* opencv2.framework in Frameworks */,
 				1431E7811AC06D2D00AF3F0E /* libCorePlot-CocoaTouch.a in Frameworks */,
@@ -383,6 +388,7 @@
 		1413ED261A9AD542006BC611 /* Utitilty Classes */ = {
 			isa = PBXGroup;
 			children = (
+				14E480281B00209E009534E2 /* Dropbox */,
 				1431E7311AC06D1C00AF3F0E /* CorePlotHeaders */,
 				14A8DE361AB71F1500CCDC17 /* UIView-Glow-master */,
 				14A8DE161AB5E04E00CCDC17 /* MVYSideMenu */,
@@ -721,6 +727,15 @@
 			name = MSImageBlur;
 			sourceTree = "<group>";
 		};
+		14E480281B00209E009534E2 /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				14E480291B0020B6009534E2 /* DBChooser.bundle */,
+				14E4802A1B0020B6009534E2 /* DBChooser.framework */,
+			);
+			name = Dropbox;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -799,6 +814,7 @@
 				143BC04E1AEDA15F00A6E57B /* redorangesandyloam.txt in Resources */,
 				143BC0281AED6D0400A6E57B /* f970619t01p02_r02_sc05.a.rfl in Resources */,
 				143BC0591AEDA59200A6E57B /* checkblank@2x.png in Resources */,
+				14E4802B1B0020B6009534E2 /* DBChooser.bundle in Resources */,
 				14A8DE1E1AB5E40100CCDC17 /* MenuOptions.plist in Resources */,
 				143BC0161AED658D00A6E57B /* f970619t01p02_r02_sc01.a.rfl in Resources */,
 				14A8DE2B1AB5F63C00CCDC17 /* Menu-26.png in Resources */,
@@ -984,6 +1000,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1009,6 +1026,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

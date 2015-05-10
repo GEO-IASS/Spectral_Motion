@@ -21,8 +21,6 @@
 
 -(id)initWithHyperpsectralData:(MSHyperspectralData*)hyperspectralData andHeader:(HDRINFO)hdrInfo;
 
-//-(id)initWithWavelengthsForXAxis:(NSMutableArray *) xValues PixelValuesForYAxis:(NSMutableArray *) yPixelValues andHeader:(HDRINFO) hdrInfo;
-
 -(void)createScatterPlot;
 
 -(void)updateScatterPlotForAllBandsWithXCoordinate:(int) xCoordinate andYCoordinate:(int) yCoordinate;
@@ -30,9 +28,6 @@
 -(void)createScatterPlotWithView:(UIView *)view;
 
 -(void)plotReflectanceDataAtIndexPaths:(NSArray *) indexPaths;
-
-//-(void)setDelegate:(NSObject*)delegate;
-//-(void)setDataSource:(CPTPlotDataSource*)dataSource;
 
 -(void)graphStartRunLoop;
 
