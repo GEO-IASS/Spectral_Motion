@@ -99,12 +99,18 @@
                                     <action selector="didPressDownloadBtn:" destination="z2n-EJ-OS0" eventType="touchUpInside" id="IRL-uQ-E8Y"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="IbK-HG-Gq3">
+                                <rect key="frame" x="567" y="328" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wOE-Dq-L5h"/>
                     <connections>
                         <outlet property="ImageFileTableView" destination="nhf-sX-Tqq" id="GvZ-nD-TZY"/>
+                        <outlet property="downloadActivityIndicator" destination="IbK-HG-Gq3" id="lA6-y7-H1s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2z1-Au-CzE" userLabel="First Responder" sceneMemberID="firstResponder"/>

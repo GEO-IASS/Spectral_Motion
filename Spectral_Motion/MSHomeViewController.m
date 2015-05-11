@@ -300,6 +300,8 @@
              MSFileDownloader *fileDownloader = [[MSFileDownloader alloc]initWithURL:fileURL andName:fileName];
              fileDownloader.delegate = self;
              [fileDownloader downloadFileInBackground];
+             
+             [self.downloadActivityIndicator startAnimating];
          }
          
          //[[self tableView] reloadData];
@@ -317,6 +319,12 @@
     [self addSavedFileNames];
     NSLog(@"Image file names %@", m_ImageFileNames);
     [self.ImageFileTableView reloadData];
+    
+    [self.downloadActivityIndicator stopAnimating];
+    
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"File Downloaded Successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+       [alert show];
+
 }
 
 

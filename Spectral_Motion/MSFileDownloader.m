@@ -221,8 +221,8 @@ didFinishDownloadingToURL:(NSURL *)location
     }
     
     NSLog(@"File write complete");
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"File Downloaded Successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"File Downloaded Successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [alert show];
 }
 
 -(void)createDirectoryIfNotExistsWithFolderPath:(NSString *) folderPath
@@ -250,7 +250,7 @@ didFinishDownloadingToURL:(NSURL *)location
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
-    
+    //float progress = totalBytesWritten / totalBytesExpectedToWrite;
     
 }
 

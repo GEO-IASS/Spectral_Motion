@@ -16,4 +16,5 @@ MSFileDownloaderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *ImageFileTableView;
 - (IBAction)didPressDownloadBtn:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *downloadActivityIndicator;
 @end
