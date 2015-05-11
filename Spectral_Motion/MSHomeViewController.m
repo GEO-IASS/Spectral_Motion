@@ -10,14 +10,23 @@
 #import "MSHeaderViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MVYSideMenuController.h"
+#import "MSFileDownloader.h"
+#import "MSFileDownloader.h"
 
-@interface MSHomeViewController ()
+//dropbox
+#import <DBChooser/DBChooser.h>
+#import <DBChooser/DBChooserResult.h>
+
+
+@interface MSHomeViewController ()<UIActionSheetDelegate>
 {
-    NSArray *m_ImageFileNames;
+    NSMutableArray *m_ImageFileNames;
     NSString *m_SelectedHyperspectralFile;
 }
 
 -(void)configureSideMenu;
+-(void)showDropboxChooser;
+
 @end
 
 
@@ -31,7 +40,7 @@
     self.ImageFileTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
-    m_ImageFileNames = [[NSArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3(reflectance Data)", @"Sample Image 4(reflectance Data)", nil];
+    m_ImageFileNames = [[NSMutableArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3(reflectance Data)", @"Sample Image 4(reflectance Data)", nil];
     
     
     UIImageView *tableViewImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableview_background2.jpeg"]];
@@ -193,5 +202,77 @@
     
 }
 
+
+- (IBAction)didPressDownloadBtn:(id)sender
+{
+    UIActionSheet * downloadOptions = [[UIActionSheet alloc] initWithTitle:@"Please Select File Location" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dropbox", @"Google Drive(Coming Soon)", @"One Drive(Coming soon)", nil];
+    [downloadOptions showInView:self.view];
+}
+
+#pragma mark UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+    switch (buttonIndex)
+    {
+        case 0://Dropbox
+        {
+            [self showDropboxChooser];
+        }
+            break;
+            
+        case 1://Google Drive
+        {
+            
+        }
+            break;
+            
+        case 2://One Drive
+        {
+            
+        }
+            break;
+    }
+}
+
+-(void)showDropboxChooser
+{
+    DBChooserLinkType linkType = DBChooserLinkTypeDirect;
+    __block NSURL *fileURL = nil;
+    __block NSString *fileName = nil;
+    
+    [[DBChooser defaultChooser] openChooserForLinkType:linkType fromViewController:self
+                                            completion:^(NSArray *results)
+     {
+         if ([results count])
+         {
+             //_result = results[0];
+             DBChooserResult * result = results[0];
+             fileName = result.name;
+             fileURL = result.link;
+             
+             
+         } else
+         {
+             //_result = nil;
+             [[[UIAlertView alloc] initWithTitle:@"CANCELLED" message:@"user cancelled!"
+                                        delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil]
+              show];
+         }
+         
+         //download file here
+         if(fileURL != nil && fileName != nil)
+         {
+             MSFileDownloader *fileDownloader = [[MSFileDownloader alloc]initWithURL:fileURL andName:fileName];
+             [fileDownloader downloadFileInBackground];
+         }
+         
+         //[[self tableView] reloadData];
+     }];
+    
+
+    
+}
 
 @end

@@ -25,5 +25,19 @@
     return nil;
 }
 
++(NSString *)createFolderNameFromFileName:(NSString *)fileName
+{
+    //create folder name based on filename without extension
+    NSString *extension = [fileName pathExtension];
+    
+    //remove extension from filename for folder name
+    NSString *folderName = [fileName stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", extension] withString:@""];
+    
+    NSLog(@"Foldername : %@", folderName);
+    
+    return folderName;
+
+}
+
 
 @end

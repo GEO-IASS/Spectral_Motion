@@ -18,6 +18,9 @@ typedef struct RGBPixel{
     
 }RGBPixel;
 
+#define FILE_STORAGE_PATH @"Spectral_Motion_File_Data"
+
+
 /*
 typedef struct Hypserspectral_Data_Info
 {

@@ -10,5 +10,6 @@
 
 @interface MSHomeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *ImageFileTableView;
+- (IBAction)didPressDownloadBtn:(id)sender;
 
 @end

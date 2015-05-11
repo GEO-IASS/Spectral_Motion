@@ -10,7 +10,9 @@
 
 @interface NSString (MSString)
 
-- (NSString*) stringBetweenString:(NSString*)start andString:(NSString*)end;
+- (NSString *) stringBetweenString:(NSString*)start andString:(NSString*)end;
+
++(NSString *) createFolderNameFromFileName:(NSString *) fileName;
 
 
 @end

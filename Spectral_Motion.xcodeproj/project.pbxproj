@@ -99,6 +99,7 @@
 		14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D9B9B41AADDEA9004EF177 /* MSColorMapPopOver.m */; };
 		14E4802B1B0020B6009534E2 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14E480291B0020B6009534E2 /* DBChooser.bundle */; };
 		14E4802C1B0020B6009534E2 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4802A1B0020B6009534E2 /* DBChooser.framework */; };
+		14E4802F1B005C64009534E2 /* MSFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4802E1B005C64009534E2 /* MSFileDownloader.m */; };
 		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
 		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
 		14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */; };
@@ -300,6 +301,8 @@
 		14D9B9B61AAE97F7004EF177 /* SharedHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
 		14E480291B0020B6009534E2 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DBChooser.bundle; sourceTree = "<group>"; };
 		14E4802A1B0020B6009534E2 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		14E4802D1B005C64009534E2 /* MSFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFileDownloader.h; sourceTree = "<group>"; };
+		14E4802E1B005C64009534E2 /* MSFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFileDownloader.m; sourceTree = "<group>"; };
 		14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageInfoPanelVC.h; sourceTree = "<group>"; };
 		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
 		14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerOptionsPopOver.h; sourceTree = "<group>"; };
@@ -609,14 +612,16 @@
 				141CB21A1A4A453800470591 /* NSString+MSString.h */,
 				141CB21B1A4A453800470591 /* NSString+MSString.m */,
 				146C763C1A49DBE300763A11 /* MSHyperspectralData.h */,
+				14E4802D1B005C64009534E2 /* MSFileDownloader.h */,
+				14E4802E1B005C64009534E2 /* MSFileDownloader.m */,
 				146C763D1A49DBE300763A11 /* MSHyperspectralData.m */,
 				14AFDD1B1A8B14BF0037D0F0 /* MSENVIFileParser.h */,
 				14AFDD1C1A8B14BF0037D0F0 /* MSENVIFileParser.m */,
 				146C760F1A49CAAD00763A11 /* AppDelegate.h */,
+				146C76101A49CAAD00763A11 /* AppDelegate.m */,
 				149113061A88999F00A7E46E /* spectralmotion.pch */,
 				143BC0191AED67B200A6E57B /* Sensor Wavelength Data */,
 				146C76351A49CADA00763A11 /* Sample Hyperspectral Data */,
-				146C76101A49CAAD00763A11 /* AppDelegate.m */,
 				1413ED101A998E2E006BC611 /* View Controllers */,
 				146C76151A49CAAD00763A11 /* Main.storyboard */,
 				146C76181A49CAAD00763A11 /* Images.xcassets */,
@@ -877,6 +882,7 @@
 				14A8DE3C1AB71F1500CCDC17 /* README.md in Sources */,
 				14D9B9B51AADDEA9004EF177 /* MSColorMapPopOver.m in Sources */,
 				14A8DE3D1AB71F1500CCDC17 /* UIView+Glow.m in Sources */,
+				14E4802F1B005C64009534E2 /* MSFileDownloader.m in Sources */,
 				1431E7301AC06C5100AF3F0E /* MSHyperspectralDataPlotter.m in Sources */,
 				14A8DE1C1AB5E04E00CCDC17 /* MVYSideMenuOptions.m in Sources */,
 				143BC0551AEDA44900A6E57B /* MSSpectralSignatureSelectorTableVC.m in Sources */,

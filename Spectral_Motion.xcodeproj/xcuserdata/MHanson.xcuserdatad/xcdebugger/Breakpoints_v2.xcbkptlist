@@ -593,7 +593,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "807"
             endingLineNumber = "807"
-            landmarkName = "-parseHeaderFile"
+            landmarkName = "-deblurImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1089,7 +1089,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "402"
             endingLineNumber = "402"
-            landmarkName = "-setWaveLength"
+            landmarkName = "-setWavelengthWithAlternateFile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1281,7 +1281,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "360"
             endingLineNumber = "360"
-            landmarkName = "-handleTap:"
+            landmarkName = "-addGraphToView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1457,7 +1457,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "494"
             endingLineNumber = "494"
-            landmarkName = "-longPressEventOccurred:"
+            landmarkName = "-didSelectOption:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1759,7 +1759,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "867"
             endingLineNumber = "867"
-            landmarkName = "-didFinishSelectingBandsForPCAWithArray:andBandCount:"
+            landmarkName = "-instantiateSpectralSignatureSelectorVC"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1775,7 +1775,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "872"
             endingLineNumber = "872"
-            landmarkName = "-didFinishSelectingBandsForPCAWithArray:andBandCount:"
+            landmarkName = "-instantiateSpectralSignatureSelectorVC"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1839,7 +1839,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "414"
             endingLineNumber = "414"
-            landmarkName = "-setWaveLength"
+            landmarkName = "-setWavelengthWithAlternateFile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1855,7 +1855,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "411"
             endingLineNumber = "411"
-            landmarkName = "-setWaveLength"
+            landmarkName = "-setWavelengthWithAlternateFile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1871,7 +1871,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "445"
             endingLineNumber = "445"
-            landmarkName = "-setWavelengthWithAlternateFile:"
+            landmarkName = "-setByteOrder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1887,8 +1887,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "970"
             endingLineNumber = "970"
-            landmarkName = "-instantiateSpectralSignatureSelectorVC"
-            landmarkType = "5">
+            landmarkName = "@implementation ViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

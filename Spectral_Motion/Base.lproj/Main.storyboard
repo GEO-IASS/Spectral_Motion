@@ -89,6 +89,16 @@
                                 <rect key="frame" x="0.0" y="64" width="800" height="316"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="seG-6a-7fL">
+                                <rect key="frame" x="630" y="323" width="105" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Download" backgroundImage="button.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressDownloadBtn:" destination="z2n-EJ-OS0" eventType="touchUpInside" id="IRL-uQ-E8Y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -99,7 +109,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2z1-Au-CzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="470.40000000000003" y="1501.4400000000001"/>
+            <point key="canvasLocation" x="470" y="1501"/>
         </scene>
         <!--Header View Controller-->
         <scene sceneID="bfb-ch-FG5">

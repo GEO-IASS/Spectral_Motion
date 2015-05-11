@@ -11,6 +11,7 @@
 #import "MVYSideMenuOptions.h"
 #import "MSHomeViewController.h"
 #import "MenuOptionsViewController.h"
+#import <DBChooser/DBChooser.h>
 
 @interface AppDelegate ()
 
@@ -63,6 +64,19 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+/*Dropbox callback*/
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+        // This was a Chooser response and handleOpenURL automatically ran the
+        // completion block
+        return YES;
+    }
+    return NO;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
