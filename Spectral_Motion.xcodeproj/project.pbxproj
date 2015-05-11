@@ -100,6 +100,7 @@
 		14E4802B1B0020B6009534E2 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14E480291B0020B6009534E2 /* DBChooser.bundle */; };
 		14E4802C1B0020B6009534E2 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4802A1B0020B6009534E2 /* DBChooser.framework */; };
 		14E4802F1B005C64009534E2 /* MSFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E4802E1B005C64009534E2 /* MSFileDownloader.m */; };
+		14E480321B007619009534E2 /* MSFileBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E480311B007619009534E2 /* MSFileBrowser.m */; };
 		14EB92B41AC5CFC700EBA2CF /* MSImageInfoPanelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */; };
 		14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B61AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m */; };
 		14EB92BA1AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB92B91AD4C2E900EBA2CF /* ImageDisplayTypeTableVC.m */; };
@@ -303,6 +304,8 @@
 		14E4802A1B0020B6009534E2 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
 		14E4802D1B005C64009534E2 /* MSFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFileDownloader.h; sourceTree = "<group>"; };
 		14E4802E1B005C64009534E2 /* MSFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFileDownloader.m; sourceTree = "<group>"; };
+		14E480301B007619009534E2 /* MSFileBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSFileBrowser.h; path = Spectral_Motion/MSFileBrowser.h; sourceTree = SOURCE_ROOT; };
+		14E480311B007619009534E2 /* MSFileBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSFileBrowser.m; path = Spectral_Motion/MSFileBrowser.m; sourceTree = SOURCE_ROOT; };
 		14EB92B21AC5CFC700EBA2CF /* MSImageInfoPanelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSImageInfoPanelVC.h; sourceTree = "<group>"; };
 		14EB92B31AC5CFC700EBA2CF /* MSImageInfoPanelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSImageInfoPanelVC.m; sourceTree = "<group>"; };
 		14EB92B51AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerOptionsPopOver.h; sourceTree = "<group>"; };
@@ -611,6 +614,8 @@
 				1431E72F1AC06C5100AF3F0E /* MSHyperspectralDataPlotter.m */,
 				141CB21A1A4A453800470591 /* NSString+MSString.h */,
 				141CB21B1A4A453800470591 /* NSString+MSString.m */,
+				14E480311B007619009534E2 /* MSFileBrowser.m */,
+				14E480301B007619009534E2 /* MSFileBrowser.h */,
 				146C763C1A49DBE300763A11 /* MSHyperspectralData.h */,
 				14E4802D1B005C64009534E2 /* MSFileDownloader.h */,
 				14E4802E1B005C64009534E2 /* MSFileDownloader.m */,
@@ -891,6 +896,7 @@
 				14D9B9B21AADDD2B004EF177 /* MSBandMappingTableVC.m in Sources */,
 				14A8DE251AB5E74700CCDC17 /* MenuOptionsViewController.m in Sources */,
 				1413ED131A998E82006BC611 /* MSHomeViewController.m in Sources */,
+				14E480321B007619009534E2 /* MSFileBrowser.m in Sources */,
 				146C760E1A49CAAD00763A11 /* main.m in Sources */,
 				14EB92B71AC5EA6800EBA2CF /* ImageViewerOptionsPopOver.m in Sources */,
 				14A8DE1B1AB5E04E00CCDC17 /* MVYSideMenuController.m in Sources */,

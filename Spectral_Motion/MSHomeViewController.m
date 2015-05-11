@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MVYSideMenuController.h"
 #import "MSFileDownloader.h"
-#import "MSFileDownloader.h"
+#import "MSFileBrowser.h"
 
 //dropbox
 #import <DBChooser/DBChooser.h>
@@ -26,6 +26,8 @@
 
 -(void)configureSideMenu;
 -(void)showDropboxChooser;
+-(void)addSampleFileNames;
+-(void)addSavedFileNames;
 
 @end
 
@@ -40,8 +42,8 @@
     self.ImageFileTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
-    m_ImageFileNames = [[NSMutableArray alloc]initWithObjects:@"Sample Image 1", @"Sample Image 2", @"Sample Image 3(reflectance Data)", @"Sample Image 4(reflectance Data)", nil];
-    
+    [self addSampleFileNames];
+    [self addSavedFileNames];
     
     UIImageView *tableViewImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableview_background2.jpeg"]];
     [tableViewImg setFrame:self.ImageFileTableView.frame];
@@ -54,6 +56,26 @@
     [self.ImageFileTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.ImageFileTableView setSeparatorColor:[UIColor blueColor]];
     
+    
+}
+
+-(void)addSampleFileNames
+{
+    m_ImageFileNames = [[NSMutableArray alloc]initWithObjects:
+                        @"Sample Image 1",
+                        @"Sample Image 2",
+                        @"Sample Image 3(Reflectance Data)",
+                        @"Sample Image 4(Reflectance Data)", nil];
+}
+
+-(void)addSavedFileNames
+{
+    NSArray *savedFolderNames = [MSFileBrowser getFoldersNamesSavedOnDisk];
+    if(savedFolderNames == nil)
+    {
+        return;
+    }
+    [m_ImageFileNames addObjectsFromArray:savedFolderNames];
     
 }
 
@@ -265,14 +287,24 @@
          if(fileURL != nil && fileName != nil)
          {
              MSFileDownloader *fileDownloader = [[MSFileDownloader alloc]initWithURL:fileURL andName:fileName];
+             fileDownloader.delegate = self;
              [fileDownloader downloadFileInBackground];
          }
          
          //[[self tableView] reloadData];
      }];
     
-
-    
 }
+
+#pragma mark - MSFileDownloaderDelegate
+
+-(void)downloadDidFinish
+{
+    [m_ImageFileNames removeAllObjects];
+    [self addSampleFileNames];
+    [self addSavedFileNames];
+    [self.ImageFileTableView reloadData];
+}
+
 
 @end

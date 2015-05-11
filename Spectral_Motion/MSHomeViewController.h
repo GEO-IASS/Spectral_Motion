@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSFileDownloader.h"
 
-@interface MSHomeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
+@interface MSHomeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,
+MSFileDownloaderDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *ImageFileTableView;
 - (IBAction)didPressDownloadBtn:(id)sender;
 
