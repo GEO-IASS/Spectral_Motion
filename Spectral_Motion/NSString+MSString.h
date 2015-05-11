@@ -12,7 +12,7 @@
 
 - (NSString *) stringBetweenString:(NSString*)start andString:(NSString*)end;
 
-+(NSString *) createFolderNameFromFileName:(NSString *) fileName;
++ (NSString *) createFolderNameFromFileName:(NSString *) fileName;
 
 
 @end

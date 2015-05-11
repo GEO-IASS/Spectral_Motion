@@ -73,6 +73,7 @@
     NSArray *savedFolderNames = [MSFileBrowser getFoldersNamesSavedOnDisk];
     if(savedFolderNames == nil)
     {
+        NSLog(@"folder names are nil");
         return;
     }
     [m_ImageFileNames addObjectsFromArray:savedFolderNames];
@@ -197,7 +198,17 @@
         }
             break;
             
-        default:
+            
+            
+        default://find header file on disk from filename
+        {
+            int selectedRow = [self.ImageFileTableView indexPathForSelectedRow].row;
+            
+            m_SelectedHyperspectralFile = [m_ImageFileNames objectAtIndex: selectedRow];
+            msHeaderVC.m_HeaderFileName = m_SelectedHyperspectralFile;
+            [msHeaderVC parseHeaderFile];
+            
+        }
             break;
     }
     /*
@@ -300,9 +311,11 @@
 
 -(void)downloadDidFinish
 {
+    NSLog(@"Download did finish");
     [m_ImageFileNames removeAllObjects];
     [self addSampleFileNames];
     [self addSavedFileNames];
+    NSLog(@"Image file names %@", m_ImageFileNames);
     [self.ImageFileTableView reloadData];
 }
 

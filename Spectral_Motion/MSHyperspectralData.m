@@ -8,6 +8,7 @@
 
 #import "MSHyperspectralData.h"
 #import "SharedHeader.h"
+#import "MSFileBrowser.h"
 
 /*  Pixel Interleave Types */
 #define BIP "bip"
@@ -266,6 +267,19 @@ int getBSQPixelIndex(int x, int y, int z, int width, int height, int depth);
     int nPixelsInBand = hdrInfo.samples * hdrInfo.lines;
     
     NSString *path = [[NSBundle mainBundle] pathForResource: fileName ofType:nil];
+    
+    if(path == nil)//not in app bundle, so check if saved to disk
+    {
+        path = [MSFileBrowser getFullFilePathForFileName:fileName];
+        
+    }
+    
+    if(path == nil)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Could not find Hyperspectral binary file" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     
     FILE * hyperspectralFile = fopen([path cStringUsingEncoding:1], "rb");
     

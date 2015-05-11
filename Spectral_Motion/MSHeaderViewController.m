@@ -14,6 +14,8 @@
 #import "MBProgressHUD.h"
 #import "MSBandMappingTableVC.h"
 #import "MVYSideMenuController.h"
+#import "SharedHeader.h"
+#import "MSFileBrowser.h"
 
 @interface MSHeaderViewController ()<ProgressDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 {
@@ -539,7 +541,7 @@
 
 -(NSString*)findHyperspectralDataFileWithFilename:(NSString*)filename
 {
-    NSArray *arrayOfFileExtensions = @[@".bip", @".rfl", @".bsq", @".bil"];
+    NSArray *arrayOfFileExtensions = SUPPORTED_IMAGE_EXTENSIONS;
     NSString *hyperspectralImageFile = [filename stringByAppendingString:@".bip"];
     BOOL fileExists = NO;
     
@@ -552,6 +554,33 @@
         {
             return hyperspectralImageFile;
         }
+       
+    }
+    
+    if(!fileExists)//file doesn't exist in bundle. Check disk contents in same fashion
+    {
+        hyperspectralImageFile = [filename stringByAppendingString:@".bip"];
+        NSString *folderPath = [MSFileBrowser getFolderPathForFileName:filename];
+        BOOL isDir;
+
+        for(NSString *extension in arrayOfFileExtensions)
+        {
+            hyperspectralImageFile = [hyperspectralImageFile stringByReplacingOccurrencesOfString:[hyperspectralImageFile substringFromIndex: [hyperspectralImageFile length] - 4] withString:extension];
+            
+            //append binary file name to folder path for full file path
+            folderPath = [folderPath stringByAppendingPathComponent:hyperspectralImageFile];
+            
+            fileExists = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDir];
+            
+            if(fileExists)
+            {
+               // NSLog(@"hyperspectal")
+                return hyperspectralImageFile;
+            }
+            
+        }
+
+        
     }
     
     return nil;

@@ -8,6 +8,7 @@
 
 #import "MSENVIFileParser.h"
 #import "NSString+MSString.h"
+#import "SharedHeader.h"
 
 
 #define LINE_SIZE_REGEXP @"lines\\s*=\\s*[0-9]{1,5}\\s*\n"
@@ -48,6 +49,7 @@
     
 }
 -(void)convertHdrFileToString;
+-(NSString *) getLocalFilePathForFileName:(NSString *) fileName;
 -(void)setHDRInfo;
 
 -(void)setSampleSize;
@@ -538,13 +540,55 @@
 
 -(void)convertHdrFileToString
 {
+    NSString *fileStr;
+    
+    //first check if sample image in bundle
     NSString *file = [[NSBundle mainBundle] pathForResource:self.hdrFileName ofType:@"hdr"];
     
-    NSString *fileStr = [NSString stringWithContentsOfFile:file
+    fileStr = [NSString stringWithContentsOfFile:file
                                                   encoding:NSUTF8StringEncoding error:NULL];
+    
+    //if nil, file must be saved on disk
+    if(fileStr == nil)
+    {
+        NSLog(@"file located on disk");
+        NSString *filePath = [self getLocalFilePathForFileName:self.hdrFileName];
+        
+        fileStr = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        
+        if(fileStr != nil)
+        {
+            NSLog(@"Discovered file");
+        }
+        else
+        {
+            return;
+        }
+    }
+    
     self.hdrFileContents = fileStr;
 
 }
+
+-(NSString *) getLocalFilePathForFileName:(NSString *) fileName
+{
+    //file name passed into this method includes all extensions but last
+    
+    NSString *documentsDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
+    
+    //NSString *folderName = [NSString createFolderNameFromFileName:fileName];
+    
+    //harcoding envi hdr extensio for now
+    NSString  *filePath = [NSString stringWithFormat:@"%@/%@/%@/%@", documentsDirectory, FILE_STORAGE_PATH, fileName, [fileName stringByAppendingPathExtension:@"hdr"]];
+    
+    //hardcoding envi hdr extension for now
+   // filePath = [filePath stringByAppendingString:@".hdr"];
+    NSLog(@"file path %@", filePath);
+    
+    
+    return filePath;
+}
+
 
 -(BOOL)hdrReadSuccess
 {

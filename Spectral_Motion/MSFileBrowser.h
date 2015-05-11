@@ -12,4 +12,8 @@
 
 +(NSArray *) getFoldersNamesSavedOnDisk;
 
++(NSString *) getFolderPathForFileName:(NSString *) fileName;
+
++(NSString *) getFullFilePathForFileName:(NSString *) fileName;
+
 @end

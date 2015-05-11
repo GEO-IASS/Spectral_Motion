@@ -20,6 +20,7 @@
 -(void)tearDownInputStream;
 -(void)writeDataToBuffer;
 -(void)writeDataToFile;
+-(void)createDirectoryIfNotExistsWithFolderPath:(NSString *) folderPath;
 
 
 @end
@@ -100,9 +101,6 @@ didFinishDownloadingToURL:(NSURL *)location
     [self setUpInputStreamWithURL:location];
     
     //NSData *urlData = [NSData dataWithContentsOfURL:location];
-    [self writeDataToFile];
-    
-    [self.delegate downloadDidFinish];
     
     
 }
@@ -139,6 +137,7 @@ didFinishDownloadingToURL:(NSURL *)location
     if(len)
     {
         [m_fileData appendBytes:(const void *)buf length:len];
+        NSLog(@"wrote %i bytes", len);
         // bytesRead is an instance variable of type NSNumber.
         // [bytesRead setIntValue:[bytesRead intValue]+len];
     }
@@ -164,7 +163,9 @@ didFinishDownloadingToURL:(NSURL *)location
             //reached end of file
         case NSStreamEventEndEncountered:
         {
-            
+            //since eof, write data to file then alert delegate observer
+            [self writeDataToFile];
+            [self.delegate downloadDidFinish];
             [self tearDownInputStream];
             break;
         }
@@ -186,33 +187,78 @@ didFinishDownloadingToURL:(NSURL *)location
     NSLog(@"Writing data to file");
     if(m_fileData)
     {
-        NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
+       // NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        //NSString  *documentsDirectory = [paths objectAtIndex:0];
+        
+        //create parent directory for header and binary data
+        NSString *documentsDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
         
         NSString *folderName = [NSString createFolderNameFromFileName:m_FileName];
         
+        NSString *folderPath = [NSString stringWithFormat:@"%@/%@/%@", documentsDirectory, FILE_STORAGE_PATH, folderName ];
+
+        [self createDirectoryIfNotExistsWithFolderPath:folderPath];
+
+        
+        //write file to folder
         NSString  *filePath = [NSString stringWithFormat:@"%@/%@/%@/%@", documentsDirectory, FILE_STORAGE_PATH, folderName ,m_FileName];
         
-        [m_fileData writeToFile:filePath atomically:YES];
-        
-        NSLog(@"Data stored in location %@",filePath);
-
+        BOOL rc = [m_fileData writeToFile:filePath atomically:YES];
+        if(rc)
+        {
+            NSLog(@"Data stored in location %@",filePath);
+        }
+        else
+        {
+            NSLog(@"Failure to write data to file %@", filePath);
+            return;
+        }
     }
     else
     {
         NSLog(@"No File Data!");
+        return;
     }
     
     NSLog(@"File write complete");
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:@"File Downloaded Successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
 }
 
+-(void)createDirectoryIfNotExistsWithFolderPath:(NSString *) folderPath
+{
+    
+    //create directory
+    NSError * error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:folderPath
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:&error];
+    if (error != nil)
+    {
+        NSLog(@"error creating directory: %@", error.description);
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Could not save file" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        
+    }
 
+}
+
+- (void)URLSession:(NSURLSession *)session
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    
+    
+}
 
 /*
 -(void)downloadFileWithURL:(NSURL *) fileURL
 {
-    
-    
+ 
+ 
 }
  */
 
