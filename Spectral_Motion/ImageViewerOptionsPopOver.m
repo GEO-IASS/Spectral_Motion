@@ -40,7 +40,7 @@
     
     if(m_Context == ImageViewContext)
     {
-        m_Options = [NSArray arrayWithObjects:@"Display Graph", nil];
+        m_Options = [NSArray arrayWithObjects:@"Display Graph", @"Remove Image", nil];
     }
     else if(m_Context == GraphViewContext)
     {

@@ -506,6 +506,13 @@
         }
             break;
             
+        case 1://remove imageview
+        {
+            [m_CallingImageView removeFromSuperview];
+            [m_ImageViewArray removeObject:m_CallingImageView];
+            
+        }
+            
         default:
             break;
     }

@@ -1754,11 +1754,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "451787939.40376"
+            timestampString = "453044133.527543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "867"
-            endingLineNumber = "867"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "-instantiateSpectralSignatureSelectorVC"
             landmarkType = "5">
          </BreakpointContent>
@@ -1770,11 +1770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "451787939.40376"
+            timestampString = "453044133.527543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "872"
-            endingLineNumber = "872"
+            startingLineNumber = "880"
+            endingLineNumber = "880"
             landmarkName = "-instantiateSpectralSignatureSelectorVC"
             landmarkType = "5">
          </BreakpointContent>
@@ -1882,11 +1882,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spectral_Motion/ViewController.m"
-            timestampString = "451798035.548087"
+            timestampString = "453044133.527543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "970"
-            endingLineNumber = "970"
+            startingLineNumber = "978"
+            endingLineNumber = "978"
             landmarkName = "@implementation ViewController"
             landmarkType = "3">
          </BreakpointContent>
